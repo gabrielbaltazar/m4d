@@ -8,6 +8,7 @@ Migration mechanisms are common in frameworks such as Laravel, for example.
 
 ### Setting M4D up? ###
 
+To be done.
 
 ### Contact Information ###
 
@@ -16,4 +17,4 @@ Please, let me know that you are using this framework for migrations (M4D). It w
 M4D was developed to people like you enjoy the facilities and empowerment of your application.
 
 * Author: Edgar Borges Pavão
-* EMail: m4d@edgarpavao.com
+* Email: m4d@edgarpavao.com
