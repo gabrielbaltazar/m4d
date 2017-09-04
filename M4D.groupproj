@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{202FB5AA-F541-47A0-92CD-884066AF964F}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="M4DProject.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="Demo\M4DDemo.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="M4DProject">
+        <MSBuild Projects="M4DProject.dproj"/>
+    </Target>
+    <Target Name="M4DProject:Clean">
+        <MSBuild Projects="M4DProject.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="M4DProject:Make">
+        <MSBuild Projects="M4DProject.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="M4DDemo">
+        <MSBuild Projects="Demo\M4DDemo.dproj"/>
+    </Target>
+    <Target Name="M4DDemo:Clean">
+        <MSBuild Projects="Demo\M4DDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="M4DDemo:Make">
+        <MSBuild Projects="Demo\M4DDemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="M4DProject;M4DDemo"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="M4DProject:Clean;M4DDemo:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="M4DProject:Make;M4DDemo:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

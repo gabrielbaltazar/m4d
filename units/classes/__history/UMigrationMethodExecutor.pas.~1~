@@ -1,0 +1,15 @@
+unit UMigrationMethodExecutor;
+
+interface
+
+uses
+  UMigrationMethodExecutorInterface;
+
+type
+  TMigrationMethodExecutor = class(TInterfacedObject, IMigrationMethodExecutor)
+
+  end;
+
+implementation
+
+end.

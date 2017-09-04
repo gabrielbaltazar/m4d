@@ -1,0 +1,20 @@
+unit UGetMigrations;
+
+interface
+
+uses
+  UDefsMigrations, Generics.Collections;
+
+type
+  IGetMigrations = interface
+    function getMigrations(AStartSeqMigration: Integer): TList<IMigration>;
+  end;
+
+type
+  TGetMigrations = interface
+
+  end;
+
+implementation
+
+end.

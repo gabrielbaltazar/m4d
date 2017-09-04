@@ -1,0 +1,20 @@
+program M4DDemo;
+
+uses
+  Vcl.Forms,
+  var
+  UMigrationsManager,
+  UFrmMain in 'UFrmMain.pas' {Form2},
+  MDescription1 in 'Migrations\MDescription1.pas';
+
+{$R *.res}
+
+var
+  MigrationsManager: TMigrationsManager;
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm2, Form2);
+  Application.Run;
+end.

@@ -1,0 +1,15 @@
+unit IMigrationExecutorInterface;
+
+interface
+
+uses
+  UDefsMigrations, Generics.Collections;
+
+type
+  IMigrationExecutor = interface
+    function Execute();
+  end;
+
+implementation
+
+end.

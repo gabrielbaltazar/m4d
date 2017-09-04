@@ -1,0 +1,31 @@
+unit USetupExecutorInterface;
+
+interface
+
+type
+  {$REGION 'ISetupExecutor'}
+    /// <Description>
+    ///  Standard method to execute a "setup" method on a class.
+    /// </Description>
+  {$ENDREGION}
+  ISetupExecutor = interface
+  ['{6DC508CE-F526-40F2-B88E-C8353ED82DC2}']
+    {$REGION 'ISetupExecutor.ExecuteSetup'}
+      /// <Description>
+      ///  Standard method to execute the "setup" method of a class.
+      /// </Description>
+      /// <InputParameters>
+      ///  AMigrationsList - The list all the migrations that will be considered for the filter.
+      ///  AStartSeqMigration - The initial sequencial value of the migration that will be
+      ///  considered to return. The method will return all migrations after that based on
+      ///  the sequence value.
+      ///  Return - A list of migrations that has the sequence´s version value greater than
+      /// the initial value inputted.
+      /// </InputParameters>
+    {$ENDREGION}
+    procedure ExecuteSetup(AClass: TClass; AInstance: TObject);
+  end;
+
+implementation
+
+end.

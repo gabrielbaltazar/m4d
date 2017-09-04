@@ -1,0 +1,59 @@
+{######################################################################################
+
+                                      M4D Framework
+
+Author: Edgar Borges Pavão
+Date of creation: 29/08/2017
+Use licence: Free
+
+######################################################################################}
+
+unit UGetMigrationsInterface;
+
+interface
+
+uses
+  UDefsMigrations, Generics.Collections;
+
+type
+  {$REGION 'IGetMigrations'}
+    /// <Description>
+    ///  Standard method to get migrations on the list of migrations.
+    /// </Description>
+    /// <Note>
+    ///  A list of migrations is a repository of migrations used by a migration´s manager.
+    ///  It is usually used to fire a migration execution.
+    /// </Note>
+  {$ENDREGION}
+  IGetMigrations = interface
+    {$REGION 'IGetMigrations.getMigrations - Sequence'}
+      /// <Description>
+      ///  Standard Migration register method.
+      /// </Description>
+      /// <InputParameters>
+      ///  AStartSeqMigration - The initial sequencial value of the migration that will be
+      ///  considered to return. The method will return all migrations after that based on
+      ///  the sequence value.
+      ///  Return - A list of migrations that has the sequence´s version value greater than
+      /// the initial value inputted.
+      /// </InputParameters>
+    {$ENDREGION}
+    function getMigrations(AMigrationsList: TList<IMigration>; AStartSeqMigration: Integer): TList<IMigration>; overload;
+    {$REGION 'IGetMigrations.getMigrations - DateTime'}
+      /// <Description>
+      ///  Migration register method.
+      /// </Description>
+      /// <InputParameters>
+      ///  AStartSeqMigration - The initial date time value of the migration that will be
+      ///  considered to return. The method will return all migrations after that based on
+      ///  the date time value.
+      ///  Return - A list of migrations that has the date time´s version value greater than
+      /// the initial value inputted.
+      /// </InputParameters>
+    {$ENDREGION}
+    function getMigrations(ADateTime: TDateTime): TList<IMigration>; overload;
+  end;
+
+implementation
+
+end.

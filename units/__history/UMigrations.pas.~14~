@@ -1,0 +1,75 @@
+{######################################################################################
+
+                                      M4D Framework
+
+Author: Edgar Borges Pavão
+Date of creation:
+Use licence:
+
+######################################################################################}
+
+unit UMigrations;
+
+interface
+
+uses
+  UDefsMigrations;
+
+type
+  {$M+}
+  TMigrations = class(TInterfacedObject, IMigration)
+  private
+    FVersion: string;
+    FSeqVersion: Integer;
+    FDateTime: TDateTime;
+
+    procedure setVersion(AValue: string);
+    function getVersion: string;
+    procedure setSeqVersion(AValue: Integer);
+    function getSeqVersion: Integer;
+    procedure setDateTime(AValue: TDateTime);
+    function getDateTime: TDateTime;
+  public
+    procedure Up; virtual; abstract;
+    procedure Down; virtual; abstract;
+  published
+    property Version: string read getVersion write setVersion;
+    property SeqVersion: Integer read getSeqVersion write setSeqVersion;
+    property DateTime: TDateTime read getDateTime write setDateTime;
+  end;
+
+implementation
+
+{ TMigrations }
+
+function TMigrations.getDateTime: TDateTime;
+begin
+  Result := FDateTime;
+end;
+
+function TMigrations.getSeqVersion: Integer;
+begin
+  Result := FSeqVersion;
+end;
+
+function TMigrations.getVersion: string;
+begin
+  Result := FVersion;
+end;
+
+procedure TMigrations.setDateTime(AValue: TDateTime);
+begin
+  FDateTime := AValue;
+end;
+
+procedure TMigrations.setSeqVersion(AValue: Integer);
+begin
+  FSeqVersion := AValue;
+end;
+
+procedure TMigrations.setVersion(AValue: string);
+begin
+  FVersion := AValue;
+end;
+
+end.

@@ -1,0 +1,13 @@
+unit UPropertyClassReader;
+
+interface
+
+type
+  TPropertyClassReader = class(TInterfacedObject)
+  public
+    function PropertyOfMigrationClass(AClass: TClass; AInstance: TObject; APropName: string): TValue;
+  end;
+
+implementation
+
+end.

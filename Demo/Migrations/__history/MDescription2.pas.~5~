@@ -1,0 +1,51 @@
+unit MDescription2;
+
+interface
+
+uses
+  {$IF DECLARED(FireMonkeyVersion)}
+    FMX.Dialogs,
+  {$ELSE}
+    Vcl.Dialogs,
+  {$ENDIF}
+  UMigrations,
+  M4D;
+
+type
+  TMDescription1 = class(TMigrations)
+  public
+    constructor Create; reintroduce;
+    procedure Up;
+    procedure Down;
+  end;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TMDescription1 }
+
+constructor TMDescription1.Create;
+begin
+  Self.Version := '1.01';
+  Self.SeqVersion := 2;
+  Self.DateTime := StrToDateTime('01/09/2017 07:15:00');
+
+  ShowMessage('Passsou');
+end;
+
+procedure TMDescription1.Down;
+begin
+  ShowMessage('Executing up sequence version 2!');
+end;
+
+procedure TMDescription1.Up;
+begin
+  ShowMessage('Executing up sequence version 2!');
+end;
+
+initialization
+  RegisterMigration(TMDescription1);
+
+end.

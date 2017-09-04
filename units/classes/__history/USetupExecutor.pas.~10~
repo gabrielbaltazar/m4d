@@ -1,0 +1,52 @@
+unit USetupExecutor;
+
+interface
+
+uses
+  USetupExecutorInterface;
+
+type
+  TMigrationSetupMethodExecutor = class(TInterfacedObject, IMigrationSetupMethodExecutor)
+  public
+    procedure ExecuteSetup(AClass: TClass; AInstance: TObject);
+  end;
+
+implementation
+
+uses
+  System.SysUtils, System.Rtti, UDefs;
+
+{ TSetupExecutor }
+
+procedure IMigrationSetupMethodExecutor.ExecuteSetup(AClass: TClass; AInstance: TObject);
+var
+  LContext: TRttiContext;
+  LType: TRttiType;
+  LMethod: TRttiMethod;
+begin
+  if not Assigned(AClass) then
+  begin
+    raise Exception.Create('The parameter AClass must not be nil.');
+  end
+  else
+  begin
+    if not Assigned(AInstance) then
+    begin
+      raise Exception.Create('The parameter AInstance must not be nil.');
+    end
+    else
+    begin
+      LType := LContext.GetType(AClass.ClassInfo);
+
+      for LMethod in LType.GetDeclaredMethods do
+      begin
+        if LowerCase(LMethod.Name) = LowerCase(METHOD_SETUP) then
+        begin
+          LMethod.Invoke(AInstance, []);
+        end;
+      end;
+    end;
+  end;
+end;
+
+end.

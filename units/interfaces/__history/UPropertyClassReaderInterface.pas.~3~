@@ -1,0 +1,25 @@
+unit UPropertyClassReaderInterface;
+
+interface
+
+uses
+  System.Rtti;
+
+type
+  {$REGION 'IGetMigrations'}
+    /// <Description>
+    ///  Standard method to get migrations on the list of migrations.
+    /// </Description>
+    /// <Note>
+    ///  A list of migrations is a repository of migrations used by a migration´s manager.
+    ///  It is usually used to fire a migration execution.
+    /// </Note>
+  {$ENDREGION}
+  IPropertyClassReader = interface
+  ['{62B6FF9A-08D4-48D2-BAEA-94E2C8268B0F}']
+    function PropertyOfMigrationClass(AClass: TClass; AInstance: TObject; APropName: string): TValue;
+  end;
+
+implementation
+
+end.

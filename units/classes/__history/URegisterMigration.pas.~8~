@@ -1,0 +1,23 @@
+unit URegisterMigration;
+
+interface
+
+uses
+  URegisterMigrationInterface, UMigrationsInterface, Generics.Collections;
+
+type
+  TRegisterMigration = class(TInterfacedObject, IRegisterMigration)
+  public
+    procedure RegisterMigration(AMigrationsList: TList<IMigration>; AMigration: IMigration);
+  end;
+
+implementation
+
+{ TRegisterMigration }
+
+procedure TRegisterMigration.RegisterMigration(AMigrationsList: TList<IMigration>; AMigration: IMigration);
+begin
+
+end;
+
+end.

@@ -1,0 +1,39 @@
+unit M4D;
+
+interface
+
+uses
+  UMigrationsInterface,
+  UMigrationsManager;
+
+function MigrationsManager: TMigrationsManager;
+procedure RegisterM4D;
+procedure RegisterMigration(AMigration: TClass);
+
+var
+  GMigrationsManager: TMigrationsManager;
+
+implementation
+
+uses
+  System.Classes;
+
+function MigrationsManager: TMigrationsManager;
+begin
+
+end;
+
+procedure RegisterM4D;
+begin
+  MigrationsManager := TMigrationsManager.Create;
+end;
+
+procedure RegisterMigration(AMigration: TClass);
+begin
+  if Assigned(MigrationsManager) then
+  begin
+    MigrationsManager.RegisterMigration(AMigration);
+  end;
+end;
+
+end.

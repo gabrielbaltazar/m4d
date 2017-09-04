@@ -1,0 +1,24 @@
+unit UMigrationListOrderInterface;
+
+interface
+
+uses
+  UMigrationsInterface, System.Generics.Defaults;
+
+type
+  {$REGION 'IMigrationListOrder'}
+    /// <Description>
+    ///  Standard method to sort the migration list.
+    /// </Description>
+    /// <Note>
+    ///  This method will define the order of the migration´s execution.
+    /// </Note>
+  {$ENDREGION}
+  IMigrationListOrder = interface
+    ['{34BA6E20-B893-4665-B6EE-E72A6640E17D}']
+    function Comparison: TComparison<IMigration>;
+  end;
+
+implementation
+
+end.
