@@ -2,9 +2,9 @@
 
 This is the repository of the migration framework for Delphi. 
 
-Migrations are snippets of codes that run on updates of any type. They work as a version control mechanism. Migrations help your source code stay organized, as well as provide rollup and update mechanisms.
+Migrations are snippets of codes that run on updates of any type. They work as a version control mechanism. Migrations help your source code stay organized, as well as provide rollup and update functionalities.
 
-Migration mechanisms are common in frameworks such as Laravel, for example.
+Migration are common in frameworks such as Laravel, for example.
 
 ### Setting M4D up? ###
 
