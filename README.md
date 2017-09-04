@@ -15,5 +15,5 @@ Please, let me know that you are using this framework for migrations (M4D). It w
 
 M4D was developed to people like you enjoy the facilities and empowerment of your application.
 
-* Edgar Borges Pav√£o
-* m4d@edgarpavao.com
+* Author: Edgar Borges Pav„o
+* EMail: m4d@edgarpavao.com
