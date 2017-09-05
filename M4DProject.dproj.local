@@ -8,8 +8,8 @@
     <Transaction>2017/08/16 10:15:23.000.209,=C:\Users\Desenv\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
     <Transaction>2017/08/29 17:50:57.000.544,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\M4DProject.dproj=C:\Users\Desenv\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2017/08/29 17:52:00.000.158,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UDefsMigrations.pas</Transaction>
-    <Transaction>2017/08/29 17:52:02.000.629,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UMigrations.pas</Transaction>
     <Transaction>2017/08/29 17:52:02.000.679,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UMigrationsManager.pas</Transaction>
+    <Transaction>2017/08/29 17:52:02.000.629,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UMigrations.pas</Transaction>
     <Transaction>2017/08/29 18:19:29.000.724,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\Unit1.pas</Transaction>
     <Transaction>2017/08/29 18:20:29.000.297,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UGetMigrations.pas=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\Unit1.pas</Transaction>
     <Transaction>2017/08/30 07:39:59.000.460,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\Unit1.pas</Transaction>
@@ -19,11 +19,11 @@
     <Transaction>2017/08/30 07:52:12.000.796,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UMigrationsManagerInterface.pas=</Transaction>
     <Transaction>2017/08/30 07:54:09.000.636,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UGetMigrations.pas=</Transaction>
     <Transaction>2017/08/30 07:55:06.000.662,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UGetMigrationsInterface.pas</Transaction>
+    <Transaction>2017/08/30 07:56:37.000.999,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UMigrations.pas=</Transaction>
     <Transaction>2017/08/30 07:56:37.000.906,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UDefsMigrations.pas=</Transaction>
     <Transaction>2017/08/30 07:56:37.000.965,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UGetMigrationsInterface.pas=</Transaction>
-    <Transaction>2017/08/30 07:56:37.000.999,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UMigrations.pas=</Transaction>
-    <Transaction>2017/08/30 07:56:38.000.050,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\URegisterMigrationInterface.pas=</Transaction>
     <Transaction>2017/08/30 07:56:38.000.026,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\UMigrationsManager.pas=</Transaction>
+    <Transaction>2017/08/30 07:56:38.000.050,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\URegisterMigrationInterface.pas=</Transaction>
     <Transaction>2017/08/30 07:57:04.000.296,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\types\UDefsMigrations.pas</Transaction>
     <Transaction>2017/08/30 07:57:09.000.894,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\interfaces\URegisterMigrationInterface.pas</Transaction>
     <Transaction>2017/08/30 07:57:09.000.888,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\interfaces\UGetMigrationsInterface.pas</Transaction>
@@ -107,6 +107,10 @@
     <Transaction>2017/09/03 10:10:33.000.970,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\Unit1.pas=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\classes\UMigrationDownMethodExecutor.pas</Transaction>
     <Transaction>2017/09/03 10:11:09.000.937,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\Unit1.pas</Transaction>
     <Transaction>2017/09/03 10:11:19.000.884,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\Unit1.pas=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\interfaces\UMigrationDownMethodExecutorInterface.pas</Transaction>
+    <Transaction>2017/09/05 07:57:40.000.278,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\Unit1.pas</Transaction>
+    <Transaction>2017/09/05 08:00:21.000.155,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\Unit1.pas=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\units\interfaces\UMigrationsRegisterInterface.pas</Transaction>
+    <Transaction>2017/09/05 08:00:33.000.746,=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\Unit1.pas</Transaction>
+    <Transaction>2017/09/05 08:01:18.000.659,C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\Unit1.pas=C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\units\classes\UMigrationsRegister.pas</Transaction>
   </Transactions>
 	<ActiveMobileDevice>
 		<NoProfile iOSSimulator="iPhone5"/>

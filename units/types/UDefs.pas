@@ -13,6 +13,9 @@ const
 
   CFILE_NAME = 'history.m4d';
 
+//type
+//  TPredicate<T1, T2> = reference to function (Arg1: T1; Arg2: T2): Boolean;
+
 implementation
 
 end.

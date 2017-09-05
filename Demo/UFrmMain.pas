@@ -119,7 +119,7 @@ begin
       memInfo.Lines.Add('Class name: ' + LClass.ClassName);
       memInfo.Lines.Add('Unit name:' + LClass.UnitName);
 
-      Migration := M4D.MigrationsManager.MigrationInfo(LClass);
+      Migration := M4D.MigrationsManager.MigrationInfo(LClass, M4D.MigrationsManager.MethodSetupExecutor);
       memInfo.Lines.Add('Migration sequence: ' + Migration.SeqVersion.ToString);
       memInfo.Lines.Add('Migration version: ' + Migration.Version);
       memInfo.Lines.Add('Migration date time: ' + DateTimeToStr(Migration.DateTime));

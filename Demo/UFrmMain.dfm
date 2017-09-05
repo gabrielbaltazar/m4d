@@ -1,7 +1,7 @@
 object Form2: TForm2
   Left = 0
   Top = 0
-  Caption = 'Form2'
+  Caption = 'Storing the history info on file system'
   ClientHeight = 485
   ClientWidth = 713
   Color = clBtnFace

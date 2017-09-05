@@ -80,7 +80,7 @@
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <AppEnableHighDPI>true</AppEnableHighDPI>
-        <DCC_UnitSearchPath>C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\classes;C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\interfaces;C:\Users\Desenv\Documents\Edgar Pavão\Projetos\M4D\units\types;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\units\classes;C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\units\interfaces;C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\units\types;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
     </PropertyGroup>
@@ -527,6 +527,7 @@
                 <Platform value="Win32">True</Platform>
                 <Platform value="Win64">False</Platform>
             </Platforms>
+            <ModelSupport>False</ModelSupport>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>

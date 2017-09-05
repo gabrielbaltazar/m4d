@@ -9,6 +9,9 @@
         <Projects Include="Demo\M4DDemo.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="DBDemo\M4DDBDemo.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -35,14 +38,23 @@
     <Target Name="M4DDemo:Make">
         <MSBuild Projects="Demo\M4DDemo.dproj" Targets="Make"/>
     </Target>
+    <Target Name="M4DDBDemo">
+        <MSBuild Projects="DBDemo\M4DDBDemo.dproj"/>
+    </Target>
+    <Target Name="M4DDBDemo:Clean">
+        <MSBuild Projects="DBDemo\M4DDBDemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="M4DDBDemo:Make">
+        <MSBuild Projects="DBDemo\M4DDBDemo.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="M4DProject;M4DDemo"/>
+        <CallTarget Targets="M4DProject;M4DDemo;M4DDBDemo"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="M4DProject:Clean;M4DDemo:Clean"/>
+        <CallTarget Targets="M4DProject:Clean;M4DDemo:Clean;M4DDBDemo:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="M4DProject:Make;M4DDemo:Make"/>
+        <CallTarget Targets="M4DProject:Make;M4DDemo:Make;M4DDBDemo:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

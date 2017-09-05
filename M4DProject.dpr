@@ -43,7 +43,9 @@ uses
   UMigrationMethodExecutor in 'units\classes\UMigrationMethodExecutor.pas',
   UMigrationUpMethodExecutor in 'units\classes\UMigrationUpMethodExecutor.pas',
   UMigrationDownMethodExecutor in 'units\classes\UMigrationDownMethodExecutor.pas',
-  UMigrationDownMethodExecutorInterface in 'units\interfaces\UMigrationDownMethodExecutorInterface.pas';
+  UMigrationDownMethodExecutorInterface in 'units\interfaces\UMigrationDownMethodExecutorInterface.pas',
+  UMigrationsRegisterInterface in 'units\interfaces\UMigrationsRegisterInterface.pas',
+  UMigrationsRegister in 'units\classes\UMigrationsRegister.pas';
 
 begin
   try
