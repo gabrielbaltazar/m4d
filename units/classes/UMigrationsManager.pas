@@ -47,13 +47,10 @@ type
   {$ENDREGION}
   TMigrationsManager = class
   private
-//    FMigrationList: TList<TClass>;
     FGetterMigration: IGetterMigrations;
-//    FRegisterMigration: IRegisterMigration;
     FMigrationsRegister: IMigrationsRegister;
     FMigrationsHistory: IMigrationsHistory;
     FMigrationExecutor: IMigrationExecutor;
-//    FCompare: IComparer<TClass>;
     FMethodUpExecutor: IMigrationUpMethodExecutor;
     FMethodDownExecutor: IMigrationDownMethodExecutor;
     FMethodSetupExecutor: IMigrationSetupMethodExecutor;
@@ -111,17 +108,14 @@ type
   public
     constructor Create(AMigrationsHistory: IMigrationsHistory;
                        AGetterMigration: IGetterMigrations;
-//                       ARegisterMigration: IRegisterMigration;
                        AMigrationsRegister: IMigrationsRegister;
                        AMigrationExecutor: IMigrationExecutor;
-//                       AComparison: IMigrationListOrder;
                        AMethodSetupExecutor: IMigrationSetupMethodExecutor;
                        AReader: IPropertyClassReader;
                        AMethodUpExecutor: IMigrationUpMethodExecutor;
                        AMethodDownExecutor: IMigrationDownMethodExecutor); reintroduce; overload;
 
     constructor Create; overload;
-    destructor Destroy; override;
 
     {$REGION 'TMigrationsManager.RegisterMigration'}
       /// <Description>
@@ -182,12 +176,10 @@ type
     function MigrationInfo(AClass: TClass; AMethodSetupExecutor: IMigrationSetupMethodExecutor): IMigration;
   published
     property MigrationHistory: IMigrationsHistory read getMigrationHistory;
-//    property RegisteredMigrations: TList<TClass> read FMigrationList;
     property MigrationsRegister: IMigrationsRegister read FMigrationsRegister;
     property GetterMigration: IGetterMigrations read FGetterMigration;
     property MigrationsHistory: IMigrationsHistory read FMigrationsHistory;
     property MigrationExecutor: IMigrationExecutor read FMigrationExecutor;
-//    property Compare: IComparer<TClass> read FCompare;
     property MethodUpExecutor: IMigrationUpMethodExecutor read FMethodUpExecutor;
     property MethodDownExecutor: IMigrationDownMethodExecutor read FMethodDownExecutor;
     property MethodSetupExecutor: IMigrationSetupMethodExecutor read FMethodSetupExecutor;
@@ -198,16 +190,14 @@ implementation
 
 uses
   UMigrationUpMethodExecutor, UMigrationMethodExecutor,
-  UMigrationDownMethodExecutor, USetupExecutor, UMigrationsRegister;
+  UMigrationDownMethodExecutor, USetupExecutor, UMigrationsRegister, M4D.Defaults;
 
 { TMigrationsManager }
 
 constructor TMigrationsManager.Create(AMigrationsHistory: IMigrationsHistory;
                                       AGetterMigration: IGetterMigrations;
-//                                      ARegisterMigration: IRegisterMigration;
                                       AMigrationsRegister: IMigrationsRegister;
                                       AMigrationExecutor: IMigrationExecutor;
-//                                      AComparison: IMigrationListOrder;
                                       AMethodSetupExecutor: IMigrationSetupMethodExecutor;
                                       AReader: IPropertyClassReader;
                                       AMethodUpExecutor: IMigrationUpMethodExecutor;
@@ -225,7 +215,6 @@ begin
     end
     else
     begin
-//      if not Assigned(ARegisterMigration) then
       if not Assigned(AMigrationsRegister) then
       begin
         raise Exception.Create('The parameter AMigrationsRegister must not be nil!');
@@ -238,57 +227,44 @@ begin
         end
         else
         begin
-//          if not Assigned(AComparison) then
-//          begin
-//            raise Exception.Create('The parameter AComparison must not be nil!');
-//          end
-//          else
-//          begin
-            if not Assigned(AMethodSetupExecutor) then
+          if not Assigned(AMethodSetupExecutor) then
+          begin
+            raise Exception.Create('The parameter AMethodSetupExecutor must not be nil!');
+          end
+          else
+          begin
+            if not Assigned(AReader) then
             begin
-              raise Exception.Create('The parameter AMethodSetupExecutor must not be nil!');
+              raise Exception.Create('The parameter AReader must not be nil!');
             end
             else
             begin
-              if not Assigned(AReader) then
+              if not Assigned(AMethodUpExecutor) then
               begin
-                raise Exception.Create('The parameter AReader must not be nil!');
+                raise Exception.Create('The parameter AMethodUpExecutor must not be nil!');
               end
               else
               begin
-                if not Assigned(AMethodUpExecutor) then
+                if not Assigned(AMethodDownExecutor) then
                 begin
-                  raise Exception.Create('The parameter AMethodUpExecutor must not be nil!');
+                  raise Exception.Create('The parameter AMethodDownExecutor must not be nil!');
                 end
                 else
                 begin
-                  if not Assigned(AMethodDownExecutor) then
-                  begin
-                    raise Exception.Create('The parameter AMethodDownExecutor must not be nil!');
-                  end
-                  else
-                  begin
-                    inherited Create;
+                  inherited Create;
 
-                    FMigrationsHistory := AMigrationsHistory;
-                    FGetterMigration := AGetterMigration;
-//                    FRegisterMigration := ARegisterMigration;
-                    FMigrationsRegister := AMigrationsRegister;
-                    FMigrationExecutor := AMigrationExecutor;
-                    FMethodSetupExecutor := AMethodSetupExecutor;
-                    FReader := AReader;
-                    FMethodUpExecutor := AMethodUpExecutor;
-                    FMethodDownExecutor := AMethodDownExecutor;
-
-//                    FCompare := TComparer<TClass>.Construct(AComparison.Comparison) as TDelegatedComparer<TClass>;
-
-
-//                    FMigrationList := TList<TClass>.Create(TComparer<TClass>.Construct(AComparison.Comparison));
-                  end;
+                  FMigrationsHistory := AMigrationsHistory;
+                  FGetterMigration := AGetterMigration;
+                  FMigrationsRegister := AMigrationsRegister;
+                  FMigrationExecutor := AMigrationExecutor;
+                  FMethodSetupExecutor := AMethodSetupExecutor;
+                  FReader := AReader;
+                  FMethodUpExecutor := AMethodUpExecutor;
+                  FMethodDownExecutor := AMethodDownExecutor;
                 end;
               end;
             end;
-//          end;
+          end;
         end;
       end;
     end;
@@ -297,50 +273,38 @@ end;
 
 constructor TMigrationsManager.Create;
 var
-  Path: string;
   LMigrationSerializer: IMigrationSerializer;
+  LMigrationGetter: IGetterMigrations;
   LMigrationsHistory: IMigrationsHistory;
   LExecutor: IMigrationExecutor;
   LMigrationListOrder: IMigrationListOrder;
+  LMigrationsRegister: IMigrationsRegister;
   LMethodExecutor: IMigrationMethodExecutor;
   LMethodUpExecutor: IMigrationUpMethodExecutor;
   LMethodDownExecutor: IMigrationDownMethodExecutor;
   LMethodSetupExecutor: IMigrationSetupMethodExecutor;
+  LReader: IPropertyClassReader;
 begin
-  Path := ExtractFilePath(ParamStr(0)) + CFILE_NAME;
-  LMigrationSerializer := TMigrationSerializer.Create;
-  LMigrationsHistory := TMigrationsHistory.Create(Path, LMigrationSerializer);
-
-  LMethodExecutor := TMigrationMethodExecutor.Create;
-
-  LMethodSetupExecutor := TMigrationSetupMethodExecutor.Create(LMethodExecutor);
-  LMethodUpExecutor := TMigrationUpMethodExecutor.Create(LMethodExecutor);
-  LMethodDownExecutor := TMigrationDownMethodExecutor.Create(LMethodExecutor);
-
-  LMigrationListOrder := TMigrationListOrder.Create(LMethodExecutor);
-
-  LExecutor := TMigrationExecutor.Create(LMigrationsHistory,
-                                         LMethodUpExecutor,
-                                         LMethodDownExecutor,
-                                         LMethodSetupExecutor);
+  LMigrationSerializer := M4D.Defaults.TDefaults.instanceOfMigrationsSerializer;
+  LMigrationsHistory := TDefaults.instanceOfMigrationsHistory(LMigrationSerializer);
+  LMigrationGetter := TDefaults.instanceOfMigrationGetter;
+  LMethodExecutor := TDefaults.instanceOfMigrationMethodExecutor;
+  LMethodSetupExecutor := TDefaults.instanceOfMigrationSetupMethodExecutor(LMethodExecutor);
+  LMethodUpExecutor := TDefaults.instanceOfMigrationUpMethodExecutor(LMethodExecutor);
+  LMethodDownExecutor := TDefaults.instanceOfMigrationDownMethodExecutor(LMethodExecutor);
+  LMigrationListOrder := TDefaults.instanceOfMigrationListOrder(LMethodExecutor);
+  LMigrationsRegister := TDefaults.instanceOfMigrationsRegister(LMigrationListOrder);
+  LExecutor := TDefaults.instanceOfMigrationExecutor(LMigrationsHistory, LMethodUpExecutor, LMethodDownExecutor, LMethodSetupExecutor);
+  LReader := TDefaults.instanceOfPropertyClassReader;
 
   Self.Create(LMigrationsHistory,
-              TGetterMigrations.Create,
-//              TRegisterMigration.Create,
-              TMigrationsRegister.Create(LMigrationListOrder),
+              LMigrationGetter,
+              LMigrationsRegister,
               LExecutor,
-//              LMigrationListOrder,
               LMethodSetupExecutor,
-              TPropertyClassReader.Create,
+              LReader,
               LMethodUpExecutor,
               LMethodDownExecutor);
-end;
-
-destructor TMigrationsManager.Destroy;
-begin
-//  if Assigned(FMigrationList) then FMigrationList.Free;
-
-  inherited;
 end;
 
 procedure TMigrationsManager.Execute;
@@ -368,13 +332,18 @@ begin
 end;
 
 procedure TMigrationsManager.ExecutePending;
+var
+  Item: TMigrationsHistoryItem;
 begin
+  Item := FMigrationsHistory.LastMigration;
   Self.ExecutePending(FMigrationsRegister.Migrations,
-                      FMigrationsHistory.LastMigration,
+//                      FMigrationsHistory.LastMigration,
+                      Item,
                       FMethodSetupExecutor,
                       FReader,
                       FMethodUpExecutor,
                       FMigrationsHistory);
+  Item.DisposeOf;
 end;
 
 procedure TMigrationsManager.ExecuteUntil(AMigrationsList: TList<TClass>;
@@ -436,6 +405,7 @@ end;
 function TMigrationsManager.MigrationInfo(AClass: TClass; AMethodSetupExecutor: IMigrationSetupMethodExecutor): IMigration;
 var
   Aux: TObject;
+  Teste:IMigration;
 begin
   Result := nil;
 
@@ -448,7 +418,9 @@ begin
     Aux := AClass.Create;
 
     //First, call for setup to load informations
-    AMethodSetupExecutor.Execute(AClass, Aux);
+//    AMethodSetupExecutor.Execute(AClass, Aux);
+    Teste := (Aux as TInterfacedObject as IMigration);
+    Teste.Setup;
 
     Result := Aux as TInterfacedObject as IMigration;
   end;
@@ -547,7 +519,8 @@ begin
     begin
       Aux := LClass.Create;
       try
-        AMethodSetupExecutor.Execute(LClass, Aux);
+//        AMethodSetupExecutor.Execute(LClass, Aux);
+        (Aux as TInterfacedObject as IMigration).Setup;
 
         LValue := AReader.PropertyOfMigrationClass(LClass, Aux, APropName).AsInteger;
 

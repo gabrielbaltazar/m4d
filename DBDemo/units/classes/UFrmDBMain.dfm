@@ -1,9 +1,9 @@
-object frmMainDBDemo: TfrmMainDBDemo
+object Form2: TForm2
   Left = 0
   Top = 0
-  Caption = 'Storing migration history on database demo'
-  ClientHeight = 448
-  ClientWidth = 728
+  Caption = 'Storing the history info database'
+  ClientHeight = 485
+  ClientWidth = 713
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,18 +11,17 @@ object frmMainDBDemo: TfrmMainDBDemo
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  OnClose = FormClose
   PixelsPerInch = 96
   TextHeight = 13
   object pnlLeft: TPanel
     Left = 0
     Top = 0
     Width = 177
-    Height = 448
+    Height = 485
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = 551
-    ExplicitTop = 312
     object btnExecuteAll: TButton
       Left = 18
       Top = 72
@@ -95,25 +94,24 @@ object frmMainDBDemo: TfrmMainDBDemo
   object pnlRigth: TPanel
     Left = 177
     Top = 0
-    Width = 551
-    Height = 448
+    Width = 536
+    Height = 485
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 1
     object memInfo: TMemo
       Left = 0
       Top = 41
-      Width = 551
-      Height = 213
+      Width = 536
+      Height = 234
       Align = alClient
       ScrollBars = ssVertical
       TabOrder = 0
-      ExplicitHeight = 407
     end
     object pnlHistory: TPanel
       Left = 0
       Top = 0
-      Width = 551
+      Width = 536
       Height = 41
       Align = alTop
       BevelOuter = bvNone
@@ -148,40 +146,37 @@ object frmMainDBDemo: TfrmMainDBDemo
     end
     object Panel1: TPanel
       Left = 0
-      Top = 254
-      Width = 551
-      Height = 194
+      Top = 275
+      Width = 536
+      Height = 210
       Align = alBottom
       BevelOuter = bvNone
       TabOrder = 2
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 551
-        Height = 41
+        Width = 536
+        Height = 32
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
-        ExplicitLeft = 184
-        ExplicitTop = 80
-        ExplicitWidth = 185
         object Button1: TButton
           Left = 0
-          Top = 10
+          Top = 4
           Width = 75
           Height = 25
-          Caption = 'Open table'
+          Caption = 'Open Query'
           TabOrder = 0
           OnClick = Button1Click
         end
       end
       object DBGrid1: TDBGrid
         Left = 0
-        Top = 41
-        Width = 551
-        Height = 153
+        Top = 32
+        Width = 536
+        Height = 178
         Align = alClient
-        DataSource = dtsCustomers
+        DataSource = dtsEmployers
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -191,15 +186,16 @@ object frmMainDBDemo: TfrmMainDBDemo
       end
     end
   end
-  object qryCustomers: TFDQuery
+  object qryEmployers: TFDQuery
+    Connection = DMDBDemo.SQLiteConection
     SQL.Strings = (
       'SELECT * FROM CUSTOMERS')
-    Left = 345
-    Top = 334
+    Left = 353
+    Top = 379
   end
-  object dtsCustomers: TDataSource
-    DataSet = qryCustomers
-    Left = 408
-    Top = 336
+  object dtsEmployers: TDataSource
+    DataSet = qryEmployers
+    Left = 401
+    Top = 379
   end
 end

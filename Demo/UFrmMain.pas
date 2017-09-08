@@ -109,7 +109,7 @@ var
 begin
   memInfo.Clear;
 
-  RM := M4D.MigrationsManager.RegisteredMigrations;
+  RM := M4D.MigrationsManager.MigrationsRegister.Migrations;
   if Assigned(RM) then
   begin
     memInfo.Lines.Add('Registered migrations');

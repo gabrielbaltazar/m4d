@@ -26,7 +26,7 @@ type
     ///  from which they come.
     /// </Note>
   {$ENDREGION}
-  TMigrations = class(TInterfacedObject, IInterface, IMigration)
+  TMigrations = class(TInterfacedObject, IMigration)
   private
     FVersion: string;
     FSeqVersion: Integer;

@@ -4,10 +4,33 @@ interface
 
 uses
   UMigrationsInterface,
-  UMigrationsManager;
+  UMigrationsManager,
+  UMigrationsHistoryInterface, UGetterMigrationsInterface,
+  UMigrationsRegisterInterface, UMigrationExecutorInterface,
+  USetupExecutorInterface, UPropertyClassReaderInterface,
+  UMigrationUpMethodExecutorInterface, UMigrationDownMethodExecutorInterface,
+  UMigrationSerializerInterface;
 
-function MigrationsManager: TMigrationsManager;
-procedure RegisterMigration(AMigration: TClass);
+function MigrationsManager(AMigrationsHistory: IMigrationsHistory;
+                           AGetterMigration: IGetterMigrations;
+                           AMigrationsRegister: IMigrationsRegister;
+                           AMigrationExecutor: IMigrationExecutor;
+                           AMethodSetupExecutor: IMigrationSetupMethodExecutor;
+                           AReader: IPropertyClassReader;
+                           AMethodUpExecutor: IMigrationUpMethodExecutor;
+                           AMethodDownExecutor: IMigrationDownMethodExecutor): TMigrationsManager ; overload;
+
+function MigrationsManager: TMigrationsManager; overload;
+procedure RegisterMigration(AMigration: TClass;
+                            AMigrationsHistory: IMigrationsHistory;
+                            AGetterMigration: IGetterMigrations;
+                            AMigrationsRegister: IMigrationsRegister;
+                            AMigrationExecutor: IMigrationExecutor;
+                            AMethodSetupExecutor: IMigrationSetupMethodExecutor;
+                            AReader: IPropertyClassReader;
+                            AMethodUpExecutor: IMigrationUpMethodExecutor;
+                            AMethodDownExecutor: IMigrationDownMethodExecutor); overload;
+procedure RegisterMigration(AMigration: TClass); overload;
 procedure Release;
 
 var
@@ -16,9 +39,37 @@ var
 implementation
 
 uses
-  System.Classes, System.SysUtils;
+  System.Classes, System.SysUtils,
+  UMigrationsHistory, UMigrationSerializer;
 
-function MigrationsManager: TMigrationsManager;
+function MigrationsManager(AMigrationsHistory: IMigrationsHistory;
+                           AGetterMigration: IGetterMigrations;
+                           AMigrationsRegister: IMigrationsRegister;
+                           AMigrationExecutor: IMigrationExecutor;
+                           AMethodSetupExecutor: IMigrationSetupMethodExecutor;
+                           AReader: IPropertyClassReader;
+                           AMethodUpExecutor: IMigrationUpMethodExecutor;
+                           AMethodDownExecutor: IMigrationDownMethodExecutor): TMigrationsManager overload;
+begin
+  if Assigned(GMigrationsManager) then
+  begin
+    Result := GMigrationsManager;
+  end
+  else
+  begin
+    GMigrationsManager := TMigrationsManager.Create(AMigrationsHistory,
+                                                    AGetterMigration,
+                                                    AMigrationsRegister,
+                                                    AMigrationExecutor,
+                                                    AMethodSetupExecutor,
+                                                    AReader,
+                                                    AMethodUpExecutor,
+                                                    AMethodDownExecutor);
+    Result := GMigrationsManager;
+  end;
+end;
+
+function MigrationsManager: TMigrationsManager;  overload;
 begin
   if Assigned(GMigrationsManager) then
   begin
@@ -31,11 +82,26 @@ begin
   end;
 end;
 
-procedure RegisterMigration(AMigration: TClass);
+procedure RegisterMigration(AMigration: TClass;
+                            AMigrationsHistory: IMigrationsHistory;
+                            AGetterMigration: IGetterMigrations;
+                            AMigrationsRegister: IMigrationsRegister;
+                            AMigrationExecutor: IMigrationExecutor;
+                            AMethodSetupExecutor: IMigrationSetupMethodExecutor;
+                            AReader: IPropertyClassReader;
+                            AMethodUpExecutor: IMigrationUpMethodExecutor;
+                            AMethodDownExecutor: IMigrationDownMethodExecutor); overload;
 var
   MM: TMigrationsManager;
 begin
-  MM := MigrationsManager;
+  MM := MigrationsManager(AMigrationsHistory,
+                          AGetterMigration,
+                          AMigrationsRegister,
+                          AMigrationExecutor,
+                          AMethodSetupExecutor,
+                          AReader,
+                          AMethodUpExecutor,
+                          AMethodDownExecutor);
   if Assigned(MM) then
   begin
     MM.RegisterMigration(AMigration);
@@ -45,7 +111,17 @@ end;
 procedure Release;
 begin
   if Assigned(GMigrationsManager) then FreeAndNil(GMigrationsManager);
-  
+end;
+
+procedure RegisterMigration(AMigration: TClass); overload;
+var
+  MM: TMigrationsManager;
+begin
+  MM := MigrationsManager;
+  if Assigned(MM) then
+  begin
+    MM.RegisterMigration(AMigration);
+  end;
 end;
 
 end.

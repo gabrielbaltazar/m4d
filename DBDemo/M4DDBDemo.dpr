@@ -2,10 +2,13 @@ program M4DDBDemo;
 
 uses
   Vcl.Forms,
-  UFrmMainDBDemo in 'UFrmMainDBDemo.pas' {frmMainDBDemo},
+  FireDAC.DApt,
+  UFrmDBMain in 'units\classes\UFrmDBMain.pas' {Form2},
+  UDMDBDemo in 'units\classes\UDMDBDemo.pas' {DMDBDemo: TDataModule},
   MCreateTables in 'Migrations\MCreateTables.pas',
-  UDMDBDemo in 'UDMDBDemo.pas' {DMDBDemo: TDataModule},
-  MCreatePopulateTables in 'Migrations\MCreatePopulateTables.pas';
+  MCreatePopulateTables in 'Migrations\MCreatePopulateTables.pas',
+  UDBMigrationHistory in 'units\classes\UDBMigrationHistory.pas',
+  UDBRegisterMigration in 'units\classes\UDBRegisterMigration.pas';
 
 {$R *.res}
 
@@ -14,6 +17,7 @@ begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TDMDBDemo, DMDBDemo);
-  Application.CreateForm(TfrmMainDBDemo, frmMainDBDemo);
+  DMDBDemo.SQLiteConection.Connected := True;
+  Application.CreateForm(TForm2, Form2);
   Application.Run;
 end.

@@ -24,10 +24,7 @@ uses
 { TMigrationListOrder }
 
 function TMigrationListOrder.Comparison: TComparison<TClass>;
-//var
-//  LMethodExecutor: IMigrationMethodExecutor;
 begin
-//  LMethodExecutor := Self.FMethodExecutor;
   Result := function(const Left, Right: TClass): Integer
             var
               LMethodExecutor: IMigrationMethodExecutor;
@@ -46,14 +43,16 @@ begin
                 Setup := USetupExecutor.TMigrationSetupMethodExecutor.Create(LMethodExecutor);
                 Reader := TPropertyClassReader.Create;
 
-                Setup.Execute(Left, LeftInstance);
+//                Setup.Execute(Left, LeftInstance);
+                (LeftInstance as TInterfacedObject as IMigration).Setup;
                 LeftSequence := Reader.PropertyOfMigrationClass(Left, LeftInstance, PROP_SEQUENCE).AsInteger;
 
-                Setup.Execute(Right, RightInstance);
+//                Setup.Execute(Right, RightInstance);
+                (RightInstance as TInterfacedObject as IMigration).Setup;
                 RightSequence := Reader.PropertyOfMigrationClass(Right, RightInstance, PROP_SEQUENCE).AsInteger;
               finally
-                LeftInstance.Free;
-                RightInstance.Free;
+//                LeftInstance.Free;
+//                RightInstance.Free;
               end;
 
               Result := LeftSequence - RightSequence;

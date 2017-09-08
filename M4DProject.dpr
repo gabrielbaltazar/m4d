@@ -45,7 +45,9 @@ uses
   UMigrationDownMethodExecutor in 'units\classes\UMigrationDownMethodExecutor.pas',
   UMigrationDownMethodExecutorInterface in 'units\interfaces\UMigrationDownMethodExecutorInterface.pas',
   UMigrationsRegisterInterface in 'units\interfaces\UMigrationsRegisterInterface.pas',
-  UMigrationsRegister in 'units\classes\UMigrationsRegister.pas';
+  UMigrationsRegister in 'units\classes\UMigrationsRegister.pas',
+  M4D.Defaults in 'units\classes\M4D.Defaults.pas',
+  Unit1 in '..\..\..\..\..\Desktop\Nick\Unit1.pas';
 
 begin
   try

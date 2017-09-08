@@ -1,0 +1,2 @@
+{"type":"UMigrationsHistoryItem.TMigrationsHistoryItem","id":1,"fields":{"FMigrationVersion":"1.00","FMigrationSeq":1,"FMigrationDateTime":42979.3006944444,"FStartOfExecution":42984.3150067361,"FEndOfExecution":42984.3150189005,"FDurationOfExecution":1.21643533930182E-5}}
+{"type":"UMigrationsHistoryItem.TMigrationsHistoryItem","id":1,"fields":{"FMigrationVersion":"1.01","FMigrationSeq":2,"FMigrationDateTime":42979.3020833333,"FStartOfExecution":42984.3150321065,"FEndOfExecution":42984.3150416667,"FDurationOfExecution":9.5601862994954E-6}}

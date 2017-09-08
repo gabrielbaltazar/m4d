@@ -164,6 +164,8 @@
         <DCCReference Include="units\interfaces\UMigrationDownMethodExecutorInterface.pas"/>
         <DCCReference Include="units\interfaces\UMigrationsRegisterInterface.pas"/>
         <DCCReference Include="units\classes\UMigrationsRegister.pas"/>
+        <DCCReference Include="units\classes\M4D.Defaults.pas"/>
+        <DCCReference Include="..\..\..\..\..\Desktop\Nick\Unit1.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

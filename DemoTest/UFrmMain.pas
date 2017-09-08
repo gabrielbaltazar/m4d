@@ -1,47 +1,38 @@
-unit UFrmMainDBDemo;
+unit UFrmMain;
 
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
-  FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client,
-  FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, M4D, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
-  FireDAC.Comp.DataSet, Vcl.Grids, Vcl.DBGrids;
+  Winapi.Windows, Winapi.Messages, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, M4D, Vcl.ExtCtrls;
 
 type
-  TfrmMainDBDemo = class(TForm)
+  TForm2 = class(TForm)
     pnlLeft: TPanel;
+    pnlRigth: TPanel;
+    memInfo: TMemo;
     btnExecuteAll: TButton;
     btnExecutePending: TButton;
     btnRollbackAll: TButton;
+    pnlHistory: TPanel;
+    Button4: TButton;
     btnMigrationsList: TButton;
+    Button5: TButton;
     btnRollbackUntil: TButton;
     edtSeqToRollback: TEdit;
     btnExecuteUntil: TButton;
     edtSeqToExecute: TEdit;
-    pnlRigth: TPanel;
-    memInfo: TMemo;
-    pnlHistory: TPanel;
-    Button4: TButton;
-    Button5: TButton;
     btnClearHistory: TButton;
-    Panel1: TPanel;
-    Panel2: TPanel;
-    DBGrid1: TDBGrid;
-    qryCustomers: TFDQuery;
-    dtsCustomers: TDataSource;
-    Button1: TButton;
-    procedure btnClearHistoryClick(Sender: TObject);
-    procedure Button4Click(Sender: TObject);
-    procedure Button5Click(Sender: TObject);
-    procedure btnMigrationsListClick(Sender: TObject);
     procedure btnExecuteAllClick(Sender: TObject);
-    procedure btnExecuteUntilClick(Sender: TObject);
     procedure btnExecutePendingClick(Sender: TObject);
     procedure btnRollbackAllClick(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
     procedure btnRollbackUntilClick(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
+    procedure btnMigrationsListClick(Sender: TObject);
+    procedure btnExecuteUntilClick(Sender: TObject);
+    procedure btnClearHistoryClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -49,17 +40,17 @@ type
   end;
 
 var
-  frmMainDBDemo: TfrmMainDBDemo;
+  Form2: TForm2;
 
 implementation
 
 uses
-  UMigrationsHistoryInterface, System.Generics.Collections,
-  UMigrationsHistoryItem, UMigrationsInterface;
+  UMigrationsHistoryInterface, UMigrationsHistoryItem, Generics.Collections,
+  System.SysUtils, UMigrationsInterface;
 
 {$R *.dfm}
 
-procedure TfrmMainDBDemo.btnClearHistoryClick(Sender: TObject);
+procedure TForm2.btnClearHistoryClick(Sender: TObject);
 var
   MH: IMigrationsHistory;
 begin
@@ -70,7 +61,7 @@ begin
    MH.Clear;
 end;
 
-procedure TfrmMainDBDemo.btnExecuteAllClick(Sender: TObject);
+procedure TForm2.btnExecuteAllClick(Sender: TObject);
 var
   MH: IMigrationsHistory;
 begin
@@ -83,12 +74,12 @@ begin
    M4D.MigrationsManager.Execute;
 end;
 
-procedure TfrmMainDBDemo.btnExecutePendingClick(Sender: TObject);
+procedure TForm2.btnExecutePendingClick(Sender: TObject);
 begin
   M4D.MigrationsManager.ExecutePending;
 end;
 
-procedure TfrmMainDBDemo.btnExecuteUntilClick(Sender: TObject);
+procedure TForm2.btnExecuteUntilClick(Sender: TObject);
 var
   Aux: Integer;
   MH: IMigrationsHistory;
@@ -110,7 +101,7 @@ begin
   end;
 end;
 
-procedure TfrmMainDBDemo.btnMigrationsListClick(Sender: TObject);
+procedure TForm2.btnMigrationsListClick(Sender: TObject);
 var
   RM: TList<TClass>;
   LClass: TClass;
@@ -118,7 +109,7 @@ var
 begin
   memInfo.Clear;
 
-  RM := M4D.MigrationsManager.RegisteredMigrations;
+  RM := M4D.MigrationsManager.MigrationsRegister.Migrations;
   if Assigned(RM) then
   begin
     memInfo.Lines.Add('Registered migrations');
@@ -136,12 +127,12 @@ begin
   end;
 end;
 
-procedure TfrmMainDBDemo.btnRollbackAllClick(Sender: TObject);
+procedure TForm2.btnRollbackAllClick(Sender: TObject);
 begin
   M4D.MigrationsManager.Rollback;
 end;
 
-procedure TfrmMainDBDemo.btnRollbackUntilClick(Sender: TObject);
+procedure TForm2.btnRollbackUntilClick(Sender: TObject);
 var
   Aux: Integer;
 begin
@@ -156,17 +147,7 @@ begin
   end;
 end;
 
-procedure TfrmMainDBDemo.Button1Click(Sender: TObject);
-begin
-  try
-    qryCustomers.Close;
-    qryCustomers.Open;
-  except
-    ShowMessage('Probably a table structure is not yet created.');
-  end;
-end;
-
-procedure TfrmMainDBDemo.Button4Click(Sender: TObject);
+procedure TForm2.Button4Click(Sender: TObject);
 var
   MH: TList<TMigrationsHistoryItem>;
   Item: TMigrationsHistoryItem;
@@ -190,7 +171,7 @@ begin
   end;
 end;
 
-procedure TfrmMainDBDemo.Button5Click(Sender: TObject);
+procedure TForm2.Button5Click(Sender: TObject);
 var
   Item: TMigrationsHistoryItem;
 begin
@@ -208,6 +189,11 @@ begin
     memInfo.Lines.Add('End of execution: ' + DateTimeToStr(Item.EndOfExecution));
     memInfo.Lines.Add('Duration of execution: ' + Item.DurationOfExecution.ToString);
   end;
+end;
+
+procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  M4D.Release;
 end;
 
 end.

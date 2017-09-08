@@ -159,7 +159,8 @@ begin
       try
         //First, call for setup to load informations
 //        Self.ExecuteSetup(LClass, Aux);
-        AMethodSetupExecutor.Execute(LClass, Aux);
+//        AMethodSetupExecutor.Execute(LClass, Aux);
+        (Aux as TInterfacedObject as IMigration).Setup;
 
         //then, get the info from the props
 //        Reader := TPropertyClassReader.Create;
@@ -182,7 +183,8 @@ begin
 
           //Execute the migration
 //          FMethodUpExecutor.Execute(LClass, Aux);
-          AMethodUpExecutor.Execute(LClass, Aux);
+//          AMethodUpExecutor.Execute(LClass, Aux);
+          (Aux as TInterfacedObject as IMigration).Up;
 
           Item.EndOfExecution := Now;
           Item.DurationOfExecution := Item.EndOfExecution - Item.StartOfExecution;
@@ -192,7 +194,7 @@ begin
           HadMigration := True;
         end;
       finally
-        FreeAndNil(Aux);
+//        FreeAndNil(Aux);
       end;
     end;
   end;
@@ -230,7 +232,8 @@ begin
       Aux := LClass.Create;
       try
 //        Self.ExecuteSetup(LClass, Aux);
-        AMethodSetupExecutor.Execute(LClass, Aux);
+//        AMethodSetupExecutor.Execute(LClass, Aux);
+        (Aux as TInterfacedObject as IMigration).Setup;
 
 //        Reader := TPropertyClassReader.Create;
 //        SequenceProp := Reader.PropertyOfMigrationClass(LClass, Aux, PROP_SEQUENCE).AsInteger;
@@ -242,7 +245,7 @@ begin
           LList.Add(LClass);
         end;
       finally
-        FreeAndNil(Aux);
+//        FreeAndNil(Aux);
       end;
     end;
 
@@ -297,7 +300,8 @@ begin
         Aux := LClass.Create;
         try
 //          Self.ExecuteSetup(LClass, Aux);
-          AMethodSetupExecutor.Execute(LClass, Aux);
+//          AMethodSetupExecutor.Execute(LClass, Aux);
+          (Aux as TInterfacedObject as IMigration).Setup;
 
 //          Reader := TPropertyClassReader.Create;
 //          SequenceProp := Reader.PropertyOfMigrationClass(LClass, Aux, PROP_SEQUENCE).AsInteger;
@@ -310,7 +314,7 @@ begin
             LList.Add(LClass);
           end;
         finally
-          FreeAndNil(Aux);
+//          FreeAndNil(Aux);
         end;
       end;
 
@@ -375,20 +379,23 @@ begin
       Aux := LClass.Create;
       try
 //        Self.ExecuteSetup(LClass, Aux);
-        AMethodSetupExecutor.Execute(LClass, Aux);
+//        AMethodSetupExecutor.Execute(LClass, Aux);
+        (Aux as TInterfacedObject as IMigration).Setup;
 
 //        Reader := TPropertyClassReader.Create;
 //        SequenceProp := Reader.PropertyOfMigrationClass(LClass, Aux, PROP_SEQUENCE).AsInteger;
         SequenceProp := AReader.PropertyOfMigrationClass(LClass, Aux, PROP_SEQUENCE).AsInteger;
 
-        HadMigration := AMethodDownExecutor.Execute(LClass, Aux);
+//        HadMigration := AMethodDownExecutor.Execute(LClass, Aux);
+        (Aux as TInterfacedObject as IMigration).Down;
+        HadMigration := True;
 
         if HadMigration and Assigned(AMigrationHistory) then
         begin
           AMigrationHistory.Remove(SequenceProp);
         end;
       finally
-        FreeAndNil(Aux);
+//        FreeAndNil(Aux);
       end;
     end;
   end;
@@ -428,7 +435,8 @@ begin
       Aux := LClass.Create;
       try
 //        Self.ExecuteSetup(LClass, Aux);
-        AMethodSetupExecutor.Execute(LClass, Aux);
+//        AMethodSetupExecutor.Execute(LClass, Aux);
+        (Aux as TInterfacedObject as IMigration).Setup;
 
 //        Reader := TPropertyClassReader.Create;
 //        SequenceProp := Reader.PropertyOfMigrationClass(LClass, Aux, PROP_SEQUENCE).AsInteger;
@@ -440,7 +448,7 @@ begin
           LList.Add(LClass);
         end;
       finally
-        FreeAndNil(Aux);
+//        FreeAndNil(Aux);
       end;
     end;
 

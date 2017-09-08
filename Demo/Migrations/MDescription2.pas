@@ -14,9 +14,9 @@ uses
 type
   TMDescription2 = class(TMigrations)
   public
-    procedure Setup;
-    procedure Up;
-    procedure Down;
+    procedure Setup; override;
+    procedure Up; override;
+    procedure Down; override;
   end;
 
 implementation

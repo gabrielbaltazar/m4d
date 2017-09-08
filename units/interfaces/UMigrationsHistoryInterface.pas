@@ -119,6 +119,8 @@ type
       /// </OutputParameters>
     {$ENDREGION}
     function LastMigration: TMigrationsHistoryItem;
+
+    property HistoryList: TList<TMigrationsHistoryItem> read getHistory;
   end;
 
 implementation

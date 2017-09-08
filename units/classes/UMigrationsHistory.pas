@@ -15,7 +15,7 @@ interface
 uses
   UMigrationsHistoryInterface, UMigrationsHistoryItem, Generics.Collections,
   UMigrationSerializer, UMigrationSerializerInterface, UMigrationsInterface,
-  System.Classes, System.SysUtils, UGetterMigrationsInterface;
+  System.Classes, System.SysUtils, UGetterMigrationsInterface, System.Generics.Defaults;
 
 type
   {$M+}
@@ -38,8 +38,10 @@ type
     FFile: TStringList;
     FSerializer: IMigrationSerializer;
     FLoaded: Boolean;
+    FCompare: IComparer<TMigrationsHistoryItem>;
 
     function getHistory(APredicate: TPredicate<TMigrationsHistoryItem>): TList<TMigrationsHistoryItem>; overload;
+    function getHistory: TList<TMigrationsHistoryItem>; overload;
   public
     constructor Create(APath: string; ASerializer: IMigrationSerializer); reintroduce;
     destructor Destroy; override;
@@ -49,8 +51,6 @@ type
     procedure UnLoad;
     procedure Add(AItem: TMigrationsHistoryItem);
     procedure Remove(AMigrationSequence: Integer);
-//    procedure Update(AList: TList<TMigrationsHistoryItem>);
-    function getHistory: TList<TMigrationsHistoryItem>; overload;
     function getHistory(AStartMigrationSeq: Integer): TList<TMigrationsHistoryItem>; overload;
     function getHistory(AStartMigrationDateTime: TDateTime): TList<TMigrationsHistoryItem>; overload;
     function getHistory(AMigrationVersion: string): TList<TMigrationsHistoryItem>; overload;
@@ -92,6 +92,8 @@ begin
 end;
 
 constructor TMigrationsHistory.Create(APath: string; ASerializer: IMigrationSerializer);
+var
+  LComparison: TComparison<TMigrationsHistoryItem>;
 begin
   if APath = '' then
   begin
@@ -109,9 +111,17 @@ begin
       Self.FLoaded := False;
 
       FPath := APath;
-      FHistoryList := TObjectList<TMigrationsHistoryItem>.Create;
+//      FHistoryList := TObjectList<TMigrationsHistoryItem>.Create;
 
       FSerializer := ASerializer;
+
+      LComparison := function(const Left, Right: TMigrationsHistoryItem): Integer
+                     begin
+                       Result := Left.MigrationSeq - Right.MigrationSeq;
+                     end;
+
+      FCompare := TComparer<TMigrationsHistoryItem>.Construct(LComparison) as TDelegatedComparer<TMigrationsHistoryItem>;
+      FHistoryList := TObjectList<TMigrationsHistoryItem>.Create(FCompare);
     end;
   end;
 end;
@@ -144,7 +154,8 @@ end;
 function TMigrationsHistory.getHistory: TList<TMigrationsHistoryItem>;
 begin
   if not Self.FLoaded then Self.Load;
-  
+
+  FHistoryList.Sort;
   Result := FHistoryList;
 end;
 
@@ -230,18 +241,6 @@ begin
   if Assigned(FFile) then FreeAndNil(FFile);
   Self.FLoaded := False;
 end;
-
-//procedure TMigrationsHistory.Update(AList: TList<TMigrationsHistoryItem>);
-//begin
-//  if not Assigned(AList) then
-//  begin
-//    raise Exception.Create('The parameter AList must not be nil.');
-//  end
-//  else
-//  begin
-//    FHistoryList := AList;
-//  end;
-//end;
 
 function TMigrationsHistory.getHistory(AMigrationVersion: string): TList<TMigrationsHistoryItem>;
 begin

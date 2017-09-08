@@ -13,6 +13,7 @@ type
     FCompare: IComparer<TClass>;
   public
     constructor Create(AComparison: IMigrationListOrder);
+    destructor Destroy; override;
 
     procedure RegisterMigration(AMigration: TClass);
     function getMigrationsRegister: TList<TClass>;
@@ -29,15 +30,23 @@ uses
 
 constructor TMigrationsRegister.Create(AComparison: IMigrationListOrder);
 begin
-   if not Assigned(FCompare) then
+   if not Assigned(AComparison) then
    begin
-     raise Exception.Create('The parameter ACompare must not be nil.');
+     raise Exception.Create('The parameter AComparison must not be nil.');
    end
    else
    begin
      FCompare := TComparer<TClass>.Construct(AComparison.Comparison) as TDelegatedComparer<TClass>;
-     FMigrationsList := TList<TClass>.Create(TComparer<TClass>.Construct(AComparison.Comparison));
+//     FMigrationsList := TList<TClass>.Create(TComparer<TClass>.Construct(AComparison.Comparison));
+     FMigrationsList := TList<TClass>.Create(FCompare);
    end;
+end;
+
+destructor TMigrationsRegister.Destroy;
+begin
+  if Assigned(FMigrationsList) then FreeAndNil(FMigrationsList);
+
+  inherited;
 end;
 
 function TMigrationsRegister.getMigrationsRegister: TList<TClass>;
