@@ -15,7 +15,7 @@ unit M4D.MigrationExecutor;
 interface
 
 uses
-  M4D.Defs, M4D.MigrationsInterface, M4D.MigrationExecutorInterface, M4D.MigrationsHistoryInterface, M4D.MigrationsHistory,
+  M4D.MigrationsInterface, M4D.MigrationExecutorInterface, M4D.MigrationsHistoryInterface, M4D.MigrationsHistory,
   M4D.MigrationsHistoryItem, Generics.Collections, System.Rtti,
   M4D.MigrationExecExecutorInterface, M4D.MigrationRollbackExecutorInterface,
   M4D.MigrationExecPendingExecutorInterface,

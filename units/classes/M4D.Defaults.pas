@@ -50,6 +50,7 @@ type
   {$ENDREGION}
   TDefaultInstanceOfMigrationsHistoryCreator = class
   private
+    const CFILE_NAME = 'history.m4d';
     class var FMigrationsHistory: IMigrationsHistory;
   public
     {$REGION 'TDefaultInstanceOfMigrationsHistoryCreator.instanceOfMigrationsHistory'}
@@ -165,7 +166,7 @@ type
 implementation
 
 uses
-  M4D.Defs, M4D.MigrationSerializer, M4D.MigrationsHistory, System.SysUtils,
+  {M4D.Defs, }M4D.MigrationSerializer, M4D.MigrationsHistory, System.SysUtils,
   M4D.MigrationListOrder, M4D.MigrationExecutor, M4D.GetterMigrations,
   M4D.MigrationsRegister;
 

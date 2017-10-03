@@ -148,7 +148,6 @@
         <DCCReference Include="units\interfaces\M4D.MigrationSerializerInterface.pas"/>
         <DCCReference Include="units\classes\M4D.MigrationSerializer.pas"/>
         <DCCReference Include="units\classes\M4D.pas"/>
-        <DCCReference Include="units\types\M4D.Defs.pas"/>
         <DCCReference Include="units\classes\M4D.MigrationListOrder.pas"/>
         <DCCReference Include="units\interfaces\M4D.MigrationListOrderInterface.pas"/>
         <DCCReference Include="units\interfaces\M4D.MigrationsRegisterInterface.pas"/>
@@ -238,12 +237,27 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -594,27 +608,12 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>

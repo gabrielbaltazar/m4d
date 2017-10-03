@@ -35,7 +35,7 @@ type
 implementation
 
 uses
-  System.SysUtils, M4D.Defs;
+  System.SysUtils;
 
 { TMigrationListOrder }
 

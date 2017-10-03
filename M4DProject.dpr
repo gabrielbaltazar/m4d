@@ -31,7 +31,6 @@ uses
   M4D.MigrationSerializerInterface in 'units\interfaces\M4D.MigrationSerializerInterface.pas',
   M4D.MigrationSerializer in 'units\classes\M4D.MigrationSerializer.pas',
   M4D in 'units\classes\M4D.pas',
-  M4D.Defs in 'units\types\M4D.Defs.pas',
   M4D.MigrationListOrder in 'units\classes\M4D.MigrationListOrder.pas',
   M4D.MigrationListOrderInterface in 'units\interfaces\M4D.MigrationListOrderInterface.pas',
   M4D.MigrationsRegisterInterface in 'units\interfaces\M4D.MigrationsRegisterInterface.pas',

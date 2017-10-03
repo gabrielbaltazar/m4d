@@ -27,7 +27,7 @@ uses
   M4D.MigrationsHistoryInterface, M4D.MigrationsHistory, M4D.MigrationSerializer, Generics.Collections,
   System.SysUtils, System.Rtti, M4D.MigrationListOrderInterface,
   M4D.MigrationListOrder, System.Generics.Defaults, M4D.MigrationSerializerInterface,
-  M4D.MigrationsHistoryItem, M4D.Defs, M4D.MigrationsRegisterInterface;
+  M4D.MigrationsHistoryItem, M4D.MigrationsRegisterInterface;
 
 type
   {$M+}
