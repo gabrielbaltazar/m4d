@@ -8,7 +8,7 @@ uses
   {$ELSE}
     Vcl.Dialogs,
   {$ENDIF}
-  UMigrations,
+  M4D.Migrations,
   UDBRegisterMigration;
 
 

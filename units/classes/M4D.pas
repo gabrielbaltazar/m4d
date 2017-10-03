@@ -1,35 +1,36 @@
+{######################################################################################
+
+                                         M4D
+
+Made with Love
+
+Author: Edgar Borges Pavão
+Date of creation: 29/08/2017
+Use licence: See the license file
+
+######################################################################################}
 unit M4D;
 
 interface
 
 uses
-  UMigrationsInterface,
-  UMigrationsManager,
-  UMigrationsHistoryInterface, UGetterMigrationsInterface,
-  UMigrationsRegisterInterface, UMigrationExecutorInterface,
-  USetupExecutorInterface, UPropertyClassReaderInterface,
-  UMigrationUpMethodExecutorInterface, UMigrationDownMethodExecutorInterface,
-  UMigrationSerializerInterface;
+  M4D.MigrationsInterface,
+  M4D.MigrationsManager,
+  M4D.MigrationsHistoryInterface, M4D.GetterMigrationsInterface,
+  M4D.MigrationsRegisterInterface, M4D.MigrationExecutorInterface,
+  M4D.MigrationSerializerInterface;
 
-function MigrationsManager(AMigrationsHistory: IMigrationsHistory;
-                           AGetterMigration: IGetterMigrations;
-                           AMigrationsRegister: IMigrationsRegister;
-                           AMigrationExecutor: IMigrationExecutor;
-                           AMethodSetupExecutor: IMigrationSetupMethodExecutor;
-                           AReader: IPropertyClassReader;
-                           AMethodUpExecutor: IMigrationUpMethodExecutor;
-                           AMethodDownExecutor: IMigrationDownMethodExecutor): TMigrationsManager ; overload;
+function MigrationManager(AMigrationsHistory: IMigrationsHistory;
+                          AGetterMigration: IGetterMigrations;
+                          AMigrationsRegister: IMigrationsRegister;
+                          AMigrationExecutor: IMigrationExecutor): TMigrationsManager ; overload;
 
-function MigrationsManager: TMigrationsManager; overload;
+function MigrationManager: TMigrationsManager; overload;
 procedure RegisterMigration(AMigration: TClass;
                             AMigrationsHistory: IMigrationsHistory;
                             AGetterMigration: IGetterMigrations;
                             AMigrationsRegister: IMigrationsRegister;
-                            AMigrationExecutor: IMigrationExecutor;
-                            AMethodSetupExecutor: IMigrationSetupMethodExecutor;
-                            AReader: IPropertyClassReader;
-                            AMethodUpExecutor: IMigrationUpMethodExecutor;
-                            AMethodDownExecutor: IMigrationDownMethodExecutor); overload;
+                            AMigrationExecutor: IMigrationExecutor); overload;
 procedure RegisterMigration(AMigration: TClass); overload;
 procedure Release;
 
@@ -40,16 +41,12 @@ implementation
 
 uses
   System.Classes, System.SysUtils,
-  UMigrationsHistory, UMigrationSerializer;
+  M4D.MigrationsHistory, M4D.MigrationSerializer;
 
-function MigrationsManager(AMigrationsHistory: IMigrationsHistory;
+function MigrationManager(AMigrationsHistory: IMigrationsHistory;
                            AGetterMigration: IGetterMigrations;
                            AMigrationsRegister: IMigrationsRegister;
-                           AMigrationExecutor: IMigrationExecutor;
-                           AMethodSetupExecutor: IMigrationSetupMethodExecutor;
-                           AReader: IPropertyClassReader;
-                           AMethodUpExecutor: IMigrationUpMethodExecutor;
-                           AMethodDownExecutor: IMigrationDownMethodExecutor): TMigrationsManager overload;
+                           AMigrationExecutor: IMigrationExecutor): TMigrationsManager overload;
 begin
   if Assigned(GMigrationsManager) then
   begin
@@ -60,16 +57,12 @@ begin
     GMigrationsManager := TMigrationsManager.Create(AMigrationsHistory,
                                                     AGetterMigration,
                                                     AMigrationsRegister,
-                                                    AMigrationExecutor,
-                                                    AMethodSetupExecutor,
-                                                    AReader,
-                                                    AMethodUpExecutor,
-                                                    AMethodDownExecutor);
+                                                    AMigrationExecutor);
     Result := GMigrationsManager;
   end;
 end;
 
-function MigrationsManager: TMigrationsManager;  overload;
+function MigrationManager: TMigrationsManager;  overload;
 begin
   if Assigned(GMigrationsManager) then
   begin
@@ -86,22 +79,14 @@ procedure RegisterMigration(AMigration: TClass;
                             AMigrationsHistory: IMigrationsHistory;
                             AGetterMigration: IGetterMigrations;
                             AMigrationsRegister: IMigrationsRegister;
-                            AMigrationExecutor: IMigrationExecutor;
-                            AMethodSetupExecutor: IMigrationSetupMethodExecutor;
-                            AReader: IPropertyClassReader;
-                            AMethodUpExecutor: IMigrationUpMethodExecutor;
-                            AMethodDownExecutor: IMigrationDownMethodExecutor); overload;
+                            AMigrationExecutor: IMigrationExecutor); overload;
 var
   MM: TMigrationsManager;
 begin
-  MM := MigrationsManager(AMigrationsHistory,
-                          AGetterMigration,
-                          AMigrationsRegister,
-                          AMigrationExecutor,
-                          AMethodSetupExecutor,
-                          AReader,
-                          AMethodUpExecutor,
-                          AMethodDownExecutor);
+  MM := MigrationManager(AMigrationsHistory,
+                         AGetterMigration,
+                         AMigrationsRegister,
+                         AMigrationExecutor);
   if Assigned(MM) then
   begin
     MM.RegisterMigration(AMigration);
@@ -117,7 +102,7 @@ procedure RegisterMigration(AMigration: TClass); overload;
 var
   MM: TMigrationsManager;
 begin
-  MM := MigrationsManager;
+  MM := MigrationManager;
   if Assigned(MM) then
   begin
     MM.RegisterMigration(AMigration);

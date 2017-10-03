@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<test-results name="C:\Users\Desenv\Documents\Edgar Pavão\Projetos\BitBucket\m4d\Test\Win32\Debug\M4DTest.exe" total="21" errors="1" failures="0" ignored="0" inconclusive="0" not-run="0" skipped="0" invalid="0" date="2017-09-25" time="0.003">
+  <culture-info current-culture="en" current-uiculture="en" />
+  <test-suite type="Assembly" name="M4DTest.exe" executed="true" result="Failure" success="False" time="0.003" asserts="0">
+    <results>
+        <test-suite type="Namespace" name="M4DTest" executed="true" result="Success" success="True" time="0.003" asserts="0" >
+          <results>
+              <test-suite type="Namespace" name="Defaults" executed="true" result="Success" success="True" time="0.001" asserts="0" >
+                <results>
+                    <test-suite type="Fixture" name="TestDefaultInstanceOfMigrationsSerializerCreator" executed="True" result="Success" success="True" time="0.000" >
+                      <results>
+                        <test-case name="CheckIfIsTheCorretClass" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TestDefaultInstanceOfMigrationsHistoryCreator" executed="True" result="Success" success="True" time="0.000" >
+                      <results>
+                        <test-case name="CheckIfIsTheCorretClass" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TestDefaultInstanceOfMigrationListOrderCreator" executed="True" result="Success" success="True" time="0.000" >
+                      <results>
+                        <test-case name="CheckIfIsTheCorretClass" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TestDefaultInstanceOfMigrationsRegisterCreator" executed="True" result="Success" success="True" time="0.000" >
+                      <results>
+                        <test-case name="CheckIfIsTheCorretClass" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TestDefaultInstanceOfMigrationGetterCreator" executed="True" result="Success" success="True" time="0.000" >
+                      <results>
+                        <test-case name="CheckIfIsTheCorretClass" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                    <test-suite type="Fixture" name="TestDefaultInstanceOfMigrationExecutorCreator" executed="True" result="Success" success="True" time="0.000" >
+                      <results>
+                        <test-case name="CheckIfIsTheCorretClass" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                      </results>
+                    </test-suite>
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TestMainMigrationsGetter" executed="True" result="Success" success="True" time="0.000" >
+                <results>
+                  <test-case name="CheckTheReturnOfGetMigrationsWhenPredicateIsTrue" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckTheReturnOfGetMigrationsWhenPredicateIsFalse" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TestGetterMigrations" executed="True" result="Success" success="True" time="0.001" >
+                <results>
+                  <test-case name="CheckIfReturnedCorretNumberOfMigrationBySequence" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckThePositiveEndOfMigrationBySequence" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckTheNegativeEndOfMigrationBySequence" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckTheNegativeValueOfMigrationBySequence" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckIfReturnedCorretNumberOfMigrationByDateTime" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckThePositiveEndOfMigrationByDateTime" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckTheNegativeEndOfMigrationByDateTime" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TestMigrationExecExecutor" executed="True" result="Success" success="True" time="0.000" >
+                <results>
+                  <test-case name="CheckTheExecution" executed="True" result="Error" success="False" time="0.000" asserts="0" >
+                    <failure>
+                      <message>
+                        <![CDATA[ Abstract Error ]]>
+                      </message>
+                      <stack-trace>
+                        <![CDATA[  ]]>
+                      </stack-trace>
+                    </failure>
+                  </test-case>
+                </results>
+              </test-suite>
+              <test-suite type="Fixture" name="TestDatetimeMigrationsGetterClass" executed="True" result="Success" success="True" time="0.001" >
+                <results>
+                  <test-case name="TestCheckTheInputParameterAMigrationsListExceptionCall" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="TestCheckTheInputParameterAMainMigrationsGetterExceptionCall" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckTheCorrectFunctionReturn" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckThePositiveEnd" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                  <test-case name="CheckTheNegativeEnd" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                </results>
+              </test-suite>
+          </results>
+        </test-suite>
+    </results>
+  </test-suite>
+</test-results>

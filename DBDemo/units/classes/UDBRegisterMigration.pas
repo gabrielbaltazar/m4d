@@ -3,11 +3,11 @@ unit UDBRegisterMigration;
 interface
 
 uses
-  UMigrationsHistoryInterface, UGetterMigrationsInterface,
-  UMigrationMethodExecutorInterface, UMigrationListOrderInterface,
-  UMigrationsRegisterInterface, UMigrationExecutorInterface,
-  USetupExecutorInterface, UPropertyClassReaderInterface,
-  UMigrationUpMethodExecutorInterface, UMigrationDownMethodExecutorInterface;
+  M4D.MigrationsHistoryInterface, M4D.GetterMigrationsInterface,
+  M4D.MigrationMethodExecutorInterface, M4D.MigrationListOrderInterface,
+  M4D.MigrationsRegisterInterface, M4D.MigrationExecutorInterface,
+  M4D.SetupExecutorInterface, M4D.PropertyClassReaderInterface,
+  M4D.MigrationUpMethodExecutorInterface, M4D.MigrationDownMethodExecutorInterface;
 
 procedure DBRegisterMigration(AMigration: TClass);
 
@@ -34,29 +34,12 @@ begin
    to one that will save in database}
   LMigrationsHistory := TDBMigrationsHistory.Create(DMDBDemo.getConnection);
 
-  LGetterMigration := TDefaults.instanceOfMigrationGetter;
-  LMigrationMethodExecutor := TDefaults.instanceOfMigrationMethodExecutor;
-  LMigrationListOrder := TDefaults.instanceOfMigrationListOrder(LMigrationMethodExecutor);
-  LMigrationsRegister := TDefaults.instanceOfMigrationsRegister(LMigrationListOrder);
-  LMethodSetupExecutor := TDefaults.instanceOfMigrationSetupMethodExecutor(LMigrationMethodExecutor);
-  LReader := TDefaults.instanceOfPropertyClassReader;
-  LMethodUpExecutor := TDefaults.instanceOfMigrationUpMethodExecutor(LMigrationMethodExecutor);
-  LMethodDownExecutor := TDefaults.instanceOfMigrationDownMethodExecutor(LMigrationMethodExecutor);
+  LGetterMigration := TDefaultInstanceOfMigrationGetterCreator.getInstance;
+  LMigrationListOrder := TDefaultInstanceOfMigrationListOrderCreator.getInstance;
+  LMigrationsRegister := TDefaultInstanceOfMigrationsRegisterCreator.getInstance(LMigrationListOrder);
+  LMigrationExecutor := TDefaultInstanceOfMigrationExecutorCreator.getInstance(LMigrationsHistory);
 
-  LMigrationExecutor := TDefaults.instanceOfMigrationExecutor(LMigrationsHistory,
-                                                              LMethodUpExecutor,
-                                                              LMethodDownExecutor,
-                                                              LMethodSetupExecutor);
-
-  RegisterMigration(AMigration,
-                    LMigrationsHistory,
-                    LGetterMigration,
-                    LMigrationsRegister,
-                    LMigrationExecutor,
-                    LMethodSetupExecutor,
-                    LReader,
-                    LMethodUpExecutor,
-                    LMethodDownExecutor);
+  RegisterMigration(AMigration, LMigrationsHistory, LGetterMigration, LMigrationsRegister, LMigrationExecutor);
 end;
 
 end.

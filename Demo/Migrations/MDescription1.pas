@@ -9,7 +9,7 @@ uses
     Vcl.Dialogs,
   {$ENDIF}
   M4D,
-  UMigrations;
+  M4D.Migrations;
 
 type
   TMDescription1 = class(TMigrations)

@@ -54,8 +54,9 @@ var
 implementation
 
 uses
-  UMigrationsHistoryInterface, UMigrationsHistoryItem, Generics.Collections,
-  System.SysUtils, UMigrationsInterface, UDMDBDemo;
+  M4D.MigrationsHistoryInterface, M4D.MigrationsHistoryItem, Generics.Collections,
+  System.SysUtils, M4D.MigrationsInterface, UDMDBDemo, M4D.MigrationsHistory,
+  UDBMigrationHistory;
 
 {$R *.dfm}
 
@@ -66,7 +67,7 @@ begin
   //Before performing all migrations, you must clear the migration information
   //so that it is not registered duplicatively.
 
-   MH := M4D.MigrationsManager.MigrationHistory;
+   MH := M4D.MigrationManager.MigrationHistory;
    MH.Clear;
 end;
 
@@ -77,15 +78,15 @@ begin
   //Before performing all migrations, you must clear the migration information
   //so that it is not registered duplicatively.
 
-   MH := M4D.MigrationsManager.MigrationHistory;
+   MH := M4D.MigrationManager.MigrationHistory;
    MH.Clear;
 
-   M4D.MigrationsManager.Execute;
+   M4D.MigrationManager.Execute;
 end;
 
 procedure TForm2.btnExecutePendingClick(Sender: TObject);
 begin
-  M4D.MigrationsManager.ExecutePending;
+  M4D.MigrationManager.ExecutePending;
 end;
 
 procedure TForm2.btnExecuteUntilClick(Sender: TObject);
@@ -103,10 +104,10 @@ begin
     //Before performing all migrations, you must clear the migration information
     //so that it is not registered duplicatively.
 
-     MH := M4D.MigrationsManager.MigrationHistory;
+     MH := M4D.MigrationManager.MigrationHistory;
      MH.Clear;
 
-     M4D.MigrationsManager.ExecuteUntil(Aux);
+     M4D.MigrationManager.ExecuteUntil(Aux);
   end;
 end;
 
@@ -118,7 +119,7 @@ var
 begin
   memInfo.Clear;
 
-  RM := M4D.MigrationsManager.MigrationsRegister.Migrations;
+  RM := M4D.MigrationManager.MigrationsRegister.Migrations;
   if Assigned(RM) then
   begin
     memInfo.Lines.Add('Registered migrations');
@@ -128,7 +129,7 @@ begin
       memInfo.Lines.Add('Class name: ' + LClass.ClassName);
       memInfo.Lines.Add('Unit name:' + LClass.UnitName);
 
-      Migration := M4D.MigrationsManager.MigrationInfo(LClass, M4D.MigrationsManager.MethodSetupExecutor);
+      Migration := M4D.MigrationManager.MigrationInfo(LClass{, M4D.MigrationManager.MethodSetupExecutor});
       memInfo.Lines.Add('Migration sequence: ' + Migration.SeqVersion.ToString);
       memInfo.Lines.Add('Migration version: ' + Migration.Version);
       memInfo.Lines.Add('Migration date time: ' + DateTimeToStr(Migration.DateTime));
@@ -138,7 +139,7 @@ end;
 
 procedure TForm2.btnRollbackAllClick(Sender: TObject);
 begin
-  M4D.MigrationsManager.Rollback;
+  M4D.MigrationManager.Rollback;
 end;
 
 procedure TForm2.btnRollbackUntilClick(Sender: TObject);
@@ -152,7 +153,7 @@ begin
   end
   else
   begin
-     M4D.MigrationsManager.RollbackUntil(Aux);
+     M4D.MigrationManager.RollbackUntil(Aux);
   end;
 end;
 
@@ -168,13 +169,12 @@ end;
 
 procedure TForm2.Button4Click(Sender: TObject);
 var
-  I: Integer;
   MH: TList<TMigrationsHistoryItem>;
   Item: TMigrationsHistoryItem;
 begin
   memInfo.Clear;
 
-  MH := M4D.MigrationsManager.MigrationHistory.getHistory;
+  MH := M4D.MigrationManager.MigrationHistory.getHistory;
   if Assigned(MH) then
   begin
     try
@@ -202,21 +202,17 @@ var
 begin
   memInfo.Clear;
 
-  Item := M4D.MigrationsManager.MigrationHistory.LastMigration;
+  Item := M4D.MigrationManager.MigrationHistory.LastMigration;
   if Assigned(Item) then
   begin
-    try
-      memInfo.Lines.Add('History of migrations:');
-      memInfo.Lines.Add('');
-      memInfo.Lines.Add('Migration : ' + Item.MigrationSeq.ToString);
-      memInfo.Lines.Add('Version: ' + Item.MigrationVersion);
-      memInfo.Lines.Add('Date of creation: ' + DateTimeToStr(Item.MigrationDateTime));
-      memInfo.Lines.Add('Start of execution: ' + DateTimeToStr(Item.StartOfExecution));
-      memInfo.Lines.Add('End of execution: ' + DateTimeToStr(Item.EndOfExecution));
-      memInfo.Lines.Add('Duration of execution: ' + Item.DurationOfExecution.ToString);
-    finally
-      Item.DisposeOf;
-    end;
+    memInfo.Lines.Add('History of migrations:');
+    memInfo.Lines.Add('');
+    memInfo.Lines.Add('Migration : ' + Item.MigrationSeq.ToString);
+    memInfo.Lines.Add('Version: ' + Item.MigrationVersion);
+    memInfo.Lines.Add('Date of creation: ' + DateTimeToStr(Item.MigrationDateTime));
+    memInfo.Lines.Add('Start of execution: ' + DateTimeToStr(Item.StartOfExecution));
+    memInfo.Lines.Add('End of execution: ' + DateTimeToStr(Item.EndOfExecution));
+    memInfo.Lines.Add('Duration of execution: ' + Item.DurationOfExecution.ToString);
   end;
 end;
 

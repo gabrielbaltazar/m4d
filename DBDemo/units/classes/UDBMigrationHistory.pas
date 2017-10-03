@@ -13,7 +13,7 @@ unit UDBMigrationHistory;
 interface
 
 uses
-  UMigrationsHistoryInterface, Winapi.CommCtrl, UMigrationsHistoryItem,
+  M4D.MigrationsHistoryInterface, Winapi.CommCtrl, M4D.MigrationsHistoryItem,
   System.Generics.Collections, FireDAC.Comp.Client, System.SysUtils;
 
 type
@@ -23,19 +23,18 @@ type
   {$M+}
   TDBMigrationsHistory = class(TInterfacedObject, IMigrationsHistory)
   private
-//    FConnection: TFDConnection;
     FGetConnectionFunc: TGetConnectionFunc;
-    FQuery: TFDQuery;
+
+    FMigrationList: TObjectList<TMigrationsHistoryItem>;
 
     function getQuery(ASql: string; const AOpenQuery: Boolean = True): TFDQuery;
     procedure ExecuteDBCmd(ASql: string);
 
-
     function getHistory(AFilterProc: TProc<TFDQuery>): TList<TMigrationsHistoryItem>; overload;
     function getHistory: TList<TMigrationsHistoryItem>; overload;
   public
-//    constructor Create(AConnection: TFDConnection); reintroduce;
     constructor Create(AGetConnectionFunc: TGetConnectionFunc); reintroduce;
+    destructor Destroy; override;
 
     procedure Clear;
     procedure Load;
@@ -54,9 +53,7 @@ type
 implementation
 
 uses
-  System.Generics.Defaults;
-
-{ TDBMigrationsHistory }
+  System.Generics.Defaults, System.Classes, FireDac.Stan.Param, Data.DB;
 
 { TDBMigrationsHistory }
 
@@ -70,7 +67,6 @@ begin
   end
   else
   begin
-//    ExecuteDBCmd(Format('INSERT INTO MIGRATIONS_INFO (SEQUENCE, VERSION, DATETIME) VALUES(%d, %s, %d)', [AItem.MigrationSeq, QuotedStr(AItem.MigrationVersion), AItem.MigrationDateTime]));
     Query := getQuery('INSERT INTO MIGRATIONS_INFO (SEQUENCE, VERSION, DATETIME) VALUES(:SEQUENCE, :VERSION, :DATETIME)', False);
     try
       Query.Params[0].AsInteger := AItem.MigrationSeq;
@@ -95,30 +91,16 @@ end;
 
 constructor TDBMigrationsHistory.Create(AGetConnectionFunc: TGetConnectionFunc);
 begin
+  FMigrationList := TObjectList<TMigrationsHistoryItem>.Create;
   Self.FGetConnectionFunc := AGetConnectionFunc;
 end;
 
-//constructor TDBMigrationsHistory.Create(AConnection: TFDConnection);
-//const
-//  CREATE_NECESSARY_TABLE = 'CREATE TABLE IF NOT EXISTS migrations_info ( ' +
-//                           '    sequence INTEGER      PRIMARY KEY ' +
-//                           '                          NOT NULL,   ' +
-//                           '    version  VARCHAR (50) NOT NULL,   ' +
-//                           '    datetime DATETIME     NOT NULL    ' +
-//                           ');                                    ' ;
-//begin
-//  if not Assigned(AConnection) then
-//  begin
-//    raise Exception.Create('The parameter AConnection must no be nil.');
-//  end
-//  else
-//  begin
-//    inherited Create;
-//    FConnection := AConnection;
-//
-//    ExecuteDBCmd(CREATE_NECESSARY_TABLE);
-//  end;
-//end;
+destructor TDBMigrationsHistory.Destroy;
+begin
+  if Assigned(FMigrationList) then FMigrationList.DisposeOf;
+  
+  inherited;
+end;
 
 procedure TDBMigrationsHistory.ExecuteDBCmd(ASql: string);
 var
@@ -159,17 +141,12 @@ begin
 
     if not Query.IsEmpty then
     begin
-
-//    FCompare := TComparer<TClass>.Construct(AComparison.Comparison) as TDelegatedComparer<TClass>;
-//    FMigrationList := TList<TClass>.Create(TComparer<TClass>.Construct(AComparison.Comparison));
-
       LComparison := function(const Left, Right: TMigrationsHistoryItem): Integer
                      begin
                        Result := Left.MigrationSeq - Right.MigrationSeq;
                      end;
       LComparer := TComparer<TMigrationsHistoryItem>.Construct(LComparison) as TDelegatedComparer<TMigrationsHistoryItem>;
 
-//      Result := TList<TMigrationsHistoryItem>.Create(LComparer);
       Result := TObjectList<TMigrationsHistoryItem>.Create(LComparer);
 
       Query.First;
@@ -198,7 +175,6 @@ begin
   Result := TFDQuery.Create(nil);
 
   Result.Close;
-//  Result.Connection := FConnection;
   Result.Connection := FGetConnectionFunc;
   Result.SQL.Text := ASql;
   if AOpenQuery then Result.Open;
@@ -240,6 +216,9 @@ begin
     Query.Close;
     Query.DisposeOf;
   end;
+
+  //We have to control this item list to avoid memory leak
+  if Assigned(FMigrationList) then FMigrationList.Add(Result);
 end;
 
 procedure TDBMigrationsHistory.Load;

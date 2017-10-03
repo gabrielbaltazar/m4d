@@ -1,57 +1,177 @@
+{######################################################################################
+
+                                         M4D
+
+Made with Love
+
+Author: Edgar Borges Pavão
+Date of creation: 29/08/2017
+Use licence: See the license file
+
+######################################################################################}
 unit M4D.Defaults;
 
 interface
 
 uses
-  UMigrationSerializerInterface, UMigrationsHistoryInterface,
-  UMigrationMethodExecutorInterface, USetupExecutorInterface,
-  UMigrationUpMethodExecutorInterface, UMigrationDownMethodExecutorInterface,
-  UMigrationListOrderInterface, UMigrationExecutorInterface,
-  UGetterMigrationsInterface, UMigrationsRegisterInterface,
-  UPropertyClassReaderInterface;
+  M4D.MigrationSerializerInterface, M4D.MigrationsHistoryInterface,
+  M4D.MigrationListOrderInterface, M4D.MigrationExecutorInterface,
+  M4D.GetterMigrationsInterface, M4D.MigrationsRegisterInterface;
 
 type
-  TDefaults = class
+  {$REGION 'TDefaultInstanceOfMigrationsSerializerCreator'}
+    /// <Description>
+    ///  This is a class used to provide a default instance of IMigrationSerializer.
+    /// </Description>
+    /// <KeyWords>Default</KeyWords>
+  {$ENDREGION}
+  TDefaultInstanceOfMigrationsSerializerCreator = class
   private
     class var FMigrationSerializer: IMigrationSerializer;
-    class var FMigrationGetter: IGetterMigrations;
-    class var FMigrationsHistory: IMigrationsHistory;
-    class var FExecutor: IMigrationExecutor;
-    class var FMigrationListOrder: IMigrationListOrder;
-    class var FMigrationsRegister: IMigrationsRegister;
-    class var FMigrationMethodExecutor: IMigrationMethodExecutor;
-    class var FMethodUpExecutor: IMigrationUpMethodExecutor;
-    class var FMethodDownExecutor: IMigrationDownMethodExecutor;
-    class var FMethodSetupExecutor: IMigrationSetupMethodExecutor;
-    class var FReader: IPropertyClassReader;
   public
-    class function instanceOfMigrationsSerializer: IMigrationSerializer;
-    class function instanceOfMigrationsHistory(AMigrationSerializer: IMigrationSerializer): IMigrationsHistory;
-    class function instanceOfMigrationGetter: IGetterMigrations;
-    class function instanceOfMigrationMethodExecutor: IMigrationMethodExecutor;
-    class function instanceOfMigrationSetupMethodExecutor(AMethodExecutor: IMigrationMethodExecutor): IMigrationSetupMethodExecutor;
-    class function instanceOfMigrationUpMethodExecutor(AMethodExecutor: IMigrationMethodExecutor): IMigrationUpMethodExecutor;
-    class function instanceOfMigrationDownMethodExecutor(AMethodExecutor: IMigrationMethodExecutor): IMigrationDownMethodExecutor;
-    class function instanceOfMigrationListOrder(AMethodExecutor: IMigrationMethodExecutor): IMigrationListOrder;
-    class function instanceOfMigrationsRegister(AMigrationListOrder: IMigrationListOrder): IMigrationsRegister;
-    class function instanceOfMigrationExecutor(AMigrationsHistory: IMigrationsHistory;
-                                               AMethodUpExecutor: IMigrationUpMethodExecutor;
-                                               AMethodDownExecutor: IMigrationDownMethodExecutor;
-                                               AMethodSetupExecutor: IMigrationSetupMethodExecutor): IMigrationExecutor;
-    class function instanceOfPropertyClassReader: IPropertyClassReader;
+    {$REGION 'TDefaultInstanceOfMigrationsSerializerCreator.instanceOfMigrationsSerializer'}
+    /// <Description>
+    ///  Factory from the default instance of the IMigrationSerializer interface.
+    ///  For more information, see the IMigrationSerializer documentation.
+    /// </Description>
+    /// <OutputParameters>
+    ///  Result - Default instance of IMigrationSerializer.
+    /// </OutputParameters>
+    {$ENDREGION}
+    class function getInstance: IMigrationSerializer;
+  end;
+
+type
+  {$REGION 'TDefaultInstanceOfMigrationsHistoryCreator'}
+    /// <Description>
+    ///  This is a class used to provide a default instance of IMigrationsHistory.
+    /// </Description>
+    /// <KeyWords>Default</KeyWords>
+  {$ENDREGION}
+  TDefaultInstanceOfMigrationsHistoryCreator = class
+  private
+    class var FMigrationsHistory: IMigrationsHistory;
+  public
+    {$REGION 'TDefaultInstanceOfMigrationsHistoryCreator.instanceOfMigrationsHistory'}
+    /// <Description>
+    ///  Factory from the default instance of the IMigrationsHistory interface.
+    ///  For more information, see the IMigrationsHistory documentation.
+    /// </Description>
+    /// <InputParameters>
+    ///  AMigrationSerializer - A instance of a IMigrationSerializer. This is a
+    ///  necessary parameter for the creation of IMigrationsHistory.
+    /// </InputParameters>
+    /// <OutputParameters>
+    ///  Result - Default instance of IMigrationsHistory.
+    /// </OutputParameters>
+    {$ENDREGION}
+    class function getInstance(AMigrationSerializer: IMigrationSerializer): IMigrationsHistory;
+  end;
+
+type
+  {$REGION 'TDefaultInstanceOfMigrationGetterCreator'}
+    /// <Description>
+    ///  This is a class used to provide a default instance of IGetterMigrations.
+    /// </Description>
+    /// <KeyWords>Default</KeyWords>
+  {$ENDREGION}
+  TDefaultInstanceOfMigrationGetterCreator = class
+  private
+    class var FMigrationGetter: IGetterMigrations;
+  public
+    {$REGION 'TDefaultInstanceOfMigrationGetterCreator.instanceOfMigrationGetter'}
+    /// <Description>
+    ///  Factory from the default instance of the IGetterMigrations interface.
+    ///  For more information, see the IGetterMigrations documentation.
+    /// </Description>
+    /// <OutputParameters>
+    ///  Result - Default instance of IGetterMigrations.
+    /// </OutputParameters>
+    {$ENDREGION}
+    class function getInstance: IGetterMigrations;
+  end;
+
+type
+  {$REGION 'TDefaultInstanceOfMigrationListOrderCreator'}
+    /// <Description>
+    ///  This is a class used to provide a default instance of IMigrationListOrder.
+    /// </Description>
+    /// <KeyWords>Default</KeyWords>
+  {$ENDREGION}
+  TDefaultInstanceOfMigrationListOrderCreator = class
+  private
+    class var FMigrationListOrder: IMigrationListOrder;
+  public
+    {$REGION 'TDefaultInstanceOfMigrationListOrderCreator.instanceOfMigrationListOrder'}
+    /// <Description>
+    ///  Factory from the default instance of the IMigrationListOrder interface.
+    ///  For more information, see the IMigrationListOrder documentation.
+    /// </Description>
+    /// <OutputParameters>
+    ///  Result - Default instance of IMigrationListOrder.
+    /// </OutputParameters>
+    {$ENDREGION}
+    class function getInstance: IMigrationListOrder;
+  end;
+
+type
+  {$REGION 'TDefaultInstanceOfMigrationsRegisterCreator'}
+    /// <Description>
+    ///  This is a class used to provide a default instance of IMigrationsRegister.
+    /// </Description>
+    /// <KeyWords>Default</KeyWords>
+  {$ENDREGION}
+  TDefaultInstanceOfMigrationsRegisterCreator = class
+  private
+    class var FMigrationsRegister: IMigrationsRegister;
+  public
+    {$REGION 'TDefaultInstanceOfMigrationsRegisterCreator.instanceOfMigrationsRegister'}
+    /// <Description>
+    ///  Factory from the default instance of the IMigrationsRegister interface.
+    ///  For more information, see the IMigrationsRegister documentation.
+    /// </Description>
+    /// <InputParameters>
+    ///  AMigrationListOrder - A instance of a IMigrationListOrder. This is a
+    ///  necessary parameter for the creation of IMigrationsRegister.
+    /// </InputParameters>
+    /// <OutputParameters>
+    ///  Result - Default instance of IMigrationsRegister.
+    /// </OutputParameters>
+    {$ENDREGION}
+    class function getInstance(AMigrationListOrder: IMigrationListOrder): IMigrationsRegister;
+  end;
+
+type
+  TDefaultInstanceOfMigrationExecutorCreator = class
+  private
+    class var FExecutor: IMigrationExecutor;
+  public
+    {$REGION 'TDefaultInstanceOfMigrationExecutorCreator.instanceOfMigrationExecutor'}
+    /// <Description>
+    ///  Factory from the default instance of the IMigrationExecutor interface.
+    ///  For more information, see the IMigrationExecutor documentation.
+    /// </Description>
+    /// <InputParameters>
+    ///  AMigrationsHistory - A instance of a IMigrationsHistory. This is a
+    ///  necessary parameter for the creation of IMigrationExecutor.
+    /// </InputParameters>
+    /// <OutputParameters>
+    ///  Result - Default instance of IMigrationExecutor.
+    /// </OutputParameters>
+    {$ENDREGION}
+    class function getInstance(AMigrationsHistory: IMigrationsHistory): IMigrationExecutor;
   end;
 
 implementation
 
 uses
-  UDefs, UMigrationSerializer, UMigrationsHistory, System.SysUtils,
-  UMigrationMethodExecutor, USetupExecutor, UMigrationUpMethodExecutor,
-  UMigrationDownMethodExecutor, UMigrationListOrder, UMigrationExecutor,
-  UGetterMigrations, UMigrationsRegister, UPropertyClassReader;
+  M4D.Defs, M4D.MigrationSerializer, M4D.MigrationsHistory, System.SysUtils,
+  M4D.MigrationListOrder, M4D.MigrationExecutor, M4D.GetterMigrations,
+  M4D.MigrationsRegister;
 
-{ Defaults }
+{ TDefaultInstanceOfMigrationsSerializer }
 
-class function TDefaults.instanceOfMigrationsSerializer: IMigrationSerializer;
+class function TDefaultInstanceOfMigrationsSerializerCreator.getInstance: IMigrationSerializer;
 begin
   if Assigned(FMigrationSerializer) then
   begin
@@ -64,7 +184,9 @@ begin
   end;
 end;
 
-class function TDefaults.instanceOfMigrationsHistory(AMigrationSerializer: IMigrationSerializer): IMigrationsHistory;
+{ TDefaultInstanceOfMigrationsHistoryCreator }
+
+class function TDefaultInstanceOfMigrationsHistoryCreator.getInstance(AMigrationSerializer: IMigrationSerializer): IMigrationsHistory;
 var
   LPath: String;
 begin
@@ -79,7 +201,9 @@ begin
   end;
 end;
 
-class function TDefaults.instanceOfMigrationGetter: IGetterMigrations;
+{ TDefaultInstanceOfMigrationGetterCreator }
+
+class function TDefaultInstanceOfMigrationGetterCreator.getInstance: IGetterMigrations;
 begin
   if Assigned(FMigrationGetter) then
   begin
@@ -91,55 +215,9 @@ begin
   end;
 end;
 
-class function TDefaults.instanceOfMigrationMethodExecutor: IMigrationMethodExecutor;
-begin
-  if Assigned(FMigrationMethodExecutor) then
-  begin
-    Result := FMigrationMethodExecutor;
-  end
-  else
-  begin
-    Result := TMigrationMethodExecutor.Create;
-  end;
-end;
+{ TDefaultInstanceOfMigrationListOrderCreator }
 
-class function TDefaults.instanceOfMigrationSetupMethodExecutor(AMethodExecutor: IMigrationMethodExecutor): IMigrationSetupMethodExecutor;
-begin
- if Assigned(FMethodSetupExecutor) then
-  begin
-    Result := FMethodSetupExecutor;
-  end
-  else
-  begin
-    Result := TMigrationSetupMethodExecutor.Create(AMethodExecutor);
-  end;
-end;
-
-class function TDefaults.instanceOfMigrationUpMethodExecutor(AMethodExecutor: IMigrationMethodExecutor): IMigrationUpMethodExecutor;
-begin
- if Assigned(FMethodUpExecutor) then
-  begin
-    Result := FMethodUpExecutor;
-  end
-  else
-  begin
-    Result := TMigrationUpMethodExecutor.Create(AMethodExecutor);
-  end;
-end;
-
-class function TDefaults.instanceOfMigrationDownMethodExecutor(AMethodExecutor: IMigrationMethodExecutor): IMigrationDownMethodExecutor;
-begin
- if Assigned(FMethodDownExecutor) then
-  begin
-    Result := FMethodDownExecutor;
-  end
-  else
-  begin
-    Result := TMigrationDownMethodExecutor.Create(AMethodExecutor);
-  end;
-end;
-
-class function TDefaults.instanceOfMigrationListOrder(AMethodExecutor: IMigrationMethodExecutor): IMigrationListOrder;
+class function TDefaultInstanceOfMigrationListOrderCreator.getInstance: IMigrationListOrder;
 begin
  if Assigned(FMigrationListOrder) then
   begin
@@ -147,11 +225,13 @@ begin
   end
   else
   begin
-    Result := TMigrationListOrder.Create(AMethodExecutor);
+    Result := TMigrationListOrder.Create;
   end;
 end;
 
-class function TDefaults.instanceOfMigrationsRegister(AMigrationListOrder: IMigrationListOrder): IMigrationsRegister;
+{ TDefaultInstanceOfMigrationsRegisterCreator }
+
+class function TDefaultInstanceOfMigrationsRegisterCreator.getInstance(AMigrationListOrder: IMigrationListOrder): IMigrationsRegister;
 begin
  if Assigned(FMigrationsRegister) then
   begin
@@ -163,10 +243,9 @@ begin
   end;
 end;
 
-class function TDefaults.instanceOfMigrationExecutor(AMigrationsHistory: IMigrationsHistory;
-                                                     AMethodUpExecutor: IMigrationUpMethodExecutor;
-                                                     AMethodDownExecutor: IMigrationDownMethodExecutor;
-                                                     AMethodSetupExecutor: IMigrationSetupMethodExecutor): IMigrationExecutor;
+{ TDefaultInstanceOfMigrationExecutorCreator }
+
+class function TDefaultInstanceOfMigrationExecutorCreator.getInstance(AMigrationsHistory: IMigrationsHistory): IMigrationExecutor;
 begin
  if Assigned(FExecutor) then
   begin
@@ -174,19 +253,7 @@ begin
   end
   else
   begin
-    Result := TMigrationExecutor.Create(AMigrationsHistory, AMethodUpExecutor, AMethodDownExecutor, AMethodSetupExecutor);
-  end;
-end;
-
-class function TDefaults.instanceOfPropertyClassReader: IPropertyClassReader;
-begin
- if Assigned(FReader) then
-  begin
-    Result := FReader;
-  end
-  else
-  begin
-    Result := TPropertyClassReader.Create;
+    Result := TMigrationExecutor.Create(AMigrationsHistory);
   end;
 end;
 

@@ -134,38 +134,62 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="units\interfaces\UGetterMigrationsInterface.pas"/>
-        <DCCReference Include="units\interfaces\URegisterMigrationInterface.pas"/>
-        <DCCReference Include="units\classes\UMigrations.pas"/>
-        <DCCReference Include="units\classes\UMigrationsManager.pas"/>
-        <DCCReference Include="units\interfaces\UMigrationExecutorInterface.pas"/>
-        <DCCReference Include="units\classes\UGetterMigrations.pas"/>
-        <DCCReference Include="units\interfaces\UMigrationsInterface.pas"/>
-        <DCCReference Include="units\classes\URegisterMigration.pas"/>
-        <DCCReference Include="units\classes\UMigrationExecutor.pas"/>
-        <DCCReference Include="units\classes\UMigrationsHistoryItem.pas"/>
-        <DCCReference Include="units\classes\UMigrationsHistory.pas"/>
-        <DCCReference Include="units\interfaces\UMigrationsHistoryInterface.pas"/>
-        <DCCReference Include="units\interfaces\UMigrationSerializerInterface.pas"/>
-        <DCCReference Include="units\classes\UMigrationSerializer.pas"/>
+        <DCCReference Include="units\interfaces\M4D.GetterMigrationsInterface.pas"/>
+        <DCCReference Include="units\interfaces\M4D.RegisterMigrationInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.Migrations.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationsManager.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationExecutorInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.GetterMigrations.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationsInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationExecutor.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationsHistoryItem.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationsHistory.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationsHistoryInterface.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationSerializerInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationSerializer.pas"/>
         <DCCReference Include="units\classes\M4D.pas"/>
-        <DCCReference Include="units\types\UDefs.pas"/>
-        <DCCReference Include="units\classes\UMigrationListOrder.pas"/>
-        <DCCReference Include="units\interfaces\UMigrationListOrderInterface.pas"/>
-        <DCCReference Include="units\classes\UPropertyClassReader.pas"/>
-        <DCCReference Include="units\interfaces\UPropertyClassReaderInterface.pas"/>
-        <DCCReference Include="units\classes\USetupExecutor.pas"/>
-        <DCCReference Include="units\interfaces\USetupExecutorInterface.pas"/>
-        <DCCReference Include="units\interfaces\UMigrationMethodExecutorInterface.pas"/>
-        <DCCReference Include="units\interfaces\UMigrationUpMethodExecutorInterface.pas"/>
-        <DCCReference Include="units\classes\UMigrationMethodExecutor.pas"/>
-        <DCCReference Include="units\classes\UMigrationUpMethodExecutor.pas"/>
-        <DCCReference Include="units\classes\UMigrationDownMethodExecutor.pas"/>
-        <DCCReference Include="units\interfaces\UMigrationDownMethodExecutorInterface.pas"/>
-        <DCCReference Include="units\interfaces\UMigrationsRegisterInterface.pas"/>
-        <DCCReference Include="units\classes\UMigrationsRegister.pas"/>
+        <DCCReference Include="units\types\M4D.Defs.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationListOrder.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationListOrderInterface.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationsRegisterInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationsRegister.pas"/>
         <DCCReference Include="units\classes\M4D.Defaults.pas"/>
-        <DCCReference Include="..\..\..\..\..\Desktop\Nick\Unit1.pas"/>
+        <DCCReference Include="units\classes\M4D.MainMigrationsGetter.pas"/>
+        <DCCReference Include="units\classes\M4D.SequenceMigrationsGetter.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MainMigrationsGetterInterface.pas"/>
+        <DCCReference Include="units\interfaces\M4D.SequenceMigrationsGetterInterface.pas"/>
+        <DCCReference Include="units\interfaces\M4D.DatetimeMigrationsGetterInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.DatetimeMigrationsGetter.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationExecExecutorInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationExecExecutor.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationExecPendingExecutor.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationExecPendingExecutorInterface.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationExecUntilExecutorInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationExecUntilExecutor.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationRollbackExecutorInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationRollbackExecutor.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationRollbackUntilExecutorInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationRollbackUntilExecutor.pas"/>
+        <DCCReference Include="units\interfaces\M4D.HistoryToTextTransformerInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.HistoryToTextTransformer.pas"/>
+        <DCCReference Include="units\interfaces\M4D.TextToHistoryTransformerInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.TextToHistoryTransformer.pas"/>
+        <DCCReference Include="units\interfaces\M4D.HistoryCleanerInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.HistoryCleaner.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationsHistoryLoaderInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationsHistoryLoader.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationsHistoryUnloaderInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationsHistoryUnloader.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationsHistoryAdderInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationsHistoryAdder.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationsHistoryRemoverInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationsHistoryRemover.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationsHistorySaverInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.MigrationsHistorySaver.pas"/>
+        <DCCReference Include="units\interfaces\M4D.LastMigrationsHistoryGetterInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.LastMigrationsHistoryGetter.pas"/>
+        <DCCReference Include="units\interfaces\M4D.HistoryGetterInterface.pas"/>
+        <DCCReference Include="units\classes\M4D.HistoryGetter.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -214,27 +238,12 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployClass Name="DependencyModule">
-                    <Platform Name="Win32">
-                        <Operation>0</Operation>
-                        <Extensions>.dll;.bpl</Extensions>
-                    </Platform>
+                <DeployClass Name="ProjectiOSDeviceResourceRules">
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="OSX32">
-                        <RemoteDir>Contents\MacOS</RemoteDir>
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
-                    </Platform>
-                    <Platform Name="iOSSimulator">
-                        <Operation>1</Operation>
-                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <DeployClass Name="ProjectOSXResource">
@@ -585,12 +594,27 @@
                         <Operation>1</Operation>
                     </Platform>
                 </DeployClass>
-                <DeployClass Name="ProjectiOSDeviceResourceRules">
+                <DeployClass Name="DependencyModule">
+                    <Platform Name="Win32">
+                        <Operation>0</Operation>
+                        <Extensions>.dll;.bpl</Extensions>
+                    </Platform>
                     <Platform Name="iOSDevice64">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="OSX32">
+                        <RemoteDir>Contents\MacOS</RemoteDir>
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                     <Platform Name="iOSDevice32">
                         <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
+                    </Platform>
+                    <Platform Name="iOSSimulator">
+                        <Operation>1</Operation>
+                        <Extensions>.dylib</Extensions>
                     </Platform>
                 </DeployClass>
                 <ProjectRoot Platform="iOSDevice64" Name="$(PROJECTNAME).app"/>
