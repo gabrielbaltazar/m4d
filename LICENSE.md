@@ -6,5 +6,3 @@ Permission is granted to anyone to use this software for any kind of application
 3. This notice may not be removed or altered from any source distribution.
 
 If you have any questions concerning this license contact contato@edgarpavao.com
-
-Copyright (C) 2017-2018 by Edgar Borges Pavão

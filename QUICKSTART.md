@@ -160,4 +160,5 @@ M4D.MigrationManager.Rollback;
 This will cause all migrations to be returned.
 
 ### Conclusion ###
+
 Pretty simple huh? Ready to explore other features?

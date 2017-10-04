@@ -40,7 +40,7 @@ Click [here](quickstart.md) to start using M4D features.
 
 It is free!
 
-For more information, read our more detailed license information.
+For more information, read our [more detailed license information](LICENSE.md).
 
 ### Contact Information ###
 
@@ -49,4 +49,4 @@ Please, let me know that you are using this framework for migrations (M4D). It w
 M4D was developed to people like you enjoy the facilities and empowerment of your application.
 
 * Author: Edgar Borges Pavao
-* Email: m4d@edgarpavao.com
+* Email: m4d@edgarpavao.com 
