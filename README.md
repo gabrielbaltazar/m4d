@@ -33,7 +33,7 @@ With migrations you have:
 
 ### Quick Start ###
 
-Click [here](quickstart.md) to start using M4D features.
+Click [here](QUICKSTART.md) to start using M4D features.
 
 
 ### License Information ###
