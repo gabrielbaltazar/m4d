@@ -106,29 +106,37 @@ Standard builders exist only to facilitate the use of M4D features.
 Within the unit M4D, there are:
 
 > **function MigrationManager: TMigrationsManager; overload;**
+>
 > This function is a singleton that returns the person responsible for managing the migrations.
 
 > **procedure Release;**
+>
 > This procedure destroys the singleton, to avoid any problem with "memory leaks".
 
 Also, as you use the features of M4D, you may find it necessary to pass several parameters. This is a necessity for the dependency inversion approach, which M4D is heavily built. Before you can fully understand the features, so that you have no difficulties in using them, standard builders of these required instances have been added. Inside the M4D.Defaults unit, there are:
 
 > **TDefaultInstanceOfMigrationsSerializerCreator.getInstance**
+>
 > Default serialization object instance builder.
 
 > **TDefaultInstanceOfMigrationsHistoryCreator.getInstance (AMigrationSerializer: IMigrationSerializer): IMigrationsHistory;**
+>
 > Defalut migrations´s history object instance builder.
 
 > **TDefaultInstanceOfMigrationGetterCreator.getInstance: IGetterMigrations;**
+>
 > Instance constructor for obtaining the default migrations.
 
 > **TDefaultInstanceOfMigrationListOrderCreator.getInstance: IMigrationListOrder;**
+>
 >Constructor of the default migration ordering object instance.
 
 > **TDefaultInstanceOfMigrationsRegisterCreator.getInstance (AMigrationListOrder: IMigrationListOrder): IMigrationsRegister;**
+>
 > Instance builder for the default migrations log object.
 
 > **TDefaultInstanceOfMigrationExecutorCreator.getInstance (AMigrationsHistory: IMigrationsHistory): IMigrationExecutor;**
+>
 > Constructor of the instance of the default migrations run object.
 
 ### Getting to work ###
@@ -142,7 +150,7 @@ Let's use the migration itself here above, seen earlier. So you should add it to
 **Step Two: Performing the Migration**
 ```sh
 M4D.MigrationManager.ExecutePending;
-````
+```
 This will cause all migrations not yet executed to run.
 
 **Step Three: Returning the Migration**
