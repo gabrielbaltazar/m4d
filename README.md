@@ -2,31 +2,39 @@
 
 This is the repository of the migration framework for Delphi. 
 
-Migrations are snippets of codes that run on updates of any type. They work as a version control mechanism. Migrations help your source code stay organized, as well as provide rollup and update functionalities.
+### What is M4D? ###
 
-Migration are common in frameworks such as Laravel, for example.
+M4D is the acronym for Migrations for Delphi.
 
-### Setting M4D up? ###
+### What is a migration? ###
 
-To start using the migrations, you will need 3 simple steps.
+A migration is a history of change, usually related to changes in the database. Most applications, especially if it is an enterprise application, have the need to create fields, triggers, procedures and other elements in your database. In addition, it may be necessary to generate auxiliary files within the file system. With migrations, you can manage these updates as well as maintain a history and the possibility of regressing with these migrations, to an earlier step.
 
-First step - simply add these folders in your project's library:
+A migration is a record of an update, whether it is in a database or any other type of update.
 
-units \ classes
-units \ interfaces
-units \ types
+### What are the advantages of using a migration? ###
 
-This will make the compiler to know what is required to compile the migrations.
+It is common for companies developing systems to have a unit with the updates, managing those updates through a handle that determines the version. This, although functional, is not manageable enough, especially if you have a large team that needs to change this unit constantly at the same time. With the migrations, each update has its own unit, giving fluidity in this development. 
 
-Step Two - Create your migration class:
+In addition, updates made in this way are arranged disorganized within the source code, making it difficult to even find and identify a particular update in the future.
 
-Along with the installation of M4D, a wizard is added to the IDE to speed up the creation of the migration class, with everything needed for its operation.
+With migrations you have:
 
-Step Three - Record your migration class:
+* Management and organization of updates.
+* History of updates.
+* Possibility of returning the updates.
+* Greater integration between the development team.
 
-The registration of the migration class is very simple, and done through the call of the RegisterMigration (TMigrationClass) method. You can do it anytime you need it, and together are some examples of how we suggest doing it.
+### Why use M4D? ###
 
-Once done, simply use the migration manager to simply move forward or return with the migrations. Simple, is not it?
+1. You have all the power of control of updates that a migration tool makes possible.
+2. We believe that M4D has a good design enough to give the necessary flexibility to your projects.
+3. It's free.
+
+### Quick Start ###
+
+Click [here](quickstart.md) to start using M4D features.
+
 
 ### License Information ###
 
