@@ -4,7 +4,7 @@
 
 Below are all project classes. Most are very simple, following the principle of **"Single Responsibility"**, which explains the number of classes below. However, for some cases, a class has more than one responsibility. These are the front-end classes for the user, which make migration functionalities easier and faster.
 
-**[TDefaultInstanceOfMigrationsSerializerCreator](TDefaultInstanceOfMigrationsSerializerCreator.md)**
+**[TDefaultInstanceOfMigrationsSerializerCreator](Classes/TDefaultInstanceOfMigrationsSerializerCreator.md)**
 >Responsability: Get the default instance of migration´s serializer object
 
 **[TDefaultInstanceOfMigrationsHistoryCreator](TDefaultInstanceOfMigrationsHistoryCreator.md)**
