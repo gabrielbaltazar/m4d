@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationsRegister** ## 
+
+## Class **TMigrationsRegister**
 
 **Unit name:** M4D.MigrationsRegister
+
 **Description:** Standard implementation of the migration´s register.
+
 **Responsability:** Register a migration.
 
 ## Interface ##

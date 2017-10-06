@@ -1,8 +1,9 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TDefaultInstanceOfMigrationsHistoryCreator** ## 
+## Class **TDefaultInstanceOfMigrationsHistoryCreator**
 
 **Unit name:** M4D.Defaults
+
 **Description:** This is a class used to provide a default instance of IMigrationsHistory.
+
 **Responsability:** Get the default instance of migration´s history object.
 
 ## Interface ##

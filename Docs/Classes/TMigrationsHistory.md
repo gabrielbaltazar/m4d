@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationsHistory** ## 
+
+## Class **TMigrationsHistory** 
 
 **Unit name:** M4D.MigrationsHistory
+
 **Description:** Standard class for handling information about the history of migrations´s executions.
+
 **Responsability:** Handle informations about the history of migrations´s executions.
 
 ## Interface ##

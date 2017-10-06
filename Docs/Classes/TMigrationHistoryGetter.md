@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationHistoryGetter** ## 
+
+## Class **TMigrationHistoryGetter** 
 
 **Unit name:** M4D.HistoryGetter
+
 **Description:** Standard class to get a migration from the migration´s history.
+
 **Responsability:** Get a migration from the history of migrations.
 
 ## Interface ##

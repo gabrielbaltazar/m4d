@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationsHistoryItem** ## 
+
+## Class **TMigrationsHistoryItem**
 
 **Unit name:** M4D.MigrationsHistoryItem
+
 **Description:** Standard class for storing information about the execution of migration.
+
 **Responsability:** Stores information about the execution of migration.
 
 ## Interface ##

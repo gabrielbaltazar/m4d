@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationExecPendingExecutor** ## 
+
+## Class **TMigrationExecPendingExecutor**
 
 **Unit name:** M4D.MigrationExecPendingExecutor
+
 **Description:** Standard class to execute pending´s migrations.
+
 **Responsability:** Handle the list to know what is pendind and call for execution.
 
 ## Interface ##

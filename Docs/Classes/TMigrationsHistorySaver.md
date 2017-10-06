@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationsHistorySaver** ## 
+
+## Class **TMigrationsHistorySaver** 
 
 **Unit name:** M4D.MigrationsHistorySaver
+
 **Description:** Standard class to save the migration´s history.
+
 **Responsability:** Save the history of migrations.
 
 ## Interface ##

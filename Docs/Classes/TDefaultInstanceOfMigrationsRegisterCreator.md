@@ -1,8 +1,9 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TDefaultInstanceOfMigrationsRegisterCreator** ## 
+## Class **TDefaultInstanceOfMigrationsRegisterCreator**
 
 **Unit name:** M4D.Defaults
+
 **Description:** This is a class used to provide a default instance of IMigrationsRegister.
+
 **Responsability:** Get the default instance of migration´s register object.
 
 ## Interface ##

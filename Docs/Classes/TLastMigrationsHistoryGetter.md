@@ -1,8 +1,9 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TLastMigrationsHistoryGetter** ## 
+## Class **TLastMigrationsHistoryGetter** 
 
 **Unit name:** M4D.LastMigrationsHistoryGetter
+
 **Description:** Standard class to get the last migration from the migration´s history.
+
 **Responsability:** Get the last migration from the history of migrations.
 
 ## Interface ##

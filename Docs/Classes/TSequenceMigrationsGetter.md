@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TSequenceMigrationsGetter** ## 
+
+## Class **TSequenceMigrationsGetter** 
 
 **Unit name:** M4D.SequenceMigrationsGetter
+
 **Description:** Standard class to get a list of registered´s migration base on the sequence.
+
 **Responsability:** Get a subset os items from a inputted list, based on the sequence start parameter.
 
 ## Interface ##

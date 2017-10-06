@@ -1,8 +1,9 @@
-[Back](CLASS_REFERENCES.md)
-## Class **THistoryCleaner** ## 
+## Class **THistoryCleaner**
 
 **Unit name:** M4D.HistoryCleaner
+
 **Description:** Standard class for clear the history of migrations´s executions.
+
 **Responsability:** Clear the history of migrations´s executions.
 
 ## Interface ##

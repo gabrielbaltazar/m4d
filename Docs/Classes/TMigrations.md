@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrations** ## 
+
+## Class **TMigrations** 
 
 **Unit name:** M4D.Migrations
+
 **Description:** Standard implementation of the migration.
+
 **Responsability:** Be a set of updates.
 
 ## Interface ##

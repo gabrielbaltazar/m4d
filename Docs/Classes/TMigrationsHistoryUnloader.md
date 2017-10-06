@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationsHistoryUnloader** ## 
+
+## Class **TMigrationsHistoryUnloader** 
 
 **Unit name:** M4D.MigrationsHistoryUnloader
+
 **Description:** Standard class to unload migration´s history.
+
 **Responsability:** Unload the history of migrations.
 
 ## Interface ##

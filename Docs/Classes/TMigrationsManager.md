@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationsManager** ## 
+
+## Class **TMigrationsManager** 
 
 **Unit name:** M4D.MigrationsManager
+
 **Description:** Standard implementation of the migration´s manager.
+
 **Responsability:** Provide centralized migration features.
 
 ## Interface ##

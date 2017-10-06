@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationListOrder** ## 
+
+## Class **TMigrationListOrder** 
 
 **Unit name:** M4D.MigrationListOrder
+
 **Description:** Standard class to handle the order of the migration list.
+
 **Responsability:** Provide a migration sort mechanism.
 
 ## Interface ##

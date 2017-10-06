@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationSerializer** ## 
+
+## Class **TMigrationSerializer** 
 
 **Unit name:** M4D.MigrationSerializer
+
 **Description:** Standard class to convert between string values and history items.
+
 **Responsability:** Performs converters between string values and history items.
 
 ## Interface ##

@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationExecExecutor** ## 
+
+## Class **TMigrationExecExecutor**
 
 **Unit name:** M4D.MigrationExecExecutor
+
 **Description:** Standard class to execute migrations.
+
 **Responsability:** Execute the up method of a migration.
 
 ## Interface ##

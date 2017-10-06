@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TTextToHistoryTransformer** ## 
+
+## Class **TTextToHistoryTransformer** 
 
 **Unit name:** M4D.TextToHistoryTransformer
+
 **Description:** Standard class to convert from string value to history item.
+
 **Responsability:** Performs converters between string values to history items.
 
 ## Interface ##

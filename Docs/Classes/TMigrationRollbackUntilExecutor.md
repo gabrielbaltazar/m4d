@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationRollbackUntilExecutor** ## 
+
+## Class **TMigrationRollbackUntilExecutor** 
 
 **Unit name:** M4D.MigrationRollbackUntilExecutor
+
 **Description:** Standar class to execute the rollback of migrations until a specif sequence.
+
 **Responsability:** Handle a migration´s list and call for rollback execution.
 
 ## Interface ##

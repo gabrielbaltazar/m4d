@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationExecUntilExecutor** ## 
+
+## Class **TMigrationExecUntilExecutor** 
 
 **Unit name:** M4D.MigrationExecUntilExecutor
+
 **Description:** Standar class to execute the migrations until a specif sequence.
+
 **Responsability:** Call for migration´s execution until a specific sequence.
 
 ## Interface ##

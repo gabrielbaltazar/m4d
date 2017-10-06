@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationsHistoryAdder** ## 
+
+## Class **TMigrationsHistoryAdder** 
 
 **Unit name:** M4D.MigrationsHistoryAdder
+
 **Description:** Standard class to add a migration into a migration´s history.
+
 **Responsability:** Add a migration into the history of migrations.
 
 ## Interface ##

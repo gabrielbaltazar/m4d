@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMainMigrationsGetter** ## 
+
+## Class **TMainMigrationsGetter**
 
 **Unit name:** M4D.MainMigrationsGetter
+
 **Description:** Standard base class to get a list of registered´s migration.
+
 **Responsability:** Be a base class to get a subset os items from a inputted list, based on the start parameter.
 
 ## Interface ##

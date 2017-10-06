@@ -1,8 +1,10 @@
-[Back](CLASS_REFERENCES.md)
-## Class **TMigrationsHistoryRemover** ## 
+
+## Class **TMigrationsHistoryRemover** 
 
 **Unit name:** M4D.MigrationsHistoryRemover
+
 **Description:** Standard class to remove a migration into a migration´s history.
+
 **Responsability:** Remove a migration into the history of migrations.
 
 ## Interface ##

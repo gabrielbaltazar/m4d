@@ -1,7 +1,9 @@
 ## Class **TDefaultInstanceOfMigrationsSerializerCreator**
 
 **Unit name:** M4D.Defaults
+
 **Description:** This is a class used to provide a default instance of IMigrationSerializer.
+
 **Responsability:** Get the default instance of migration´s serializer object.
 
 ## Interface ##
