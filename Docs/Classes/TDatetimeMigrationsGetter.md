@@ -2,7 +2,9 @@
 ## Class **TDatetimeMigrationsGetter** ## 
 
 **Unit name:** M4D.DatetimeMigrationsGetter
+
 **Description:** Standard class to get a list of registered´s migration base on the sequence.
+
 **Responsability:** Get a subset of items from a inputted list, based on the start parameter.
 
 ## Interface ##

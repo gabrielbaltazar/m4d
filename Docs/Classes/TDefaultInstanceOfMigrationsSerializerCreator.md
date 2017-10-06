@@ -1,4 +1,5 @@
-[Back](CLASS_REFERENCES.md)
+[Back](../CLASS_REFERENCES.md)
+
 ## Class **TDefaultInstanceOfMigrationsSerializerCreator** ## 
 
 **Unit name:** M4D.Defaults
