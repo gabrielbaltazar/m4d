@@ -7,7 +7,7 @@ Below are all project classes. Most are very simple, following the principle of 
 **[TDefaultInstanceOfMigrationsSerializerCreator](Classes/TDefaultInstanceOfMigrationsSerializerCreator.md)**
 >Responsability: Get the default instance of migration´s serializer object
 
-**[TDefaultInstanceOfMigrationsHistoryCreator](TDefaultInstanceOfMigrationsHistoryCreator.md)**
+**[TDefaultInstanceOfMigrationsHistoryCreator](Classes/TDefaultInstanceOfMigrationsHistoryCreator.md)**
 >Responsability: Get the default instance of migration´s history object.
 
 **[TDefaultInstanceOfMigrationGetterCreator](TDefaultInstanceOfMigrationGetterCreator.md)**
