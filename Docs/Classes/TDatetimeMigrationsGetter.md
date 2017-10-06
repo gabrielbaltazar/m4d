@@ -1,4 +1,3 @@
-[Back](CLASSES_REFERENCE.md)
 ## Class **TDatetimeMigrationsGetter** ## 
 
 **Unit name:** M4D.DatetimeMigrationsGetter
