@@ -33,14 +33,17 @@ With migrations you have:
 
 ### Quick Start ###
 
-Click [here](QUICKSTART.md) to start using M4D features.
+Click [here](Docs/QUICKSTART.md) to start using M4D features.
 
+### Documentation ###
+
+You can access the documentation [here](Docs/DOCUMENTATION.md).
 
 ### License Information ###
 
 It is free!
 
-For more information, read our [more detailed license information](LICENSE.md).
+For more information, read our [more detailed license information](Docs/LICENSE.md).
 
 ### Contact Information ###
 

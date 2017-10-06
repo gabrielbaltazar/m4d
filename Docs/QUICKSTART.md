@@ -1,3 +1,5 @@
+[Back](DOCUMENTATION.md)
+
 ### Quick Start ###
 
 So you decided to use M4D? Good!
