@@ -1,4 +1,4 @@
-## Class **TDatetimeMigrationsGetter** ## 
+## Class **TDatetimeMigrationsGetter**
 
 **Unit name:** M4D.DatetimeMigrationsGetter
 
