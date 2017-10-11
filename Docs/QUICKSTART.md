@@ -163,4 +163,4 @@ This will cause all migrations to be returned.
 
 ### Conclusion ###
 
-Pretty simple huh? Ready to explore other features?
+Pretty simple huh? Ready to [explore other features](M4D_ARCHITECTURE.md)?

@@ -27,9 +27,11 @@ With migrations you have:
 
 ### Why use M4D? ###
 
-1. You have all the power of control of updates that a migration tool makes possible.
-2. We believe that M4D has a good design enough to give the necessary flexibility to your projects.
-3. It's free.
+1. It´s simple.
+2. It´s easy.
+3. It´s free.
+4. You have all the power of control of updates that a migration tool makes possible.
+5. We believe that M4D has a good design enough to give the necessary flexibility to your projects.
 
 ### Quick Start ###
 
