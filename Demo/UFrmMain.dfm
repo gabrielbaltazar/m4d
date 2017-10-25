@@ -22,6 +22,34 @@ object Form2: TForm2
     Align = alLeft
     BevelOuter = bvNone
     TabOrder = 0
+    object Label1: TLabel
+      Left = 18
+      Top = 223
+      Width = 24
+      Height = 13
+      Caption = 'Start'
+    end
+    object Label2: TLabel
+      Left = 100
+      Top = 223
+      Width = 18
+      Height = 13
+      Caption = 'End'
+    end
+    object Label3: TLabel
+      Left = 18
+      Top = 439
+      Width = 24
+      Height = 13
+      Caption = 'Start'
+    end
+    object Label4: TLabel
+      Left = 100
+      Top = 439
+      Width = 18
+      Height = 13
+      Caption = 'End'
+    end
     object btnExecuteAll: TButton
       Left = 18
       Top = 72
@@ -42,7 +70,7 @@ object Form2: TForm2
     end
     object btnRollbackAll: TButton
       Left = 18
-      Top = 192
+      Top = 288
       Width = 153
       Height = 25
       Caption = 'Rollback all migrations'
@@ -60,7 +88,7 @@ object Form2: TForm2
     end
     object btnRollbackUntil: TButton
       Left = 18
-      Top = 223
+      Top = 319
       Width = 153
       Height = 25
       Caption = 'Rollback Until'
@@ -69,7 +97,7 @@ object Form2: TForm2
     end
     object edtSeqToRollback: TEdit
       Left = 18
-      Top = 254
+      Top = 350
       Width = 153
       Height = 21
       TabOrder = 5
@@ -89,6 +117,65 @@ object Form2: TForm2
       Width = 153
       Height = 21
       TabOrder = 7
+    end
+    object Button1: TButton
+      Left = 18
+      Top = 377
+      Width = 153
+      Height = 25
+      Caption = 'Rollback pending migrations'
+      TabOrder = 8
+      OnClick = Button1Click
+    end
+    object btnExecuteRange: TButton
+      Left = 18
+      Top = 192
+      Width = 153
+      Height = 25
+      Caption = 'Execute Range'
+      TabOrder = 9
+      OnClick = btnExecuteRangeClick
+    end
+    object btnRollbackRange: TButton
+      Left = 18
+      Top = 408
+      Width = 153
+      Height = 25
+      Caption = 'Rollback Range'
+      TabOrder = 10
+      OnClick = btnRollbackRangeClick
+    end
+    object edtStartExecute: TEdit
+      Left = 18
+      Top = 241
+      Width = 71
+      Height = 21
+      TabOrder = 11
+      Text = '1'
+    end
+    object edtEndExecute: TEdit
+      Left = 100
+      Top = 241
+      Width = 71
+      Height = 21
+      TabOrder = 12
+      Text = '1'
+    end
+    object edtStartRollback: TEdit
+      Left = 18
+      Top = 457
+      Width = 71
+      Height = 21
+      TabOrder = 13
+      Text = '1'
+    end
+    object edtEndRollback: TEdit
+      Left = 98
+      Top = 457
+      Width = 71
+      Height = 21
+      TabOrder = 14
+      Text = '1'
     end
   end
   object pnlRigth: TPanel

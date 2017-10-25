@@ -7,6 +7,7 @@ uses
   M4D.MigrationSerializerInterface, M4D.MigrationsHistoryItem;
 
 type
+  [TestFixture]
   TestMigrationsHistorySaver = class
   private
     FHistoryList: TObjectList<TMigrationsHistoryItem>;

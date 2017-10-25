@@ -3,13 +3,17 @@ unit M4DTest.LastMigrationsHistoryGetter;
 interface
 
 uses
-  DUnitX.TestFramework, System.Generics.Collections, M4D.MigrationsHistoryItem;
+  DUnitX.TestFramework, System.Generics.Collections, M4D.MigrationsHistoryItem,
+  System.Generics.Defaults;
 
 type
+  [TestFixture]
   TestLastMigrationsHistoryGetter = class
   private
     FItem: TMigrationsHistoryItem;
     FHistoryList: TObjectList<TMigrationsHistoryItem>;
+    FComparison: TComparison<TMigrationsHistoryItem>;
+    FCompare: IComparer<TMigrationsHistoryItem>;
 
     procedure CreateGetterWithNoHistory;
   public
@@ -26,7 +30,8 @@ type
 implementation
 
 uses
-  M4D.LastMigrationsHistoryGetterInterface, M4D.LastMigrationsHistoryGetter;
+  M4D.LastMigrationsHistoryGetterInterface, M4D.LastMigrationsHistoryGetter,
+  System.SysUtils;
 
 { TestLastMigrationsHistoryGetter }
 
@@ -55,7 +60,13 @@ end;
 
 procedure TestLastMigrationsHistoryGetter.Setup;
 begin
-  FHistoryList := TObjectList<TMigrationsHistoryItem>.Create;
+  FComparison := function(const Left, Right: TMigrationsHistoryItem): Integer
+                 begin
+                   Result := Left.MigrationSeq - Right.MigrationSeq;
+                 end;
+
+  FCompare := TComparer<TMigrationsHistoryItem>.Construct(FComparison) as TDelegatedComparer<TMigrationsHistoryItem>;
+  FHistoryList := TObjectList<TMigrationsHistoryItem>.Create(FCompare);
 
   FItem := TMigrationsHistoryItem.Create;
   FItem.MigrationSeq := 1;
@@ -71,7 +82,7 @@ end;
 procedure TestLastMigrationsHistoryGetter.TearDown;
 begin
   FHistoryList.Clear;
-  if Assigned(FHistoryList) then FHistoryList.Free;
+  if Assigned(FHistoryList) then FreeAndNil(FHistoryList);
 end;
 
 initialization

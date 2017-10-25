@@ -21,6 +21,9 @@ type
     /// <Description>
     ///  Standard class to handle the order of the migration list.
     /// </Description>
+    /// <Responsability>
+    ///  Provide a migration sort mechanism.
+    /// </Responsability>
     /// <Note>
     ///  Information from undocumented methods can be found directly on the interfaces
     ///  from which they come.

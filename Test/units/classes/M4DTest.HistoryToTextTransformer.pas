@@ -6,6 +6,7 @@ uses
   DUnitX.TestFramework, M4D.MigrationsHistoryItem;
 
 type
+  [TestFixture]
   TestHistoryToTextTransformer = class
   private
     const

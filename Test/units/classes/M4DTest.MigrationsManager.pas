@@ -9,6 +9,7 @@ uses
   M4D.MigrationsRegisterInterface, M4D.MigrationsManager;
 
 type
+  [TestFixture]
   TestMigrationsManager = class
   private
     FMigrationSerializer: IMigrationSerializer;
@@ -37,9 +38,13 @@ type
     [Test]
     procedure CheckExecuteUntil;
     [Test]
+    procedure CheckExecuteRange;
+    [Test]
     procedure CheckRollback;
     [Test]
     procedure CheckRollbackUntil;
+    [Test]
+    procedure CheckRollbackRange;
     [Test]
     procedure CheckMigrationInfo;
     [Test]
@@ -82,6 +87,19 @@ begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
     MigrationsManager.ExecutePending;
+    Assert.Pass('If get in this point, works well.');
+  finally
+    MigrationsManager.Free;
+  end;
+end;
+
+procedure TestMigrationsManager.CheckExecuteRange;
+var
+  MigrationsManager: TMigrationsManager;
+begin
+  MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
+  try
+    MigrationsManager.ExecuteRange(1, 1);
     Assert.Pass('If get in this point, works well.');
   finally
     MigrationsManager.Free;
@@ -164,7 +182,7 @@ var
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
-    Assert.isTrue(Assigned(MigrationsManager.MigrationHistory), 'The return of MigrationsManager.MigrationHistory was not assigned.');
+    Assert.isTrue(Assigned(MigrationsManager.MigrationsHistory), 'The return of MigrationsManager.MigrationHistory was not assigned.');
   finally
     MigrationsManager.Free;
   end;
@@ -201,6 +219,19 @@ begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
     MigrationsManager.Rollback;
+    Assert.Pass('If get in this point, works well.');
+  finally
+    MigrationsManager.Free;
+  end;
+end;
+
+procedure TestMigrationsManager.CheckRollbackRange;
+var
+  MigrationsManager: TMigrationsManager;
+begin
+  MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
+  try
+    MigrationsManager.RollbackRange(1, 1);
     Assert.Pass('If get in this point, works well.');
   finally
     MigrationsManager.Free;

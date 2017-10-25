@@ -21,6 +21,9 @@ type
     /// <Description>
     ///  Convert history item to string value.
     /// </Description>
+    /// <Responsability>
+    ///  Performs converters between history items to string values.
+    /// </Responsability>
     /// <Note>
     ///  Information from undocumented methods can be found directly on the interfaces
     ///  from which they come.

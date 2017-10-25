@@ -8,7 +8,9 @@ uses
   {$ELSE}
     Vcl.Dialogs,
   {$ENDIF}
+  M4D,
   M4D.Migrations,
+  M4D.Defaults,
   UDBRegisterMigration;
 
 
@@ -23,7 +25,8 @@ type
 implementation
 
 uses
-  System.SysUtils, UDMDBDemo, FireDAC.Comp.Client, UDBMigrationHistory;
+  System.SysUtils, UDMDBDemo, FireDAC.Comp.Client, UDBMigrationHistory,
+  M4D.MigrationsHistoryInterface;
 
 { TMDescription1 }
 
@@ -61,8 +64,26 @@ begin
 
   ShowMessage('Just finish rollback of sequence 1 down!');
 end;
-
+{
+var
+  History: IMigrationsHistory;
+}
 initialization
+{
+  You can use a new register method to simplify (I prefer)
+}
   DBRegisterMigration(TMCreateTables);
 
+{
+
+  or you can implement direct here, but be careful with memory management.
+
+  History := TDBMigrationsHistory.Create(DMDBDemo.getConnection);
+
+  M4D.RegisterMigration(TMCreateTables,
+                        History,
+                        TDefaultInstanceOfMigrationGetterCreator.getInstance,
+                        TDefaultInstanceOfMigrationsRegisterCreator.getInstance(TDefaultInstanceOfMigrationListOrderCreator.getInstance),
+                        TDefaultInstanceOfMigrationExecutorCreator.getInstance(History));
+}
 end.

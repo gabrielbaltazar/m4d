@@ -7,6 +7,7 @@ uses
   M4D.MainMigrationsGetterInterface;
 
 type
+  [TestFixture]
   TestSequenceMigrationsGetter = class
   private
     FAux: TObject;

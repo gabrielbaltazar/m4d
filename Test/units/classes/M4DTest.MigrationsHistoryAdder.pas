@@ -7,6 +7,7 @@ uses
   System.Generics.Defaults;
 
 type
+  [TestFixture]
   TestMigrationsHistoryAdder = class
   private
     FComparison: TComparison<TMigrationsHistoryItem>;

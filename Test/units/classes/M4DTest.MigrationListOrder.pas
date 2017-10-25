@@ -6,6 +6,7 @@ uses
   DUnitX.TestFramework;
 
 type
+  [TestFixture]
   TestMigrationListOrder = class
   public
     [Test]

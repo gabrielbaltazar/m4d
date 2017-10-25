@@ -6,6 +6,7 @@ uses
   DUnitX.TestFramework;
 
 type
+  [TestFixture]
   TestMigrationsHistoryItem = class
   private
     const

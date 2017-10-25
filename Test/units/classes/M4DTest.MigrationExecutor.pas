@@ -7,6 +7,7 @@ uses
   M4D.MigrationsHistoryItem, M4D.MigrationExecExecutorInterface;
 
 type
+  [TestFixture]
   TestMigrationExecutor = class
   private
     FMigrationsList: TList<TClass>;

@@ -21,8 +21,11 @@ uses
 type
   {$REGION 'TMigrationRollbackUntilExecutor'}
     /// <Description>
-    ///  Standar class to execute the rollback of migrations until a specif sequence.
+    ///  Standard class to execute the rollback of migrations until a specif sequence.
     /// </Description>
+    /// <Responsability>
+    ///  Handle a migration´s list and call for rollback execution.
+    /// </Responsability>
     /// <Note>
     ///  Information from undocumented methods can be found directly on the interfaces
     ///  from which they come.
@@ -94,7 +97,6 @@ begin
     begin
       if LList.Count > 0 then
       begin
-//        Self.Rollback(LList, AMigrationHistory);
         FMigrationRollbackExecutor.Rollback(LList, AMigrationHistory);
         if Assigned(LList) then FreeAndNil(LList);
       end;

@@ -6,6 +6,7 @@ uses
   DUnitX.TestFramework, System.Generics.Collections, M4D.MigrationsHistoryItem;
 
 type
+  [TestFixture]
   TestMigrationHistoryGetter = class
   private
     FHistoryList: TObjectList<TMigrationsHistoryItem>;

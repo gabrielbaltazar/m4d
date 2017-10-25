@@ -23,6 +23,9 @@ type
     /// <Description>
     ///  This is a class used to provide a default instance of IMigrationSerializer.
     /// </Description>
+    /// <Responsability>
+    ///  Get the default instance of migration큦 serializer object.
+    /// </Responsability>
     /// <KeyWords>Default</KeyWords>
   {$ENDREGION}
   TDefaultInstanceOfMigrationsSerializerCreator = class
@@ -46,6 +49,9 @@ type
     /// <Description>
     ///  This is a class used to provide a default instance of IMigrationsHistory.
     /// </Description>
+    /// <Responsability>
+    ///  Get the default instance of migration큦 history object.
+    /// </Responsability>
     /// <KeyWords>Default</KeyWords>
   {$ENDREGION}
   TDefaultInstanceOfMigrationsHistoryCreator = class
@@ -74,6 +80,9 @@ type
     /// <Description>
     ///  This is a class used to provide a default instance of IGetterMigrations.
     /// </Description>
+    /// <Responsability>
+    ///  Get the default instance of migration큦 getter object.
+    /// </Responsability>
     /// <KeyWords>Default</KeyWords>
   {$ENDREGION}
   TDefaultInstanceOfMigrationGetterCreator = class
@@ -97,6 +106,9 @@ type
     /// <Description>
     ///  This is a class used to provide a default instance of IMigrationListOrder.
     /// </Description>
+    /// <Responsability>
+    ///  Get the default instance of migration큦 list order object.
+    /// </Responsability>
     /// <KeyWords>Default</KeyWords>
   {$ENDREGION}
   TDefaultInstanceOfMigrationListOrderCreator = class
@@ -120,6 +132,9 @@ type
     /// <Description>
     ///  This is a class used to provide a default instance of IMigrationsRegister.
     /// </Description>
+    /// <Responsability>
+    ///  Get the default instance of migration큦 register object.
+    /// </Responsability>
     /// <KeyWords>Default</KeyWords>
   {$ENDREGION}
   TDefaultInstanceOfMigrationsRegisterCreator = class
@@ -142,6 +157,15 @@ type
     class function getInstance(AMigrationListOrder: IMigrationListOrder): IMigrationsRegister;
   end;
 
+  {$REGION 'TDefaultInstanceOfMigrationExecutorCreator'}
+    /// <Description>
+    ///  This is a class used to provide a default instance of IMigrationExecutor.
+    /// </Description>
+    /// <Responsability>
+    ///  Get the default instance of migration큦 executor object.
+    /// </Responsability>
+    /// <KeyWords>Default</KeyWords>
+  {$ENDREGION}
 type
   TDefaultInstanceOfMigrationExecutorCreator = class
   private

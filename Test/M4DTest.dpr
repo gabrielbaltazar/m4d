@@ -40,7 +40,9 @@ uses
   M4DTest.MigrationsHistoryRemover in 'units\classes\M4DTest.MigrationsHistoryRemover.pas',
   M4DTest.MigrationsHistorySaver in 'units\classes\M4DTest.MigrationsHistorySaver.pas',
   M4DTest.LastMigrationsHistoryGetter in 'units\classes\M4DTest.LastMigrationsHistoryGetter.pas',
-  M4DTest.HistoryGetter in 'units\classes\M4DTest.HistoryGetter.pas';
+  M4DTest.HistoryGetter in 'units\classes\M4DTest.HistoryGetter.pas',
+  M4DTest.MigrationExecRangeExecutor in 'units\classes\M4DTest.MigrationExecRangeExecutor.pas',
+  M4DTest.MigrationRollbackRangeExecutor in 'units\classes\M4DTest.MigrationRollbackRangeExecutor.pas';
 
 var
   runner : ITestRunner;

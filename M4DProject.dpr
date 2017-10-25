@@ -71,7 +71,13 @@ uses
   M4D.LastMigrationsHistoryGetterInterface in 'units\interfaces\M4D.LastMigrationsHistoryGetterInterface.pas',
   M4D.LastMigrationsHistoryGetter in 'units\classes\M4D.LastMigrationsHistoryGetter.pas',
   M4D.HistoryGetterInterface in 'units\interfaces\M4D.HistoryGetterInterface.pas',
-  M4D.HistoryGetter in 'units\classes\M4D.HistoryGetter.pas';
+  M4D.HistoryGetter in 'units\classes\M4D.HistoryGetter.pas',
+  M4D.MigrationRollbackPendingExecutorInterface in 'units\interfaces\M4D.MigrationRollbackPendingExecutorInterface.pas',
+  M4D.MigrationRollbackPendingExecutor in 'units\classes\M4D.MigrationRollbackPendingExecutor.pas',
+  M4D.MigrationExecRangeExecutorInterface in 'units\interfaces\M4D.MigrationExecRangeExecutorInterface.pas',
+  M4D.MigrationExecRangeExecutor in 'units\classes\M4D.MigrationExecRangeExecutor.pas',
+  M4D.MigrationRollbackRangeExecutorInterface in 'units\interfaces\M4D.MigrationRollbackRangeExecutorInterface.pas',
+  M4D.MigrationRollbackRangeExecutor in 'units\classes\M4D.MigrationRollbackRangeExecutor.pas';
 
 begin
   try

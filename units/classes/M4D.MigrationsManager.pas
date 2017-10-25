@@ -35,6 +35,9 @@ type
     /// <Description>
     ///  Standard implementation of the migration´s manager.
     /// </Description>
+    /// <Responsability>
+    ///  Provide centralized migration features.
+    /// </Responsability>
     /// <Note>
     ///  Information from undocumented methods can be found directly on the interfaces
     ///  from which they come.
@@ -52,11 +55,14 @@ type
     procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory); overload;
     procedure ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory); overload;
     procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory); overload;
+    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer); overload;
 
     procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory); overload;
+    procedure RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory); overload;
     procedure RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory); overload;
+    procedure RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer); overload;
 
-    function getMigrationHistory: IMigrationsHistory;
+//    function getMigrationHistory: IMigrationsHistory;
   public
     constructor Create(AMigrationsHistory: IMigrationsHistory; AGetterMigration: IGetterMigrations; AMigrationsRegister: IMigrationsRegister; AMigrationExecutor: IMigrationExecutor); reintroduce; overload;
     constructor Create; overload;
@@ -77,13 +83,16 @@ type
     procedure Execute; overload;
     procedure ExecutePending; overload;
     procedure ExecuteUntil(AMigrationSequence: Integer); overload;
+    procedure ExecuteRange(AStartMigrationSequence: Integer; AEndMigrationSequence: Integer); overload;
 
     procedure Rollback; overload;
+    procedure RollbackPending; overload;
     procedure RollbackUntil(AMigrationSequence: Integer); overload;
+    procedure RollbackRange(AStartMigrationSequence: Integer; AEndMigrationSequence: Integer); overload;
 
     function MigrationInfo(AClass: TClass): IMigration;
   published
-    property MigrationHistory: IMigrationsHistory read getMigrationHistory;
+//    property MigrationHistory: IMigrationsHistory read getMigrationHistory;
     property MigrationsRegister: IMigrationsRegister read FMigrationsRegister;
     property GetterMigration: IGetterMigrations read FGetterMigration;
     property MigrationsHistory: IMigrationsHistory read FMigrationsHistory;
@@ -172,6 +181,16 @@ begin
   Self.ExecutePending(FMigrationsRegister.Migrations, Item, FMigrationsHistory);
 end;
 
+procedure TMigrationsManager.ExecuteRange(AStartMigrationSequence, AEndMigrationSequence: Integer);
+begin
+  Self.ExecuteRange(FMigrationsRegister.Migrations, FMigrationsHistory, AStartMigrationSequence, AEndMigrationSequence);
+end;
+
+procedure TMigrationsManager.ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence, AEndMigrationSequence: Integer);
+begin
+  FMigrationExecutor.ExecuteRange(AMigrationsList, AMigrationHistory, AStartMigrationSequence, AEndMigrationSequence);
+end;
+
 procedure TMigrationsManager.ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
 begin
   FMigrationExecutor.ExecuteUntil(AMigrationsList, AMigrationSequence, AMigrationHistory);
@@ -187,15 +206,15 @@ begin
   FMigrationExecutor.Execute(AMigrationsList, AMigrationHistory);
 end;
 
-function TMigrationsManager.getMigrationHistory: IMigrationsHistory;
-begin
-  Result := nil;
-
-  if Assigned(FMigrationExecutor) then
-  begin
-    Result := FMigrationExecutor.MigrationHistory;
-  end;
-end;
+//function TMigrationsManager.getMigrationHistory: IMigrationsHistory;
+//begin
+//  Result := nil;
+//
+//  if Assigned(FMigrationExecutor) then
+//  begin
+//    Result := FMigrationExecutor.MigrationHistory;
+//  end;
+//end;
 
 function TMigrationsManager.MigrationInfo(AClass: TClass): IMigration;
 var
@@ -233,6 +252,29 @@ end;
 procedure TMigrationsManager.Rollback;
 begin
   Self.Rollback(FMigrationsRegister.Migrations, FMigrationsHistory);
+end;
+
+procedure TMigrationsManager.RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory);
+begin
+  FMigrationExecutor.RollbackPending(AMigrationsList, ALastMigration, AMigrationHistory);
+end;
+
+procedure TMigrationsManager.RollbackPending;
+var
+  Item: TMigrationsHistoryItem;
+begin
+  Item := FMigrationsHistory.LastMigration;
+  Self.RollbackPending(FMigrationsRegister.Migrations, Item, FMigrationsHistory);
+end;
+
+procedure TMigrationsManager.RollbackRange(AStartMigrationSequence, AEndMigrationSequence: Integer);
+begin
+  Self.RollbackRange(FMigrationsRegister.Migrations, FMigrationsHistory, AStartMigrationSequence, AEndMigrationSequence);
+end;
+
+procedure TMigrationsManager.RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence, AEndMigrationSequence: Integer);
+begin
+  FMigrationExecutor.RollbackRange(AMigrationsList, AMigrationHistory, AStartMigrationSequence, AEndMigrationSequence);
 end;
 
 procedure TMigrationsManager.RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);

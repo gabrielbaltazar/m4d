@@ -8,6 +8,7 @@ uses
   M4D.MigrationExecExecutorInterface;
 
 type
+  [TestFixture]
   TestMigrationExecPendingExecutor = class
   private
     FMigrationsList: TList<TClass>;

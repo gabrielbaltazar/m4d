@@ -114,6 +114,9 @@
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_MapFile>3</DCC_MapFile>
+        <Manifest_File>(None)</Manifest_File>
+        <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
@@ -156,6 +159,8 @@
         <DCCReference Include="units\classes\M4DTest.MigrationsHistorySaver.pas"/>
         <DCCReference Include="units\classes\M4DTest.LastMigrationsHistoryGetter.pas"/>
         <DCCReference Include="units\classes\M4DTest.HistoryGetter.pas"/>
+        <DCCReference Include="units\classes\M4DTest.MigrationExecRangeExecutor.pas"/>
+        <DCCReference Include="units\classes\M4DTest.MigrationRollbackRangeExecutor.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -176,6 +181,10 @@
                 <Source>
                     <Source Name="MainSource">M4DTest.dpr</Source>
                 </Source>
+                <Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k240.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
+                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp240.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
+                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
                 <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">

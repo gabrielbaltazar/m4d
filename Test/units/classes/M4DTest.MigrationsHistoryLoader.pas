@@ -8,6 +8,7 @@ uses
   System.Classes, M4D.MigrationSerializerInterface;
 
 type
+  [TestFixture]
   TestMigrationsHistoryLoader = class
   private
     FHistoryList: TObjectList<TMigrationsHistoryItem>;

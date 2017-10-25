@@ -8,6 +8,7 @@ uses
   M4D.MigrationsHistoryItem;
 
 type
+  [TestFixture]
   TestHistoryCleaner = class
   private
     FHistoryList: TObjectList<TMigrationsHistoryItem>;

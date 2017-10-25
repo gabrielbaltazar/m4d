@@ -7,6 +7,7 @@ uses
   System.Generics.Defaults;
 
 type
+  [TestFixture]
   TestMigrationsHistoryRemover = class
   private
     FComparison: TComparison<TMigrationsHistoryItem>;
@@ -20,7 +21,7 @@ type
     procedure Setup;
     [TearDown]
     procedure TearDown;
-    [Teste]
+    [Test]
     procedure CheckIfParameterAHistoryListCouldBeNil;
     [Test]
     procedure CheckIfTheItemWasRemoved;

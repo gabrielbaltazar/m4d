@@ -21,6 +21,9 @@ type
     /// <Description>
     ///  Standard class to convert from string value to history item.
     /// </Description>
+    /// <Responsability>
+    ///  Performs converters between string values to history items.
+    /// </Responsability>
     /// <Note>
     ///  Information from undocumented methods can be found directly on the interfaces
     ///  from which they come.

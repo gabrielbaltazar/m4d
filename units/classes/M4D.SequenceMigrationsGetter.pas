@@ -23,7 +23,7 @@ type
     ///  Standard class to get a list of registered´s migration base on the sequence.
     /// </Description>
     /// <Responsability>
-    ///  Get a subset os items from a inputted list, based on the start parameter.
+    ///  Get a subset os items from a inputted list, based on the sequence start parameter.
     /// </Responsability>
     /// <Note>
     ///  Information from undocumented methods can be found directly on the interfaces

@@ -7,6 +7,7 @@ uses
   M4D.MigrationSerializerInterface;
 
 type
+  [TestFixture]
   TestMigrationSerializer = class
   private
     const
@@ -21,7 +22,7 @@ type
       FMigrationSerializer: IMigrationSerializer;
       FText: string;
 
-    procedure Aux(AItem: TMigrationsHistoryItem);
+//    procedure Aux(AItem: TMigrationsHistoryItem);
   public
     [Setup]
     procedure Setup;
@@ -40,7 +41,7 @@ uses
 
 
 { TestMigrationSerializer }
-
+{
 procedure TestMigrationSerializer.Aux(AItem: TMigrationsHistoryItem);
 var
   Marshal: TJSONMarshal;
@@ -61,7 +62,7 @@ begin
     end;
   end;
 end;
-
+ }
 procedure TestMigrationSerializer.CheckHistoryToText;
 var
   LItem: TMigrationsHistoryItem;

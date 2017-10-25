@@ -5,38 +5,25 @@
 Made with Love
 
 Author: Edgar Borges Pavão
-Date of creation: 19/09/2017
+Date of creation: 20/09/2017
 Use licence: See the license file
 
 ######################################################################################}
-unit M4D.MigrationExecUntilExecutor;
+unit M4D.MigrationExecRangeExecutor;
 
 interface
 
 uses
-  Generics.Collections, M4D.MigrationExecUntilExecutorInterface,
-  M4D.MigrationExecExecutorInterface, M4D.MigrationsHistoryInterface;
+  M4D.MigrationExecRangeExecutorInterface, Generics.Collections,
+  M4D.MigrationsHistoryInterface, M4D.MigrationExecExecutorInterface;
 
 type
-  {$REGION 'TMigrationExecUntilExecutor'}
-    /// <Description>
-    ///  Standar class to execute the migrations until a specif sequence.
-    /// </Description>
-    /// <Responsability>
-    ///  Call for migration´s execution until a specific sequence.
-    /// </Responsability>
-    /// <Note>
-    ///  Information from undocumented methods can be found directly on the interfaces
-    ///  from which they come.
-    /// </Note>
-    /// <KeyWords>Migration</KeyWords>
-  {$ENDREGION}
-  TMigrationExecUntilExecutor = class(TInterfacedObject, IMigrationExecUntilExecutor)
+  TMigrationExecRangeExecutor = class(TInterfacedObject, IMigrationExecRangeExecutor)
   private
     FMigrationExecExecutor: IMigrationExecExecutor;
   public
     constructor Create(AMigrationExecExecutor: IMigrationExecExecutor); reintroduce;
-    procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
   end;
 
 implementation
@@ -44,9 +31,9 @@ implementation
 uses
   System.SysUtils, M4D.MigrationsInterface;
 
-{ TMigrationExecUntilExecutor }
+{ TMigrationExecRangeExecutor }
 
-constructor TMigrationExecUntilExecutor.Create(AMigrationExecExecutor: IMigrationExecExecutor);
+constructor TMigrationExecRangeExecutor.Create(AMigrationExecExecutor: IMigrationExecExecutor);
 begin
   if not Assigned(AMigrationExecExecutor) then
   begin
@@ -60,7 +47,7 @@ begin
   end;
 end;
 
-procedure TMigrationExecUntilExecutor.ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+procedure TMigrationExecRangeExecutor.ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence, AEndMigrationSequence: Integer);
 var
   LList: TList<TClass>;
   SequenceProp: Integer;
@@ -89,7 +76,7 @@ begin
 
         SequenceProp := (Aux as TInterfacedObject as IMigration).SeqVersion;
 
-        if SequenceProp <= AMigrationSequence then
+        if (SequenceProp >= AStartMigrationSequence) and (SequenceProp <= AEndMigrationSequence) then
         begin
           if not Assigned(LList) then LList := TList<TClass>.Create;
           LList.Add(LClass);

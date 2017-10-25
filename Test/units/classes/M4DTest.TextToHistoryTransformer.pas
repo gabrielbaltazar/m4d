@@ -6,6 +6,7 @@ uses
   DUnitX.TestFramework;
 
 type
+  [TestFixture]
   TestTextToHistoryTransformer = class
   private
     const

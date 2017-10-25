@@ -61,6 +61,18 @@ type
       /// </InputParameters>
     {$ENDREGION}
     procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+    {$REGION 'IMigrationExecutor.ExecuteRange'}
+      /// <Description>
+      ///  Performs the execution of a range of migrations.
+      /// </Description>
+      /// <InputParameters>
+      ///  AMigrationsList - The list of all the migrations that will be considered for the execution.
+      ///  AMigrationHistory - The history component that will register the execution of the migrate.
+      ///  AStartMigrationSequence - The first sequence value considered to execution
+      ///  AEndMigrationSequence - The last sequence value considered to execution
+      /// </InputParameters>
+    {$ENDREGION}
+    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
     {$REGION 'IMigrationExecutor.Rollback'}
       /// <Description>
       ///  Performs the migration back.
@@ -70,6 +82,20 @@ type
       /// </InputParameters>
     {$ENDREGION}
     procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory);
+    {$REGION 'IMigrationExecutor.RollbackPending'}
+      /// <Description>
+      ///  Performs the rollback of pending´s migration.
+      /// </Description>
+      /// <InputParameters>
+      ///  AMigrationsList - The list all the migrations that will be considered for the rollback.
+      /// </InputParameters>
+      /// <Note>
+      ///  Pending migrations are those that have not yet been rolled back based on the execution
+      ///  history. The class must identify which executions have been performed (usually
+      ///  based on the sequence of the migrations) and rollback them.
+      /// </Note>
+    {$ENDREGION}
+    procedure RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory);
     {$REGION 'IMigrationExecutor.RollbackUntil'}
       /// <Description>
       ///  Performs the migration back until the migration with sequence value equal inputted one.
@@ -81,6 +107,20 @@ type
       /// </InputParameters>
     {$ENDREGION}
     procedure RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+    {$REGION 'IMigrationExecutor.RollbackRange'}
+      /// <Description>
+      ///  Performs the rollback of a range of migrations.
+      /// </Description>
+      /// <InputParameters>
+      ///  AMigrationsList - The list of all the migrations that will be considered for the rollback.
+      ///  AMigrationHistory - The history component that will register the rollback of the migrate.
+      ///  AStartMigrationSequence - The last sequence value considered to rollback. The rollback occurs
+      ///  in reverse order of execution.
+      ///  AEndMigrationSequence - The first sequence value considered to rollback. The rollback occurs
+      ///  in reverse order of execution.
+      /// </InputParameters>
+    {$ENDREGION}
+    procedure RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
     {$REGION 'IMigrationExecutor.getMigrationHistory'}
       /// <Description>
       ///  Get the list of migrations executed.

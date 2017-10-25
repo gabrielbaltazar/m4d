@@ -20,6 +20,9 @@ type
   {$REGION 'TMigrationExecExecutor'}
     /// <Description>
     ///  Standard class to execute migrations.
+    /// <Responsability>
+    ///  Execute the up method of a migration.
+    /// </Responsability>
     /// </Description>
   {$ENDREGION}
   TMigrationExecExecutor = class(TInterfacedObject, IMigrationExecExecutor)

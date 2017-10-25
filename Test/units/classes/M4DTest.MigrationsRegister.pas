@@ -6,6 +6,7 @@ uses
   DUnitX.TestFramework;
 
 type
+  [TestFixture]
   TestMigrationsRegister = class
   private
     procedure CreateWithRaise;

@@ -7,6 +7,7 @@ uses
   M4D.MigrationsHistoryItem;
 
 type
+  [TestFixture]
   TestMigrationRollbackExecutor = class
   private
     FMigrationsList: TList<TClass>;

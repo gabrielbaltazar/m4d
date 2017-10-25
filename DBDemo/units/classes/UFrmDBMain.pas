@@ -31,6 +31,17 @@ type
     Button1: TButton;
     qryEmployers: TFDQuery;
     dtsEmployers: TDataSource;
+    Button2: TButton;
+    Label1: TLabel;
+    Label2: TLabel;
+    btnExecuteRange: TButton;
+    edtStartExecute: TEdit;
+    edtEndExecute: TEdit;
+    Label3: TLabel;
+    Label4: TLabel;
+    btnRollbackRange: TButton;
+    edtStartRollback: TEdit;
+    edtEndRollback: TEdit;
     procedure btnExecuteAllClick(Sender: TObject);
     procedure btnExecutePendingClick(Sender: TObject);
     procedure btnRollbackAllClick(Sender: TObject);
@@ -42,6 +53,9 @@ type
     procedure btnClearHistoryClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure btnExecuteRangeClick(Sender: TObject);
+    procedure btnRollbackRangeClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -67,7 +81,7 @@ begin
   //Before performing all migrations, you must clear the migration information
   //so that it is not registered duplicatively.
 
-   MH := M4D.MigrationManager.MigrationHistory;
+   MH := M4D.MigrationManager.MigrationsHistory;
    MH.Clear;
 end;
 
@@ -78,7 +92,7 @@ begin
   //Before performing all migrations, you must clear the migration information
   //so that it is not registered duplicatively.
 
-   MH := M4D.MigrationManager.MigrationHistory;
+   MH := M4D.MigrationManager.MigrationsHistory;
    MH.Clear;
 
    M4D.MigrationManager.Execute;
@@ -87,6 +101,30 @@ end;
 procedure TForm2.btnExecutePendingClick(Sender: TObject);
 begin
   M4D.MigrationManager.ExecutePending;
+end;
+
+procedure TForm2.btnExecuteRangeClick(Sender: TObject);
+var
+  LStart: Integer;
+  LEnd: Integer;
+begin
+  if not TryStrToInt(edtStartExecute.Text, LStart) then
+  begin
+    Application.MessageBox('You must insert a valid execution start value.', 'Attention!', MB_ICONERROR + MB_OK);
+    edtStartExecute.SetFocus;
+  end
+  else
+  begin
+    if not TryStrToInt(edtEndExecute.Text, LEnd) then
+    begin
+      Application.MessageBox('You must insert a valid execution end value.', 'Attention!', MB_ICONERROR + MB_OK);
+      edtEndExecute.SetFocus;
+    end
+    else
+    begin
+      M4D.MigrationManager.ExecuteRange(LStart, LEnd);
+    end;
+  end;
 end;
 
 procedure TForm2.btnExecuteUntilClick(Sender: TObject);
@@ -104,7 +142,7 @@ begin
     //Before performing all migrations, you must clear the migration information
     //so that it is not registered duplicatively.
 
-     MH := M4D.MigrationManager.MigrationHistory;
+     MH := M4D.MigrationManager.MigrationsHistory;
      MH.Clear;
 
      M4D.MigrationManager.ExecuteUntil(Aux);
@@ -142,6 +180,30 @@ begin
   M4D.MigrationManager.Rollback;
 end;
 
+procedure TForm2.btnRollbackRangeClick(Sender: TObject);
+var
+  LStart: Integer;
+  LEnd: Integer;
+begin
+  if not TryStrToInt(edtStartRollback.Text, LStart) then
+  begin
+    Application.MessageBox('You must insert a valid rollback start value.', 'Attention!', MB_ICONERROR + MB_OK);
+    edtStartRollback.SetFocus;
+  end
+  else
+  begin
+    if not TryStrToInt(edtEndRollback.Text, LEnd) then
+    begin
+      Application.MessageBox('You must insert a valid rollback end value.', 'Attention!', MB_ICONERROR + MB_OK);
+      edtEndRollback.SetFocus;
+    end
+    else
+    begin
+      M4D.MigrationManager.RollbackRange(LStart, LEnd);
+    end;
+  end;
+end;
+
 procedure TForm2.btnRollbackUntilClick(Sender: TObject);
 var
   Aux: Integer;
@@ -167,6 +229,11 @@ begin
   end;
 end;
 
+procedure TForm2.Button2Click(Sender: TObject);
+begin
+  M4D.MigrationManager.RollbackPending;
+end;
+
 procedure TForm2.Button4Click(Sender: TObject);
 var
   MH: TList<TMigrationsHistoryItem>;
@@ -174,7 +241,7 @@ var
 begin
   memInfo.Clear;
 
-  MH := M4D.MigrationManager.MigrationHistory.getHistory;
+  MH := M4D.MigrationManager.MigrationsHistory.getHistory;
   if Assigned(MH) then
   begin
     try
@@ -202,7 +269,7 @@ var
 begin
   memInfo.Clear;
 
-  Item := M4D.MigrationManager.MigrationHistory.LastMigration;
+  Item := M4D.MigrationManager.MigrationsHistory.LastMigration;
   if Assigned(Item) then
   begin
     memInfo.Lines.Add('History of migrations:');

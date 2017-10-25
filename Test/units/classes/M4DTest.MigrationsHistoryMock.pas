@@ -7,6 +7,7 @@ uses
   M4D.MigrationsHistoryInterface;
 
 type
+  [TestFixture]
   TMigrationsHistoryMock = class(TInterfacedObject, IMigrationsHistory)
   public
     procedure Clear;

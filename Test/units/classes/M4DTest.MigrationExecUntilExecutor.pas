@@ -8,6 +8,7 @@ uses
 
 
 type
+  [TestFixture]
   TestMigrationExecUntilExecutor = class
   private
     FMigrationsList: TList<TClass>;

@@ -9,6 +9,7 @@ uses
   DUnitX.TestFramework, M4D.MigrationSerializerInterface;
 
 type
+  [TestFixture]
   TestMigrationsHistory = class
   private
     FSerializer: IMigrationSerializer;

@@ -20,10 +20,10 @@ uses
 type
   {$REGION 'TMainMigrationsGetter'}
     /// <Description>
-    ///  Standard class to get a list of registered´s migration.
+    ///  Standard base class to get a list of registered´s migration.
     /// </Description>
     /// <Responsability>
-    ///  Get a subset os items from a inputted list, based on the start parameter.
+    ///  Be a base class to get a subset os items from a inputted list, based on the start parameter.
     /// </Responsability>
     /// <Note>
     ///  There are other specialized classes that use this class as the default search..

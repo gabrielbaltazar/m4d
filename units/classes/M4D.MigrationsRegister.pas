@@ -22,6 +22,9 @@ type
     /// <Description>
     ///  Standard implementation of the migration´s register.
     /// </Description>
+    /// <Responsability>
+    ///  Register a migration.
+    /// </Responsability>
     /// <Note>
     ///  A migration register is responsible for registering the migration within
     ///  the migration management class. Thus, the migration becomes known by the

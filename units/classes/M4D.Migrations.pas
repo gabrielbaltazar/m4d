@@ -22,6 +22,9 @@ type
     /// <Description>
     ///  Standard implementation of the migration.
     /// </Description>
+    /// <Responsability>
+    ///  Be a set of updates.
+    /// </Responsability>
     /// <Note>
     ///  Information from undocumented methods can be found directly on the interfaces
     ///  from which they come.

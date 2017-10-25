@@ -22,6 +22,9 @@ type
     /// <Description>
     ///  Standar class to execute the rollback of migrations.
     /// </Description>
+    /// <Responsability>
+    ///  Execute the migration´s down method.
+    /// </Responsability>
     /// <Note>
     ///  Information from undocumented methods can be found directly on the interfaces
     ///  from which they come.

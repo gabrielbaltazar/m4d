@@ -22,6 +22,9 @@ type
     /// <Description>
     ///  Standard class to execute pending´s migrations.
     /// </Description>
+    /// <Responsability>
+    ///  Handle the list to know what is pendind and call for execution.
+    /// </Responsability>
   {$ENDREGION}
   TMigrationExecPendingExecutor = class(TInterfacedObject, IMigrationExecPendingExecutor)
   private
@@ -68,7 +71,6 @@ begin
     LList := nil;
     if not Assigned(ALastMigration) then
     begin
-//      Self.Execute(AMigrationsList, AMigrationHistory);
       FMigrationExecExecutor.Execute(AMigrationsList, AMigrationHistory);
     end
     else
@@ -91,7 +93,6 @@ begin
       begin
         if LList.Count > 0 then
         begin
-//          Self.Execute(LList, AMigrationHistory);
           FMigrationExecExecutor.Execute(LList, AMigrationHistory);
           if Assigned(LList) then FreeAndNil(LList);
         end;
