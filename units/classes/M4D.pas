@@ -109,4 +109,9 @@ begin
   end;
 end;
 
+initialization
+
+finalization
+  if Assigned(GMigrationsManager) then GMigrationsManager.Free;
+
 end.
