@@ -1,6 +1,6 @@
 # Understanding M4D architecture #
 
-### Architecture ### 
+### Architecture
 
 The M4D project was developed upon SOLID principles. While this is true for most classes, it is not for everyone. SOLID was dropped every time its implementation corresponded to a more complicated implementation for developers using the project resources. Thus, to facilitate the use of M4D features, classes with more than one responsibility were introduced, but in a way that the structure did not lose the flexibility needed for its own customizations.
 

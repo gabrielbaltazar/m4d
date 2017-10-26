@@ -26,26 +26,31 @@ None.
     procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory); overload;
     procedure ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory); overload;
     procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory); overload;
+    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer); overload;
 
     procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory); overload;
+    procedure RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory); overload;
     procedure RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory); overload;
+    procedure RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer); overload;
 
-    function getMigrationHistory: IMigrationsHistory;
   public
     constructor Create(AMigrationsHistory: IMigrationsHistory; AGetterMigration: IGetterMigrations; AMigrationsRegister: IMigrationsRegister; AMigrationExecutor: IMigrationExecutor); reintroduce; overload;
     constructor Create; overload;
+
     procedure RegisterMigration(AMigration: TClass); overload;
 
     procedure Execute; overload;
     procedure ExecutePending; overload;
     procedure ExecuteUntil(AMigrationSequence: Integer); overload;
+    procedure ExecuteRange(AStartMigrationSequence: Integer; AEndMigrationSequence: Integer); overload;
 
     procedure Rollback; overload;
+    procedure RollbackPending; overload;
     procedure RollbackUntil(AMigrationSequence: Integer); overload;
+    procedure RollbackRange(AStartMigrationSequence: Integer; AEndMigrationSequence: Integer); overload;
 
     function MigrationInfo(AClass: TClass): IMigration;
   published
-    property MigrationHistory: IMigrationsHistory read getMigrationHistory;
     property MigrationsRegister: IMigrationsRegister read FMigrationsRegister;
     property GetterMigration: IGetterMigrations read FGetterMigration;
     property MigrationsHistory: IMigrationsHistory read FMigrationsHistory;

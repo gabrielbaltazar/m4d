@@ -18,6 +18,19 @@ uses
   M4D.MigrationsHistoryInterface, M4D.MigrationExecExecutorInterface;
 
 type
+  {$REGION 'TMigrationExecRangeExecutor'}
+    /// <Description>
+    ///  Standar class to execute a range of migrations.
+    /// </Description>
+    /// <Responsability>
+    ///  Call for migration´s execution of a specific range of migrations.
+    /// </Responsability>
+    /// <Note>
+    ///  Information from undocumented methods can be found directly on the interfaces
+    ///  from which they come.
+    /// </Note>
+    /// <KeyWords>Migration</KeyWords>
+  {$ENDREGION}
   TMigrationExecRangeExecutor = class(TInterfacedObject, IMigrationExecRangeExecutor)
   private
     FMigrationExecExecutor: IMigrationExecExecutor;

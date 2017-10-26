@@ -1,6 +1,6 @@
 ### Class Reference ###
 
-Below are all project classes. Most are very simple, following the principle of **"Single Responsibility"**, which explains the number of classes below. However, for some cases, a class has more than one responsibility. These are the front-end classes for the user, which make migration functionalities easier and faster.
+Below are all project classes. Most are very simple, following the principle of **"Single Responsibility"**, which explains the number of classes below. However, for some cases, a class has more than one responsibility. These are the front-end classes for the user, which make migration functionalities easier and faster to learn.
 
 **[TDefaultInstanceOfMigrationsSerializerCreator](Classes/TDefaultInstanceOfMigrationsSerializerCreator.md)**
 >Responsability: Get the default instance of migration´s serializer object
@@ -38,6 +38,9 @@ Below are all project classes. Most are very simple, following the principle of 
 **[TMigrationExecUntilExecutor](Classes/TMigrationExecUntilExecutor.md)**
 >Responsability: Call for migration´s execution until a specific sequence.
 
+**[TMigrationExecRangeExecutor](Classes/TMigrationExecRangeExecutor.md)**
+>Responsability: Call for migration´s execution of a specific range of migrations.
+
 **[TMigrationExecutor](Classes/TMigrationExecutor.md)**
 >Responsability: Performs executions and rollbacks of the migrations.
 
@@ -48,6 +51,9 @@ Below are all project classes. Most are very simple, following the principle of 
 >Responsability: Execute the migration´s down method.
 
 **[TMigrationRollbackUntilExecutor](Classes/TMigrationRollbackUntilExecutor.md)**
+>Responsability: Handle a migration´s list and call for rollback execution.
+
+**[TMigrationRollbackRangeExecutor](Classes/TMigrationRollbackRangeExecutor.md)**
 >Responsability: Handle a migration´s list and call for rollback execution.
 
 **[TMigrations](Classes/TMigrations.md)**
