@@ -14,7 +14,7 @@ unit M4D.MigrationExecPendingExecutor;
 interface
 
 uses
-  Generics.Collections, M4D.MigrationsHistoryInterface, M4D.MigrationExecPendingExecutorInterface,
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface, M4D.MigrationExecPendingExecutorInterface,
   M4D.MigrationsHistoryItem, M4D.MigrationExecExecutorInterface;
 
 type
@@ -31,7 +31,7 @@ type
     FMigrationExecExecutor: IMigrationExecExecutor;
   public
     constructor Create(AMigrationExecExecutor: IMigrationExecExecutor); reintroduce;
-    procedure ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory);
+    procedure ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation
@@ -55,7 +55,7 @@ begin
   end;
 end;
 
-procedure TMigrationExecPendingExecutor.ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory);
+procedure TMigrationExecPendingExecutor.ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistoryFacade: IMigrationsHistoryFacade);
 var
   LList: TList<TClass>;
   SequenceProp: Integer;
@@ -71,7 +71,7 @@ begin
     LList := nil;
     if not Assigned(ALastMigration) then
     begin
-      FMigrationExecExecutor.Execute(AMigrationsList, AMigrationHistory);
+      FMigrationExecExecutor.Execute(AMigrationsList, AMigrationHistoryFacade);
     end
     else
     begin
@@ -93,7 +93,7 @@ begin
       begin
         if LList.Count > 0 then
         begin
-          FMigrationExecExecutor.Execute(LList, AMigrationHistory);
+          FMigrationExecExecutor.Execute(LList, AMigrationHistoryFacade);
           if Assigned(LList) then FreeAndNil(LList);
         end;
       end;

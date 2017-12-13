@@ -14,7 +14,7 @@ unit M4D.MigrationRollbackUntilExecutorInterface;
 interface
 
 uses
-  Generics.Collections, M4D.MigrationsHistoryInterface;
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'IMigrationRollbackUntilExecutor'}
@@ -34,7 +34,7 @@ type
       ///  be executed in the migration´s rollback.
       /// </InputParameters>
     {$ENDREGION}
-    procedure RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+    procedure RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation

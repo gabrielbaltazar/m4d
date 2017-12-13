@@ -2,16 +2,16 @@ unit M4DTest.Defaults;
 
 interface
 uses
-  DUnitX.TestFramework, M4D.Defaults, M4D.MigrationSerializerInterface,
-  M4D.MigrationsHistoryInterface, M4D.GetterMigrationsInterface,
+  DUnitX.TestFramework, M4D.Defaults, M4D.MigrationSerializerFacadeInterface,
+  M4D.MigrationsHistoryFacadeInterface, M4D.GetterMigrationsInterface,
   M4D.MigrationListOrderInterface, M4D.MigrationsRegisterInterface,
-  M4D.MigrationExecutorInterface;
+  M4D.MigrationExecutorFacadeInterface;
 
 type
   [TestFixture]
   TestDefaultInstanceOfMigrationsSerializerCreator = class(TObject)
   private
-    FMigrationSerializer: IMigrationSerializer;
+    FMigrationSerializer: IMigrationSerializerFacade;
   public
     [Setup]
     procedure Setup;
@@ -23,8 +23,8 @@ type
   [TestFixture]
   TestDefaultInstanceOfMigrationsHistoryCreator = class(TObject)
   private
-    FMigrationSerializer: IMigrationSerializer;
-    FMigrationsHistory: IMigrationsHistory;
+    FMigrationSerializer: IMigrationSerializerFacade;
+    FMigrationsHistory: IMigrationsHistoryFacade;
   public
     [Setup]
     procedure Setup;
@@ -73,9 +73,9 @@ type
   [TestFixture]
   TestDefaultInstanceOfMigrationExecutorCreator = class(TObject)
   private
-    FMigrationSerializer: IMigrationSerializer;
-    FMigrationsHistory: IMigrationsHistory;
-    FExecutor: IMigrationExecutor;
+    FMigrationSerializer: IMigrationSerializerFacade;
+    FMigrationsHistory: IMigrationsHistoryFacade;
+    FExecutor: IMigrationExecutorFacade;
   public
     [Setup]
     procedure Setup;
@@ -92,7 +92,7 @@ end;
 
 procedure TestDefaultInstanceOfMigrationsSerializerCreator.Setup;
 begin
-  FMigrationSerializer := TDefaultInstanceOfMigrationsSerializerCreator.getInstance;
+  FMigrationSerializer := TDefaultInstanceOfMigrationsSerializerFacadeCreator.getInstance;
 end;
 
 { TestDefaultInstanceOfMigrationsHistoryCreator }
@@ -104,7 +104,7 @@ end;
 
 procedure TestDefaultInstanceOfMigrationsHistoryCreator.Setup;
 begin
-  FMigrationSerializer := TDefaultInstanceOfMigrationsSerializerCreator.getInstance;
+  FMigrationSerializer := TDefaultInstanceOfMigrationsSerializerFacadeCreator.getInstance;
   FMigrationsHistory := TDefaultInstanceOfMigrationsHistoryCreator.getInstance(FMigrationSerializer);
 end;
 
@@ -154,7 +154,7 @@ end;
 
 procedure TestDefaultInstanceOfMigrationExecutorCreator.Setup;
 begin
-  FMigrationSerializer := TDefaultInstanceOfMigrationsSerializerCreator.getInstance;
+  FMigrationSerializer := TDefaultInstanceOfMigrationsSerializerFacadeCreator.getInstance;
   FMigrationsHistory := TDefaultInstanceOfMigrationsHistoryCreator.getInstance(FMigrationSerializer);
   FExecutor := TDefaultInstanceOfMigrationExecutorCreator.getInstance(FMigrationsHistory);
 end;

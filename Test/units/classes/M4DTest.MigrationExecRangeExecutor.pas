@@ -5,14 +5,14 @@ interface
 uses
   DUnitX.TestFramework, M4D.MigrationExecExecutorInterface,
   M4D.MigrationsHistoryItem, Generics.Collections,
-  M4D.MigrationsHistoryInterface;
+  M4D.MigrationsHistoryFacadeInterface;
 
 type
   [TestFixture]
   TestMigrationExecRangeExecutor = class
   private
     FMigrationsList: TList<TClass>;
-    FMigrationHistory: IMigrationsHistory;
+    FMigrationHistory: IMigrationsHistoryFacade;
     FMigrationHistoryItem: TMigrationsHistoryItem;
     FExecutor: IMigrationExecExecutor;
 

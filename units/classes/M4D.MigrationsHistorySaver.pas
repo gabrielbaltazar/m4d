@@ -15,7 +15,7 @@ interface
 
 uses
   M4D.MigrationsHistorySaverInterface, M4D.MigrationsHistoryItem, System.Classes,
-  System.Generics.Collections, M4D.MigrationSerializerInterface;
+  System.Generics.Collections, M4D.MigrationSerializerFacadeInterface;
 
 type
   {$REGION 'TMigrationsHistorySaver'}
@@ -35,20 +35,21 @@ type
     FHistoryList: TObjectList<TMigrationsHistoryItem>;
     FFile: TStringList;
     FPath: string;
-    FSerializer: IMigrationSerializer;
+    FSerializerFacade: IMigrationSerializerFacade;
   public
-    constructor Create(AHistoryList: TObjectList<TMigrationsHistoryItem>; AFile: TStringList; APath: string; ASerializer: IMigrationSerializer); reintroduce;
+    constructor Create(AHistoryList: TObjectList<TMigrationsHistoryItem>; AFile: TStringList; APath: string; ASerializerFacade: IMigrationSerializerFacade); reintroduce;
     procedure Save;
   end;
 
 implementation
 
 uses
+  {$IF Defined(POSIX)} Posix.Unistd {$ENDIF}
   System.SysUtils;
 
 { TMigrationsHistorySaver }
 
-constructor TMigrationsHistorySaver.Create(AHistoryList: TObjectList<TMigrationsHistoryItem>; AFile: TStringList; APath: string; ASerializer: IMigrationSerializer);
+constructor TMigrationsHistorySaver.Create(AHistoryList: TObjectList<TMigrationsHistoryItem>; AFile: TStringList; APath: string; ASerializerFacade: IMigrationSerializerFacade);
 begin
   if not Assigned(AHistoryList) then
   begin
@@ -68,7 +69,7 @@ begin
       end
       else
       begin
-        if not Assigned(ASerializer) then
+        if not Assigned(ASerializerFacade) then
         begin
           raise Exception.Create('The parameter ASerializer must not be nil.');
         end
@@ -79,7 +80,7 @@ begin
           FHistoryList:= AHistoryList;
           FFile := AFile;
           FPath:= APath;
-          FSerializer := ASerializer;
+          FSerializerFacade := ASerializerFacade;
         end;
       end;
     end;
@@ -95,7 +96,7 @@ begin
 
   for Item in FHistoryList do
   begin
-    FFile.Add(FSerializer.HistoryToText(Item));
+    FFile.Add(FSerializerFacade.HistoryToText(Item));
   end;
 
   Continue := True;

@@ -14,7 +14,7 @@ unit M4D.MigrationExecPendingExecutorInterface;
 interface
 
 uses
-  Generics.Collections, M4D.MigrationsHistoryInterface,
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface,
   M4D.MigrationsHistoryItem;
 
 type
@@ -41,7 +41,7 @@ type
       ///  based on the sequence of the migrations) and execute them.
       /// </Note>
     {$ENDREGION}
-    procedure ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory);
+    procedure ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation

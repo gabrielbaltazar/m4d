@@ -9,16 +9,16 @@ Date of creation: 29/08/2017
 Use licence: See the license file
 
 ######################################################################################}
-unit M4D.MigrationExecutorInterface;
+unit M4D.MigrationExecutorFacadeInterface;
 
 interface
 
 uses
-  M4D.MigrationsInterface, Generics.Collections, M4D.MigrationsHistoryInterface,
+  M4D.MigrationsInterface, Generics.Collections, M4D.MigrationsHistoryFacadeInterface,
   M4D.MigrationsHistoryItem;
 
 type
-  {$REGION 'IMigrationExecutor'}
+  {$REGION 'IMigrationExecutorFacade'}
     /// <Description>
     ///  Standard method to execute migrations on a list.
     /// </Description>
@@ -26,9 +26,9 @@ type
     ///  This allows you to perform migrations, both forward and backward.
     /// </Note>
   {$ENDREGION}
-  IMigrationExecutor = interface
+  IMigrationExecutorFacade = interface
   ['{E348B052-BF8F-4BF0-9347-EC70B252F308}']
-    {$REGION 'IMigrationExecutor.Execute'}
+    {$REGION 'IMigrationExecutorFacade.Execute'}
       /// <Description>
       ///  Performs the migration forward.
       /// </Description>
@@ -36,8 +36,8 @@ type
       ///  AMigrationsList - The list all the migrations that will be considered for the execution.
       /// </InputParameters>
     {$ENDREGION}
-    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory);
-    {$REGION 'IMigrationExecutor.ExecutePending'}
+    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    {$REGION 'IMigrationExecutorFacade.ExecutePending'}
       /// <Description>
       ///  Performs the execution of pending´s migration.
       /// </Description>
@@ -50,8 +50,8 @@ type
       ///  based on the sequence of the migrations) and execute them.
       /// </Note>
     {$ENDREGION}
-    procedure ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory);
-    {$REGION 'IMigrationExecutor.ExecuteUntil'}
+    procedure ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    {$REGION 'IMigrationExecutorFacade.ExecuteUntil'}
       /// <Description>
       ///  Performs the execution until the inputted value.
       /// </Description>
@@ -60,8 +60,8 @@ type
       ///  AMigrationSequence - The last sequence value considered to execution.
       /// </InputParameters>
     {$ENDREGION}
-    procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
-    {$REGION 'IMigrationExecutor.ExecuteRange'}
+    procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    {$REGION 'IMigrationExecutorFacade.ExecuteRange'}
       /// <Description>
       ///  Performs the execution of a range of migrations.
       /// </Description>
@@ -72,8 +72,8 @@ type
       ///  AEndMigrationSequence - The last sequence value considered to execution
       /// </InputParameters>
     {$ENDREGION}
-    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
-    {$REGION 'IMigrationExecutor.Rollback'}
+    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
+    {$REGION 'IMigrationExecutorFacade.Rollback'}
       /// <Description>
       ///  Performs the migration back.
       /// </Description>
@@ -81,8 +81,8 @@ type
       ///  AMigrationsList - The list all the migrations that will be considered for the rollback.
       /// </InputParameters>
     {$ENDREGION}
-    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory);
-    {$REGION 'IMigrationExecutor.RollbackPending'}
+    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    {$REGION 'IMigrationExecutorFacade.RollbackPending'}
       /// <Description>
       ///  Performs the rollback of pending´s migration.
       /// </Description>
@@ -95,8 +95,8 @@ type
       ///  based on the sequence of the migrations) and rollback them.
       /// </Note>
     {$ENDREGION}
-    procedure RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory);
-    {$REGION 'IMigrationExecutor.RollbackUntil'}
+    procedure RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    {$REGION 'IMigrationExecutorFacade.RollbackUntil'}
       /// <Description>
       ///  Performs the migration back until the migration with sequence value equal inputted one.
       /// </Description>
@@ -106,8 +106,8 @@ type
       ///  be executed in the migration´s rollback.
       /// </InputParameters>
     {$ENDREGION}
-    procedure RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
-    {$REGION 'IMigrationExecutor.RollbackRange'}
+    procedure RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    {$REGION 'IMigrationExecutorFacade.RollbackRange'}
       /// <Description>
       ///  Performs the rollback of a range of migrations.
       /// </Description>
@@ -120,19 +120,19 @@ type
       ///  in reverse order of execution.
       /// </InputParameters>
     {$ENDREGION}
-    procedure RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
-    {$REGION 'IMigrationExecutor.getMigrationHistory'}
+    procedure RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
+    {$REGION 'IMigrationExecutorFacade.getMigrationHistory'}
       /// <Description>
       ///  Get the list of migrations executed.
       /// </Description>
     {$ENDREGION}
-    function getMigrationsHistory: IMigrationsHistory;
-    {$REGION 'IMigrationExecutor.MigrationHistory'}
+    function getMigrationsHistoryFacade: IMigrationsHistoryFacade;
+    {$REGION 'IMigrationExecutorFacade.MigrationHistory'}
       /// <Description>
       ///  Expose information on migration histories.
       /// </Description>
     {$ENDREGION}
-    property MigrationHistory: IMigrationsHistory read getMigrationsHistory;
+    property MigrationHistoryFacade: IMigrationsHistoryFacade read getMigrationsHistoryFacade;
   end;
 
 implementation

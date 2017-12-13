@@ -3,23 +3,23 @@ unit M4DTest.MigrationsManager;
 interface
 
 uses
-  DUnitX.TestFramework, M4D.MigrationSerializerInterface,
-  M4D.GetterMigrationsInterface, M4D.MigrationsHistoryInterface,
-  M4D.MigrationExecutorInterface, M4D.MigrationListOrderInterface,
-  M4D.MigrationsRegisterInterface, M4D.MigrationsManager;
+  DUnitX.TestFramework, M4D.MigrationSerializerFacadeInterface,
+  M4D.GetterMigrationsInterface, M4D.MigrationsHistoryFacadeInterface,
+  M4D.MigrationExecutorFacadeInterface, M4D.MigrationListOrderInterface,
+  M4D.MigrationsRegisterInterface, M4D.MigrationsFacade;
 
 type
   [TestFixture]
-  TestMigrationsManager = class
+  TestMigrationsFacade = class
   private
-    FMigrationSerializer: IMigrationSerializer;
+    FMigrationSerializer: IMigrationSerializerFacade;
     FMigrationGetter: IGetterMigrations;
-    FMigrationsHistory: IMigrationsHistory;
-    FExecutor: IMigrationExecutor;
+    FMigrationsHistory: IMigrationsHistoryFacade;
+    FExecutor: IMigrationExecutorFacade;
     FMigrationListOrder: IMigrationListOrder;
     FMigrationsRegister: IMigrationsRegister;
 
-    function instanceOfMigrationManagerWithRegisteredMigration: TMigrationsManager;
+    function instanceOfMigrationManagerWithRegisteredMigration: TMigrationsFacade;
   public
     [Setup]
     procedure Setup;
@@ -67,9 +67,9 @@ uses
 
 { TestMigrationsManager }
 
-procedure TestMigrationsManager.CheckExecute;
+procedure TestMigrationsFacade.CheckExecute;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
@@ -80,9 +80,9 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckExecutePending;
+procedure TestMigrationsFacade.CheckExecutePending;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
@@ -93,9 +93,9 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckExecuteRange;
+procedure TestMigrationsFacade.CheckExecuteRange;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
@@ -106,9 +106,9 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckExecuteUntil;
+procedure TestMigrationsFacade.CheckExecuteUntil;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
@@ -119,12 +119,12 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckIfTheMigrationRegistrationAndRecoveryMechanismWorks;
+procedure TestMigrationsFacade.CheckIfTheMigrationRegistrationAndRecoveryMechanismWorks;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
   List: TList<TClass>;
 begin
-  MigrationsManager := TMigrationsManager.Create;
+  MigrationsManager := TMigrationsFacade.Create;
   try
     MigrationsManager.RegisterMigration(TestStubClass);
     List := MigrationsManager.MigrationsRegister.Migrations;
@@ -138,9 +138,9 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckMigrationInfo;
+procedure TestMigrationsFacade.CheckMigrationInfo;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
   Migration: IMigration;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
@@ -152,9 +152,9 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckReturnOfGetterMigration;
+procedure TestMigrationsFacade.CheckReturnOfGetterMigration;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
@@ -164,45 +164,45 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckReturnOfMigrationExecutor;
+procedure TestMigrationsFacade.CheckReturnOfMigrationExecutor;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
-    Assert.isTrue(Assigned(MigrationsManager.MigrationExecutor), 'The return of MigrationsManager.MigrationExecutor was not assigned.');
+    Assert.isTrue(Assigned(MigrationsManager.MigrationExecutorFacade), 'The return of MigrationsManager.MigrationExecutor was not assigned.');
   finally
     MigrationsManager.Free;
   end;
 end;
 
-procedure TestMigrationsManager.CheckReturnOfMigrationHistory;
+procedure TestMigrationsFacade.CheckReturnOfMigrationHistory;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
-    Assert.isTrue(Assigned(MigrationsManager.MigrationsHistory), 'The return of MigrationsManager.MigrationHistory was not assigned.');
+    Assert.isTrue(Assigned(MigrationsManager.MigrationsHistoryFacade), 'The return of MigrationsManager.MigrationHistory was not assigned.');
   finally
     MigrationsManager.Free;
   end;
 end;
 
-procedure TestMigrationsManager.CheckReturnOfMigrationsHistory;
+procedure TestMigrationsFacade.CheckReturnOfMigrationsHistory;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
-    Assert.isTrue(Assigned(MigrationsManager.MigrationsHistory), 'The return of MigrationsManager.MigrationsHistory was not assigned.');
+    Assert.isTrue(Assigned(MigrationsManager.MigrationsHistoryFacade), 'The return of MigrationsManager.MigrationsHistory was not assigned.');
   finally
     MigrationsManager.Free;
   end;
 end;
 
-procedure TestMigrationsManager.CheckReturnOfMigrationsRegister;
+procedure TestMigrationsFacade.CheckReturnOfMigrationsRegister;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
@@ -212,9 +212,9 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckRollback;
+procedure TestMigrationsFacade.CheckRollback;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
@@ -225,9 +225,9 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckRollbackRange;
+procedure TestMigrationsFacade.CheckRollbackRange;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
@@ -238,9 +238,9 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckRollbackUntil;
+procedure TestMigrationsFacade.CheckRollbackUntil;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
   MigrationsManager := instanceOfMigrationManagerWithRegisteredMigration;
   try
@@ -251,11 +251,11 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckTheCreationWithoutParameters;
+procedure TestMigrationsFacade.CheckTheCreationWithoutParameters;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
-  MigrationsManager := TMigrationsManager.Create;
+  MigrationsManager := TMigrationsFacade.Create;
   try
     Assert.Pass('If get this point, the create works fine.');
   finally
@@ -263,11 +263,11 @@ begin
   end;
 end;
 
-procedure TestMigrationsManager.CheckTheCreationWithParameters;
+procedure TestMigrationsFacade.CheckTheCreationWithParameters;
 var
-  MigrationsManager: TMigrationsManager;
+  MigrationsManager: TMigrationsFacade;
 begin
-  MigrationsManager := TMigrationsManager.Create(FMigrationsHistory, FMigrationGetter, FMigrationsRegister, FExecutor);
+  MigrationsManager := TMigrationsFacade.Create(FMigrationsHistory, FMigrationGetter, FMigrationsRegister, FExecutor);
   try
     Assert.Pass('If get this point, the create works fine.');
   finally
@@ -275,15 +275,15 @@ begin
   end;
 end;
 
-function TestMigrationsManager.instanceOfMigrationManagerWithRegisteredMigration: TMigrationsManager;
+function TestMigrationsFacade.instanceOfMigrationManagerWithRegisteredMigration: TMigrationsFacade;
 begin
-  Result := TMigrationsManager.Create;
+  Result := TMigrationsFacade.Create;
   Result.RegisterMigration(TestStubClass);
 end;
 
-procedure TestMigrationsManager.Setup;
+procedure TestMigrationsFacade.Setup;
 begin
-  FMigrationSerializer := M4D.Defaults.TDefaultInstanceOfMigrationsSerializerCreator.getInstance;
+  FMigrationSerializer := M4D.Defaults.TDefaultInstanceOfMigrationsSerializerFacadeCreator.getInstance;
   FMigrationsHistory := M4D.Defaults.TDefaultInstanceOfMigrationsHistoryCreator.getInstance(FMigrationSerializer);
   FMigrationGetter := M4D.Defaults.TDefaultInstanceOfMigrationGetterCreator.getInstance;
   FMigrationListOrder := M4D.Defaults.TDefaultInstanceOfMigrationListOrderCreator.getInstance;
@@ -291,12 +291,12 @@ begin
   FExecutor := M4D.Defaults.TDefaultInstanceOfMigrationExecutorCreator.getInstance(FMigrationsHistory);
 end;
 
-procedure TestMigrationsManager.TearDown;
+procedure TestMigrationsFacade.TearDown;
 begin
 
 end;
 
 initialization
-  TDUnitX.RegisterTestFixture(TestMigrationsManager);
+  TDUnitX.RegisterTestFixture(TestMigrationsFacade);
 
 end.

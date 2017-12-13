@@ -16,7 +16,7 @@ interface
 uses
   M4D.MigrationsHistoryLoaderInterface, System.Classes,
   System.Generics.Collections, M4D.MigrationsHistoryItem,
-  M4D.MigrationSerializerInterface;
+  M4D.MigrationSerializerFacadeInterface;
 
 type
   {$REGION 'TMigrationsHistoryLoader'}
@@ -36,9 +36,9 @@ type
     FHistoryList: TObjectList<TMigrationsHistoryItem>;
     FFile: TStringList;
     FPath: String;
-    FSerializer: IMigrationSerializer;
+    FSerializerFacade: IMigrationSerializerFacade;
   public
-    constructor Create(AHistoryList: TObjectList<TMigrationsHistoryItem>; AFile: TStringList; APath: string; ASerializer: IMigrationSerializer); reintroduce;
+    constructor Create(AHistoryList: TObjectList<TMigrationsHistoryItem>; AFile: TStringList; APath: string; ASerializerFacade: IMigrationSerializerFacade); reintroduce;
     procedure Load;
   end;
 
@@ -49,7 +49,7 @@ uses
 
 { TMigrationsHistoryLoader }
 
-constructor TMigrationsHistoryLoader.Create(AHistoryList: TObjectList<TMigrationsHistoryItem>; AFile: TStringList; APath: string; ASerializer: IMigrationSerializer);
+constructor TMigrationsHistoryLoader.Create(AHistoryList: TObjectList<TMigrationsHistoryItem>; AFile: TStringList; APath: string; ASerializerFacade: IMigrationSerializerFacade);
 begin
   if not Assigned(AHistoryList) then
   begin
@@ -69,7 +69,7 @@ begin
       end
       else
       begin
-        if not Assigned(ASerializer) then
+        if not Assigned(ASerializerFacade) then
         begin
           raise Exception.Create('The parameter ASerializer must not be nil.');
         end
@@ -80,7 +80,7 @@ begin
           FHistoryList:= AHistoryList;
           FFile := AFile;
           FPath:= APath;
-          FSerializer := ASerializer;
+          FSerializerFacade := ASerializerFacade;
         end;
       end;
     end;
@@ -100,7 +100,7 @@ begin
   for I := 0 to FFile.Count - 1 do
   begin
     Aux := FFile.Strings[I];
-    FHistoryList.Add(FSerializer.TextToHistory(Aux));
+    FHistoryList.Add(FSerializerFacade.TextToHistory(Aux));
   end;
 
 //  Self.FLoaded := True;

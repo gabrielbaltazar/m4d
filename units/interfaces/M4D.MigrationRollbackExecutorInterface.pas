@@ -14,7 +14,7 @@ unit M4D.MigrationRollbackExecutorInterface;
 interface
 
 uses
-  Generics.Collections, M4D.MigrationsHistoryInterface;
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'IMigrationRollbackExecutor'}
@@ -33,7 +33,7 @@ type
       ///  AMigrationHistory - The history handler to record rollbacks.
       /// </InputParameters>
     {$ENDREGION}
-    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory);
+    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation

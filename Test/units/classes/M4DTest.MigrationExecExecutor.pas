@@ -3,15 +3,15 @@ unit M4DTest.MigrationExecExecutor;
 interface
 
 uses
-  DUnitX.TestFramework, Generics.Collections, M4D.MigrationsHistoryInterface,
-  M4D.MigrationSerializerInterface;
+  DUnitX.TestFramework, Generics.Collections, M4D.MigrationsHistoryFacadeInterface,
+  M4D.MigrationSerializerFacadeInterface;
 
 type
   [TestFixture]
   TestMigrationExecExecutor = class(TObject)
   private
     FMigrationsList: TList<TClass>;
-    FMigrationHistory: IMigrationsHistory;
+    FMigrationHistory: IMigrationsHistoryFacade;
   public
     [Setup]
     procedure Setup;
@@ -24,7 +24,7 @@ type
 implementation
 
 uses
-  M4D.MigrationsHistory, M4D.MigrationSerializer,
+  M4D.MigrationsHistoryFacade, M4D.MigrationSerializerFacade,
   M4D.MigrationExecExecutorInterface, M4D.MigrationExecExecutor,
   M4DTest.MStubMigrationToTest, M4DTest.MigrationsHistoryMock;
 

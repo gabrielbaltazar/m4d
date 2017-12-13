@@ -5,7 +5,7 @@ interface
 
 uses
   DUnitX.TestFramework, System.Generics.Collections, M4D.MigrationsHistoryItem,
-  System.Classes, M4D.MigrationSerializerInterface;
+  System.Classes, M4D.MigrationSerializerFacadeInterface;
 
 type
   [TestFixture]
@@ -14,7 +14,7 @@ type
     FHistoryList: TObjectList<TMigrationsHistoryItem>;
     FFile: TStringList;
     FPath: string;
-    FSerializer: IMigrationSerializer;
+    FSerializer: IMigrationSerializerFacade;
 
     procedure CreateLoaderWithNoHistoryList;
     procedure CreateLoaderWithNoFile;
@@ -39,7 +39,7 @@ implementation
 
 uses
   M4D.MigrationsHistoryLoaderInterface, M4D.MigrationsHistoryLoader,
-  M4D.MigrationSerializer;
+  M4D.MigrationSerializerFacade;
 
 { TestMigrationsHistoryLoader }
 
@@ -96,7 +96,7 @@ begin
   FHistoryList := TObjectList<TMigrationsHistoryItem>.Create;
   FFile := TStringList.Create;
   FPath := 'C:\';
-  FSerializer := TMigrationSerializer.Create;
+  FSerializer := TMigrationSerializerFacade.Create;
 end;
 
 procedure TestMigrationsHistoryLoader.TearDown;

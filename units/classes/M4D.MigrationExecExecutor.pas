@@ -14,7 +14,7 @@ unit M4D.MigrationExecExecutor;
 interface
 
 uses
-  Generics.Collections, M4D.MigrationsHistoryInterface, M4D.MigrationExecExecutorInterface;
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface, M4D.MigrationExecExecutorInterface;
 
 type
   {$REGION 'TMigrationExecExecutor'}
@@ -34,7 +34,7 @@ type
       ///  AMigrationsList - The list all the migrations that will be considered for the execution.
       /// </InputParameters>
     {$ENDREGION}
-    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory);
+    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation
@@ -44,7 +44,7 @@ uses
 
 { TMigrationExecExecutor }
 
-procedure TMigrationExecExecutor.Execute(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory);
+procedure TMigrationExecExecutor.Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
 var
   VersionProp: string;
   SequenceProp: Integer;
@@ -57,7 +57,7 @@ begin
   HadMigration := False;
 
   if Assigned(AMigrationsList) and
-     Assigned(AMigrationHistory)
+     Assigned(AMigrationHistoryFacade)
   then
   begin
     AMigrationsList.Sort;
@@ -88,7 +88,7 @@ begin
         Item.EndOfExecution := Now;
         Item.DurationOfExecution := Item.EndOfExecution - Item.StartOfExecution;
       finally
-        AMigrationHistory.Add(Item);
+        AMigrationHistoryFacade.Add(Item);
         HadMigration := True;
       end;
     end;
@@ -96,7 +96,7 @@ begin
 
   if HadMigration then
   begin
-    AMigrationHistory.Save;
+    AMigrationHistoryFacade.Save;
   end;
 end;
 

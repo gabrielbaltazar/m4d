@@ -3,7 +3,7 @@ unit M4DTest.MigrationExecutor;
 interface
 
 uses
-  DUnitX.TestFramework, Generics.Collections, M4D.MigrationsHistoryInterface,
+  DUnitX.TestFramework, Generics.Collections, M4D.MigrationsHistoryFacadeInterface,
   M4D.MigrationsHistoryItem, M4D.MigrationExecExecutorInterface;
 
 type
@@ -11,7 +11,7 @@ type
   TestMigrationExecutor = class
   private
     FMigrationsList: TList<TClass>;
-    FMigrationHistory: IMigrationsHistory;
+    FMigrationHistory: IMigrationsHistoryFacade;
     FMigrationHistoryItem: TMigrationsHistoryItem;
     FMigrationExecExecutor: IMigrationExecExecutor;
   public
@@ -39,15 +39,15 @@ uses
   M4DTest.MStubMigrationToTest, M4DTest.MigrationsHistoryMock, M4D.MigrationExecExecutor,
   System.SysUtils, M4D.MigrationExecPendingExecutorInterface,
   M4D.MigrationExecPendingExecutor, M4D.MigrationExecUntilExecutorInterface,
-  M4D.MigrationExecUntilExecutor, M4D.MigrationExecutorInterface, M4D.MigrationExecutor;
+  M4D.MigrationExecUntilExecutor, M4D.MigrationExecutorFacadeInterface, M4D.MigrationExecutorFacade;
 
 { TestMigrationExecutor }
 
 procedure TestMigrationExecutor.CheckExecute;
 var
-  Executor: IMigrationExecutor;
+  Executor: IMigrationExecutorFacade;
 begin
-  Executor := TMigrationExecutor.Create(FMigrationHistory);
+  Executor := TMigrationExecutorFacade.Create(FMigrationHistory);
   Executor.Execute(FMigrationsList, FMigrationHistory);
 
   Assert.Pass('If get this point, the execution runs well.');
@@ -55,9 +55,9 @@ end;
 
 procedure TestMigrationExecutor.CheckExecutePending;
 var
-  Executor: IMigrationExecutor;
+  Executor: IMigrationExecutorFacade;
 begin
-  Executor := TMigrationExecutor.Create(FMigrationHistory);
+  Executor := TMigrationExecutorFacade.Create(FMigrationHistory);
   Executor.ExecutePending(FMigrationsList, FMigrationHistoryItem, FMigrationHistory);
 
   Assert.Pass('If get this point, the execution runs well.');
@@ -65,9 +65,9 @@ end;
 
 procedure TestMigrationExecutor.CheckExecuteUntil;
 var
-  Executor: IMigrationExecutor;
+  Executor: IMigrationExecutorFacade;
 begin
-  Executor := TMigrationExecutor.Create(FMigrationHistory);
+  Executor := TMigrationExecutorFacade.Create(FMigrationHistory);
   Executor.ExecuteUntil(FMigrationsList, 1, FMigrationHistory);
 
   Assert.Pass('If get this point, the execution runs well.');
@@ -75,17 +75,17 @@ end;
 
 procedure TestMigrationExecutor.CheckGetMigrationsHistory;
 var
-  Executor: IMigrationExecutor;
+  Executor: IMigrationExecutorFacade;
 begin
-  Executor := TMigrationExecutor.Create(FMigrationHistory);
-  Assert.IsTrue(Assigned(Executor.MigrationHistory), 'The Migration History here must be assigned');
+  Executor := TMigrationExecutorFacade.Create(FMigrationHistory);
+  Assert.IsTrue(Assigned(Executor.MigrationHistoryFacade), 'The Migration History here must be assigned');
 end;
 
 procedure TestMigrationExecutor.CheckRollback;
 var
-  Executor: IMigrationExecutor;
+  Executor: IMigrationExecutorFacade;
 begin
-  Executor := TMigrationExecutor.Create(FMigrationHistory);
+  Executor := TMigrationExecutorFacade.Create(FMigrationHistory);
   Executor.Rollback(FMigrationsList, FMigrationHistory);
 
   Assert.Pass('If get this point, the execution runs well.');
@@ -93,9 +93,9 @@ end;
 
 procedure TestMigrationExecutor.CheckRollbackUntil;
 var
-  Executor: IMigrationExecutor;
+  Executor: IMigrationExecutorFacade;
 begin
-  Executor := TMigrationExecutor.Create(FMigrationHistory);
+  Executor := TMigrationExecutorFacade.Create(FMigrationHistory);
   Executor.RollbackUntil(FMigrationsList, 1, FMigrationHistory);
 
   Assert.Pass('If get this point, the execution runs well.');

@@ -14,7 +14,7 @@ unit M4D.MigrationRollbackRangeExecutorInterface;
 interface
 
 uses
-  Generics.Collections, M4D.MigrationsHistoryInterface;
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'IMigrationRollbackRangeExecutor'}
@@ -35,7 +35,7 @@ type
       ///  AEndMigrationSequence - The first sequence value considered to rollback. The rollback execution order is inverse.
       /// </InputParameters>
     {$ENDREGION}
-    procedure RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
+    procedure RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
   end;
 
 implementation

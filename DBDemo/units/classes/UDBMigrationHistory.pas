@@ -13,7 +13,7 @@ unit UDBMigrationHistory;
 interface
 
 uses
-  M4D.MigrationsHistoryInterface, Winapi.CommCtrl, M4D.MigrationsHistoryItem,
+  M4D.MigrationsHistoryFacadeInterface, Winapi.CommCtrl, M4D.MigrationsHistoryItem,
   System.Generics.Collections, FireDAC.Comp.Client, System.SysUtils;
 
 type
@@ -21,7 +21,7 @@ type
 
 type
   {$M+}
-  TDBMigrationsHistory = class(TInterfacedObject, IMigrationsHistory)
+  TDBMigrationsHistory = class(TInterfacedObject, IMigrationsHistoryFacade)
   private
     FGetConnectionFunc: TGetConnectionFunc;
 

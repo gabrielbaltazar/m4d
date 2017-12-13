@@ -14,7 +14,7 @@ unit M4D.MigrationExecExecutorInterface;
 interface
 
 uses
-  Generics.Collections, M4D.MigrationsHistoryInterface;
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'IMigrationExecExecutorInterface'}
@@ -32,7 +32,7 @@ type
       ///  AMigrationsList - The list all the migrations that will be considered for the execution.
       /// </InputParameters>
     {$ENDREGION}
-    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory);
+    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation

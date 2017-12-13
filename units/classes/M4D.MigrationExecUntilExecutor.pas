@@ -15,7 +15,7 @@ interface
 
 uses
   Generics.Collections, M4D.MigrationExecUntilExecutorInterface,
-  M4D.MigrationExecExecutorInterface, M4D.MigrationsHistoryInterface;
+  M4D.MigrationExecExecutorInterface, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'TMigrationExecUntilExecutor'}
@@ -36,7 +36,7 @@ type
     FMigrationExecExecutor: IMigrationExecExecutor;
   public
     constructor Create(AMigrationExecExecutor: IMigrationExecExecutor); reintroduce;
-    procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+    procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation
@@ -60,7 +60,7 @@ begin
   end;
 end;
 
-procedure TMigrationExecUntilExecutor.ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+procedure TMigrationExecUntilExecutor.ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistoryFacade: IMigrationsHistoryFacade);
 var
   LList: TList<TClass>;
   SequenceProp: Integer;
@@ -73,7 +73,7 @@ begin
   end
   else
   begin
-    if not Assigned(AMigrationHistory) then
+    if not Assigned(AMigrationHistoryFacade) then
     begin
       raise Exception.Create('The parameter AMigrationHistory must not be nil.');
     end
@@ -100,7 +100,7 @@ begin
       begin
         if LList.Count > 0 then
         begin
-          FMigrationExecExecutor.Execute(LList, AMigrationHistory);
+          FMigrationExecExecutor.Execute(LList, AMigrationHistoryFacade);
           if Assigned(LList) then FreeAndNil(LList);
         end;
       end;

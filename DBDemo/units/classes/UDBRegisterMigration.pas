@@ -3,18 +3,18 @@ unit UDBRegisterMigration;
 interface
 
 uses
-  M4D.MigrationsHistoryInterface, M4D.GetterMigrationsInterface,
+  M4D.MigrationsHistoryFacadeInterface, M4D.GetterMigrationsInterface,
   M4D.MigrationMethodExecutorInterface, M4D.MigrationListOrderInterface,
-  M4D.MigrationsRegisterInterface, M4D.MigrationExecutorInterface;
+  M4D.MigrationsRegisterInterface, M4D.MigrationExecutorFacadeInterface;
 
 procedure DBRegisterMigration(AMigration: TClass);
 
 var
-  LMigrationsHistory: IMigrationsHistory;
+  LMigrationsHistory: IMigrationsHistoryFacade;
   LGetterMigration: IGetterMigrations;
   LMigrationListOrder: IMigrationListOrder;
   LMigrationsRegister: IMigrationsRegister;
-  LMigrationExecutor: IMigrationExecutor;
+  LMigrationExecutor: IMigrationExecutorFacade;
 
 implementation
 

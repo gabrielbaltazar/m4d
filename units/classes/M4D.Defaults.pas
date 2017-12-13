@@ -14,34 +14,34 @@ unit M4D.Defaults;
 interface
 
 uses
-  M4D.MigrationSerializerInterface, M4D.MigrationsHistoryInterface,
-  M4D.MigrationListOrderInterface, M4D.MigrationExecutorInterface,
+  M4D.MigrationSerializerFacadeInterface, M4D.MigrationsHistoryFacadeInterface,
+  M4D.MigrationListOrderInterface, M4D.MigrationExecutorFacadeInterface,
   M4D.GetterMigrationsInterface, M4D.MigrationsRegisterInterface;
 
 type
-  {$REGION 'TDefaultInstanceOfMigrationsSerializerCreator'}
+  {$REGION 'TDefaultInstanceOfMigrationsSerializerFacadeCreator'}
     /// <Description>
-    ///  This is a class used to provide a default instance of IMigrationSerializer.
+    ///  This is a class used to provide a default instance of IMigrationSerializerFacade.
     /// </Description>
     /// <Responsability>
-    ///  Get the default instance of migration´s serializer object.
+    ///  Get the default instance of migration´s serializer facade object.
     /// </Responsability>
     /// <KeyWords>Default</KeyWords>
   {$ENDREGION}
-  TDefaultInstanceOfMigrationsSerializerCreator = class
+  TDefaultInstanceOfMigrationsSerializerFacadeCreator = class
   private
-    class var FMigrationSerializer: IMigrationSerializer;
+    class var FMigrationSerializerFacade: IMigrationSerializerFacade;
   public
-    {$REGION 'TDefaultInstanceOfMigrationsSerializerCreator.instanceOfMigrationsSerializer'}
+    {$REGION 'TDefaultInstanceOfMigrationsSerializerFacadeCreator.instanceOfMigrationsSerializer'}
     /// <Description>
-    ///  Factory from the default instance of the IMigrationSerializer interface.
-    ///  For more information, see the IMigrationSerializer documentation.
+    ///  Factory from the default instance of the IMigrationSerializerFacade interface.
+    ///  For more information, see the IMigrationSerializerFacade documentation.
     /// </Description>
     /// <OutputParameters>
-    ///  Result - Default instance of IMigrationSerializer.
+    ///  Result - Default instance of IMigrationSerializerFacade.
     /// </OutputParameters>
     {$ENDREGION}
-    class function getInstance: IMigrationSerializer;
+    class function getInstance: IMigrationSerializerFacade;
   end;
 
 type
@@ -57,7 +57,7 @@ type
   TDefaultInstanceOfMigrationsHistoryCreator = class
   private
     const CFILE_NAME = 'history.m4d';
-    class var FMigrationsHistory: IMigrationsHistory;
+    class var FMigrationsHistoryFacade: IMigrationsHistoryFacade;
   public
     {$REGION 'TDefaultInstanceOfMigrationsHistoryCreator.instanceOfMigrationsHistory'}
     /// <Description>
@@ -72,7 +72,7 @@ type
     ///  Result - Default instance of IMigrationsHistory.
     /// </OutputParameters>
     {$ENDREGION}
-    class function getInstance(AMigrationSerializer: IMigrationSerializer): IMigrationsHistory;
+    class function getInstance(AMigrationSerializerFacade: IMigrationSerializerFacade): IMigrationsHistoryFacade;
   end;
 
 type
@@ -169,7 +169,7 @@ type
 type
   TDefaultInstanceOfMigrationExecutorCreator = class
   private
-    class var FExecutor: IMigrationExecutor;
+    class var FExecutorFacade: IMigrationExecutorFacade;
   public
     {$REGION 'TDefaultInstanceOfMigrationExecutorCreator.instanceOfMigrationExecutor'}
     /// <Description>
@@ -184,45 +184,45 @@ type
     ///  Result - Default instance of IMigrationExecutor.
     /// </OutputParameters>
     {$ENDREGION}
-    class function getInstance(AMigrationsHistory: IMigrationsHistory): IMigrationExecutor;
+    class function getInstance(AMigrationsHistoryFacade: IMigrationsHistoryFacade): IMigrationExecutorFacade;
   end;
 
 implementation
 
 uses
-  {M4D.Defs, }M4D.MigrationSerializer, M4D.MigrationsHistory, System.SysUtils,
-  M4D.MigrationListOrder, M4D.MigrationExecutor, M4D.GetterMigrations,
+  M4D.MigrationSerializerFacade, M4D.MigrationsHistoryFacade, System.SysUtils,
+  M4D.MigrationListOrder, M4D.MigrationExecutorFacade, M4D.GetterMigrations,
   M4D.MigrationsRegister;
 
 { TDefaultInstanceOfMigrationsSerializer }
 
-class function TDefaultInstanceOfMigrationsSerializerCreator.getInstance: IMigrationSerializer;
+class function TDefaultInstanceOfMigrationsSerializerFacadeCreator.getInstance: IMigrationSerializerFacade;
 begin
-  if Assigned(FMigrationSerializer) then
+  if Assigned(FMigrationSerializerFacade) then
   begin
-    Result := FMigrationSerializer;
+    Result := FMigrationSerializerFacade;
   end
   else
   begin
-    FMigrationSerializer := TMigrationSerializer.Create;
-    Result := FMigrationSerializer;
+    FMigrationSerializerFacade := TMigrationSerializerFacade.Create;
+    Result := FMigrationSerializerFacade;
   end;
 end;
 
 { TDefaultInstanceOfMigrationsHistoryCreator }
 
-class function TDefaultInstanceOfMigrationsHistoryCreator.getInstance(AMigrationSerializer: IMigrationSerializer): IMigrationsHistory;
+class function TDefaultInstanceOfMigrationsHistoryCreator.getInstance(AMigrationSerializerFacade: IMigrationSerializerFacade): IMigrationsHistoryFacade;
 var
   LPath: String;
 begin
-  if Assigned(FMigrationsHistory) then
+  if Assigned(FMigrationsHistoryFacade) then
   begin
-    Result := FMigrationsHistory;
+    Result := FMigrationsHistoryFacade;
   end
   else
   begin
     LPath := ExtractFilePath(ParamStr(0)) + CFILE_NAME;
-    Result := TMigrationsHistory.Create(LPath, AMigrationSerializer);
+    Result := TMigrationsHistoryFacade.Create(LPath, AMigrationSerializerFacade);
   end;
 end;
 
@@ -270,15 +270,15 @@ end;
 
 { TDefaultInstanceOfMigrationExecutorCreator }
 
-class function TDefaultInstanceOfMigrationExecutorCreator.getInstance(AMigrationsHistory: IMigrationsHistory): IMigrationExecutor;
+class function TDefaultInstanceOfMigrationExecutorCreator.getInstance(AMigrationsHistoryFacade: IMigrationsHistoryFacade): IMigrationExecutorFacade;
 begin
- if Assigned(FExecutor) then
+ if Assigned(FExecutorFacade) then
   begin
-    Result := FExecutor;
+    Result := FExecutorFacade;
   end
   else
   begin
-    Result := TMigrationExecutor.Create(AMigrationsHistory);
+    Result := TMigrationExecutorFacade.Create(AMigrationsHistoryFacade);
   end;
 end;
 

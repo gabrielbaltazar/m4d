@@ -9,7 +9,7 @@ Date of creation: 29/08/2017
 Use licence: See the license file
 
 ######################################################################################}
-unit M4D.MigrationsHistoryInterface;
+unit M4D.MigrationsHistoryFacadeInterface;
 
 interface
 
@@ -18,32 +18,32 @@ uses
 
 type
   {$M+}
-  {$REGION 'IMigrationsHistory'}
+  {$REGION 'IMigrationsHistoryFacade'}
     /// <Description>
     ///  Standard methods to handle migrations큦 executions history.
     /// </Description>
   {$ENDREGION}
-  IMigrationsHistory = interface
+  IMigrationsHistoryFacade = interface
   ['{639BAD0D-0273-4EB2-B129-D9CB70B1B108}']
-    {$REGION 'IMigrationExecutor.Clear'}
+    {$REGION 'IMigrationExecutorFacade.Clear'}
       /// <Description>
       ///  Clear the history info.
       /// </Description>
     {$ENDREGION}
     procedure Clear;
-    {$REGION 'IMigrationsHistory.Load'}
+    {$REGION 'IMigrationsHistoryFacade.Load'}
       /// <Description>
       ///  Load all the history of migrations executions.
       /// </Description>
     {$ENDREGION}
     procedure Load;
-    {$REGION 'IMigrationsHistory.UnLoad'}
+    {$REGION 'IMigrationsHistoryFacade.UnLoad'}
       /// <Description>
       ///  Unload all the history of migrations executions.
       /// </Description>
     {$ENDREGION}
     procedure UnLoad;
-    {$REGION 'IMigrationsHistory.Add'}
+    {$REGION 'IMigrationsHistoryFacade.Add'}
       /// <Description>
       ///  Add a execution history information.
       /// </Description>
@@ -52,7 +52,7 @@ type
       /// </InputParameters>
     {$ENDREGION}
     procedure Add(AItem: TMigrationsHistoryItem);
-    {$REGION 'IMigrationsHistory.Remove'}
+    {$REGION 'IMigrationsHistoryFacade.Remove'}
       /// <Description>
       ///  Remove a execution history information.
       /// </Description>
@@ -61,7 +61,7 @@ type
       /// </InputParameters>
     {$ENDREGION}
     procedure Remove(AMigrationSequence: Integer);
-    {$REGION 'IMigrationsHistory.getHistory'}
+    {$REGION 'IMigrationsHistoryFacade.getHistory'}
       /// <Description>
       ///  Gets a list with informations of all migration큦 executions.
       /// </Description>
@@ -73,7 +73,7 @@ type
       /// </Note>
     {$ENDREGION}
     function getHistory: TList<TMigrationsHistoryItem>; overload;
-    {$REGION 'IMigrationsHistory.getHistory'}
+    {$REGION 'IMigrationsHistoryFacade.getHistory'}
       /// <Description>
       ///  Gets a list with informations of migration큦 executions.
       /// </Description>
@@ -89,7 +89,7 @@ type
       /// </Note>
     {$ENDREGION}
     function getHistory(AStartMigrationSeq: Integer): TList<TMigrationsHistoryItem>; overload;
-    {$REGION 'IMigrationsHistory.getHistory'}
+    {$REGION 'IMigrationsHistoryFacade.getHistory'}
       /// <Description>
       ///  Gets a list with informations of migration큦 executions.
       /// </Description>
@@ -106,13 +106,13 @@ type
       /// </Note>
     {$ENDREGION}
     function getHistory(AStartMigrationDateTime: TDateTime): TList<TMigrationsHistoryItem>; overload;
-    {$REGION 'IMigrationsHistory.Save'}
+    {$REGION 'IMigrationsHistoryFacade.Save'}
       /// <Description>
       ///  Save all the history of migrations executions.
       /// </Description>
     {$ENDREGION}
     procedure Save;
-    {$REGION 'IMigrationsHistory.LastMigration'}
+    {$REGION 'IMigrationsHistoryFacade.LastMigration'}
       /// <Description>
       ///  Return the last migration executed.
       /// </Description>

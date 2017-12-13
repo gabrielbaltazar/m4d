@@ -68,39 +68,39 @@ var
 implementation
 
 uses
-  M4D.MigrationsHistoryInterface, M4D.MigrationsHistoryItem, Generics.Collections,
-  System.SysUtils, M4D.MigrationsInterface, UDMDBDemo, M4D.MigrationsHistory,
+  M4D.MigrationsHistoryFacadeInterface, M4D.MigrationsHistoryItem, Generics.Collections,
+  System.SysUtils, M4D.MigrationsInterface, UDMDBDemo, M4D.MigrationsHistoryFacade,
   UDBMigrationHistory;
 
 {$R *.dfm}
 
 procedure TForm2.btnClearHistoryClick(Sender: TObject);
 var
-  MH: IMigrationsHistory;
+  MH: IMigrationsHistoryFacade;
 begin
   //Before performing all migrations, you must clear the migration information
   //so that it is not registered duplicatively.
 
-   MH := M4D.MigrationManager.MigrationsHistory;
+   MH := M4D.MigrationFacade.MigrationsHistoryFacade;
    MH.Clear;
 end;
 
 procedure TForm2.btnExecuteAllClick(Sender: TObject);
 var
-  MH: IMigrationsHistory;
+  MH: IMigrationsHistoryFacade;
 begin
   //Before performing all migrations, you must clear the migration information
   //so that it is not registered duplicatively.
 
-   MH := M4D.MigrationManager.MigrationsHistory;
+   MH := M4D.MigrationFacade.MigrationsHistoryFacade;
    MH.Clear;
 
-   M4D.MigrationManager.Execute;
+   M4D.MigrationFacade.Execute;
 end;
 
 procedure TForm2.btnExecutePendingClick(Sender: TObject);
 begin
-  M4D.MigrationManager.ExecutePending;
+  M4D.MigrationFacade.ExecutePending;
 end;
 
 procedure TForm2.btnExecuteRangeClick(Sender: TObject);
@@ -122,7 +122,7 @@ begin
     end
     else
     begin
-      M4D.MigrationManager.ExecuteRange(LStart, LEnd);
+      M4D.MigrationFacade.ExecuteRange(LStart, LEnd);
     end;
   end;
 end;
@@ -130,7 +130,7 @@ end;
 procedure TForm2.btnExecuteUntilClick(Sender: TObject);
 var
   Aux: Integer;
-  MH: IMigrationsHistory;
+  MH: IMigrationsHistoryFacade;
 begin
   if not TryStrToInt(edtSeqToExecute.Text, Aux) then
   begin
@@ -142,10 +142,10 @@ begin
     //Before performing all migrations, you must clear the migration information
     //so that it is not registered duplicatively.
 
-     MH := M4D.MigrationManager.MigrationsHistory;
+     MH := M4D.MigrationFacade.MigrationsHistoryFacade;
      MH.Clear;
 
-     M4D.MigrationManager.ExecuteUntil(Aux);
+     M4D.MigrationFacade.ExecuteUntil(Aux);
   end;
 end;
 
@@ -157,7 +157,7 @@ var
 begin
   memInfo.Clear;
 
-  RM := M4D.MigrationManager.MigrationsRegister.Migrations;
+  RM := M4D.MigrationFacade.MigrationsRegister.Migrations;
   if Assigned(RM) then
   begin
     memInfo.Lines.Add('Registered migrations');
@@ -167,7 +167,7 @@ begin
       memInfo.Lines.Add('Class name: ' + LClass.ClassName);
       memInfo.Lines.Add('Unit name:' + LClass.UnitName);
 
-      Migration := M4D.MigrationManager.MigrationInfo(LClass{, M4D.MigrationManager.MethodSetupExecutor});
+      Migration := M4D.MigrationFacade.MigrationInfo(LClass);
       memInfo.Lines.Add('Migration sequence: ' + Migration.SeqVersion.ToString);
       memInfo.Lines.Add('Migration version: ' + Migration.Version);
       memInfo.Lines.Add('Migration date time: ' + DateTimeToStr(Migration.DateTime));
@@ -177,7 +177,7 @@ end;
 
 procedure TForm2.btnRollbackAllClick(Sender: TObject);
 begin
-  M4D.MigrationManager.Rollback;
+  M4D.MigrationFacade.Rollback;
 end;
 
 procedure TForm2.btnRollbackRangeClick(Sender: TObject);
@@ -199,7 +199,7 @@ begin
     end
     else
     begin
-      M4D.MigrationManager.RollbackRange(LStart, LEnd);
+      M4D.MigrationFacade.RollbackRange(LStart, LEnd);
     end;
   end;
 end;
@@ -215,7 +215,7 @@ begin
   end
   else
   begin
-     M4D.MigrationManager.RollbackUntil(Aux);
+     M4D.MigrationFacade.RollbackUntil(Aux);
   end;
 end;
 
@@ -231,7 +231,7 @@ end;
 
 procedure TForm2.Button2Click(Sender: TObject);
 begin
-  M4D.MigrationManager.RollbackPending;
+  M4D.MigrationFacade.RollbackPending;
 end;
 
 procedure TForm2.Button4Click(Sender: TObject);
@@ -241,7 +241,7 @@ var
 begin
   memInfo.Clear;
 
-  MH := M4D.MigrationManager.MigrationsHistory.getHistory;
+  MH := M4D.MigrationFacade.MigrationsHistoryFacade.getHistory;
   if Assigned(MH) then
   begin
     try
@@ -269,7 +269,7 @@ var
 begin
   memInfo.Clear;
 
-  Item := M4D.MigrationManager.MigrationsHistory.LastMigration;
+  Item := M4D.MigrationFacade.MigrationsHistoryFacade.LastMigration;
   if Assigned(Item) then
   begin
     memInfo.Lines.Add('History of migrations:');

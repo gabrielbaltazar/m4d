@@ -6,13 +6,13 @@ unit M4DTest.MigrationsHistory;
 interface
 
 uses
-  DUnitX.TestFramework, M4D.MigrationSerializerInterface;
+  DUnitX.TestFramework, M4D.MigrationSerializerFacadeInterface;
 
 type
   [TestFixture]
   TestMigrationsHistory = class
   private
-    FSerializer: IMigrationSerializer;
+    FSerializer: IMigrationSerializerFacade;
   public
     [Setup]
     procedure Setup;
@@ -21,13 +21,13 @@ type
 implementation
 
 uses
-  M4D.MigrationsHistoryInterface, M4D.MigrationsHistory, M4D.MigrationSerializer;
+  M4D.MigrationsHistoryFacadeInterface, M4D.MigrationsHistoryFacade, M4D.MigrationSerializerFacade;
 
 { TestMigrationsHistory }
 
 procedure TestMigrationsHistory.Setup;
 begin
-  FSerializer := TMigrationSerializer.Create;
+  FSerializer := TMigrationSerializerFacade.Create;
 end;
 
 initialization

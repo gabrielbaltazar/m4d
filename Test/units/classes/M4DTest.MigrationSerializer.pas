@@ -4,7 +4,7 @@ interface
 
 uses
   DUnitX.TestFramework, M4D.MigrationsHistoryItem,
-  M4D.MigrationSerializerInterface;
+  M4D.MigrationSerializerFacadeInterface;
 
 type
   [TestFixture]
@@ -19,7 +19,7 @@ type
       DURATION = 1.0;
 
     var
-      FMigrationSerializer: IMigrationSerializer;
+      FMigrationSerializer: IMigrationSerializerFacade;
       FText: string;
 
 //    procedure Aux(AItem: TMigrationsHistoryItem);
@@ -35,7 +35,7 @@ type
 implementation
 
 uses
-  System.SysUtils, M4D.MigrationSerializer,
+  System.SysUtils, M4D.MigrationSerializerFacade,
 
   System.JSON, Data.DBXJSONReflect, Vcl.Dialogs;
 
@@ -104,7 +104,7 @@ end;
 
 procedure TestMigrationSerializer.Setup;
 begin
-  FMigrationSerializer := TMigrationSerializer.Create;
+  FMigrationSerializer := TMigrationSerializerFacade.Create;
   
   FText := '{"type":"M4D.MigrationsHistoryItem.TMigrationsHistoryItem","id":1,"fields":{"FMigrationVersion":"1.00","FMigrationSeq":1,"FMigrationDateTime":43005,"FStartOfExecution":43005.2916666667,"FEndOfExecution":43006.2916666667,"FDurationOfExecution":1}}';
 end;

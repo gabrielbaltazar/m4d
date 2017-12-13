@@ -15,38 +15,38 @@ interface
 
 uses
   M4D.MigrationsInterface,
-  M4D.MigrationsManager,
-  M4D.MigrationsHistoryInterface, M4D.GetterMigrationsInterface,
-  M4D.MigrationsRegisterInterface, M4D.MigrationExecutorInterface,
-  M4D.MigrationSerializerInterface;
+  M4D.MigrationsFacade,
+  M4D.MigrationsHistoryFacadeInterface, M4D.GetterMigrationsInterface,
+  M4D.MigrationsRegisterInterface, M4D.MigrationExecutorFacadeInterface,
+  M4D.MigrationSerializerFacadeInterface;
 
-function MigrationManager(AMigrationsHistory: IMigrationsHistory;
-                          AGetterMigration: IGetterMigrations;
-                          AMigrationsRegister: IMigrationsRegister;
-                          AMigrationExecutor: IMigrationExecutor): TMigrationsManager ; overload;
+function MigrationFacade(AMigrationsHistoryFacade: IMigrationsHistoryFacade;
+                         AGetterMigration: IGetterMigrations;
+                         AMigrationsRegister: IMigrationsRegister;
+                         AMigrationExecutorFacade: IMigrationExecutorFacade): TMigrationsFacade; overload;
 
-function MigrationManager: TMigrationsManager; overload;
+function MigrationFacade: TMigrationsFacade; overload;
 procedure RegisterMigration(AMigration: TClass;
-                            AMigrationsHistory: IMigrationsHistory;
+                            AMigrationsHistoryFacade: IMigrationsHistoryFacade;
                             AGetterMigration: IGetterMigrations;
                             AMigrationsRegister: IMigrationsRegister;
-                            AMigrationExecutor: IMigrationExecutor); overload;
+                            AMigrationExecutorFacade: IMigrationExecutorFacade); overload;
 procedure RegisterMigration(AMigration: TClass); overload;
 procedure Release;
 
 var
-  GMigrationsManager: TMigrationsManager;
+  GMigrationsManager: TMigrationsFacade;
 
 implementation
 
 uses
   System.Classes, System.SysUtils,
-  M4D.MigrationsHistory, M4D.MigrationSerializer;
+  M4D.MigrationsHistoryFacade, M4D.MigrationSerializerFacade;
 
-function MigrationManager(AMigrationsHistory: IMigrationsHistory;
-                           AGetterMigration: IGetterMigrations;
-                           AMigrationsRegister: IMigrationsRegister;
-                           AMigrationExecutor: IMigrationExecutor): TMigrationsManager overload;
+function MigrationFacade(AMigrationsHistoryFacade: IMigrationsHistoryFacade;
+                         AGetterMigration: IGetterMigrations;
+                         AMigrationsRegister: IMigrationsRegister;
+                         AMigrationExecutorFacade: IMigrationExecutorFacade): TMigrationsFacade; overload;
 begin
   if Assigned(GMigrationsManager) then
   begin
@@ -54,15 +54,15 @@ begin
   end
   else
   begin
-    GMigrationsManager := TMigrationsManager.Create(AMigrationsHistory,
-                                                    AGetterMigration,
-                                                    AMigrationsRegister,
-                                                    AMigrationExecutor);
+    GMigrationsManager := TMigrationsFacade.Create(AMigrationsHistoryFacade,
+                                                   AGetterMigration,
+                                                   AMigrationsRegister,
+                                                   AMigrationExecutorFacade);
     Result := GMigrationsManager;
   end;
 end;
 
-function MigrationManager: TMigrationsManager;  overload;
+function MigrationFacade: TMigrationsFacade;  overload;
 begin
   if Assigned(GMigrationsManager) then
   begin
@@ -70,23 +70,23 @@ begin
   end
   else
   begin
-    GMigrationsManager := TMigrationsManager.Create;
+    GMigrationsManager := TMigrationsFacade.Create;
     Result := GMigrationsManager;
   end;
 end;
 
 procedure RegisterMigration(AMigration: TClass;
-                            AMigrationsHistory: IMigrationsHistory;
+                            AMigrationsHistoryFacade: IMigrationsHistoryFacade;
                             AGetterMigration: IGetterMigrations;
                             AMigrationsRegister: IMigrationsRegister;
-                            AMigrationExecutor: IMigrationExecutor); overload;
+                            AMigrationExecutorFacade: IMigrationExecutorFacade); overload;
 var
-  MM: TMigrationsManager;
+  MM: TMigrationsFacade;
 begin
-  MM := MigrationManager(AMigrationsHistory,
-                         AGetterMigration,
-                         AMigrationsRegister,
-                         AMigrationExecutor);
+  MM := MigrationFacade(AMigrationsHistoryFacade,
+                        AGetterMigration,
+                        AMigrationsRegister,
+                        AMigrationExecutorFacade);
   if Assigned(MM) then
   begin
     MM.RegisterMigration(AMigration);
@@ -100,9 +100,9 @@ end;
 
 procedure RegisterMigration(AMigration: TClass); overload;
 var
-  MM: TMigrationsManager;
+  MM: TMigrationsFacade;
 begin
-  MM := MigrationManager;
+  MM := MigrationFacade;
   if Assigned(MM) then
   begin
     MM.RegisterMigration(AMigration);

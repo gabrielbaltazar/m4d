@@ -15,7 +15,7 @@ interface
 
 uses
   M4D.MigrationExecRangeExecutorInterface, Generics.Collections,
-  M4D.MigrationsHistoryInterface, M4D.MigrationExecExecutorInterface;
+  M4D.MigrationsHistoryFacadeInterface, M4D.MigrationExecExecutorInterface;
 
 type
   {$REGION 'TMigrationExecRangeExecutor'}
@@ -36,7 +36,7 @@ type
     FMigrationExecExecutor: IMigrationExecExecutor;
   public
     constructor Create(AMigrationExecExecutor: IMigrationExecExecutor); reintroduce;
-    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
+    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
   end;
 
 implementation
@@ -60,7 +60,7 @@ begin
   end;
 end;
 
-procedure TMigrationExecRangeExecutor.ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence, AEndMigrationSequence: Integer);
+procedure TMigrationExecRangeExecutor.ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AStartMigrationSequence, AEndMigrationSequence: Integer);
 var
   LList: TList<TClass>;
   SequenceProp: Integer;
@@ -73,7 +73,7 @@ begin
   end
   else
   begin
-    if not Assigned(AMigrationHistory) then
+    if not Assigned(AMigrationHistoryFacade) then
     begin
       raise Exception.Create('The parameter AMigrationHistory must not be nil.');
     end
@@ -100,7 +100,7 @@ begin
       begin
         if LList.Count > 0 then
         begin
-          FMigrationExecExecutor.Execute(LList, AMigrationHistory);
+          FMigrationExecExecutor.Execute(LList, AMigrationHistoryFacade);
           if Assigned(LList) then FreeAndNil(LList);
         end;
       end;

@@ -14,7 +14,7 @@ unit M4D.MigrationExecUntilExecutorInterface;
 interface
 
 uses
-  Generics.Collections, M4D.MigrationsHistoryInterface;
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'IMigrationExecUntilExecutor'}
@@ -34,7 +34,7 @@ type
       ///  AMigrationHistory - The history handler to record executions.
       /// </InputParameters>
     {$ENDREGION}
-    procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+    procedure ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation

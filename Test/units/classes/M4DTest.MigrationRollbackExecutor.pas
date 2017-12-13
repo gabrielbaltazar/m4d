@@ -3,7 +3,7 @@ unit M4DTest.MigrationRollbackExecutor;
 interface
 
 uses
-  DUnitX.TestFramework, Generics.Collections, M4D.MigrationsHistoryInterface,
+  DUnitX.TestFramework, Generics.Collections, M4D.MigrationsHistoryFacadeInterface,
   M4D.MigrationsHistoryItem;
 
 type
@@ -11,7 +11,7 @@ type
   TestMigrationRollbackExecutor = class
   private
     FMigrationsList: TList<TClass>;
-    FMigrationHistory: IMigrationsHistory;
+    FMigrationHistory: IMigrationsHistoryFacade;
     FMigrationHistoryItem: TMigrationsHistoryItem;
   public
     [Setup]

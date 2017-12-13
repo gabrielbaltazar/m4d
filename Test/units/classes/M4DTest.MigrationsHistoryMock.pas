@@ -4,11 +4,11 @@ interface
 
 uses
   generics.Collections, M4D.MigrationsHistoryItem,
-  M4D.MigrationsHistoryInterface;
+  M4D.MigrationsHistoryFacadeInterface;
 
 type
   [TestFixture]
-  TMigrationsHistoryMock = class(TInterfacedObject, IMigrationsHistory)
+  TMigrationsHistoryMock = class(TInterfacedObject, IMigrationsHistoryFacade)
   public
     procedure Clear;
     procedure Load;

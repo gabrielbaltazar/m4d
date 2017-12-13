@@ -14,7 +14,7 @@ unit M4D.MigrationExecRangeExecutorInterface;
 interface
 
 uses
-  Generics.Collections, M4D.MigrationsHistoryInterface;
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'IMigrationExecRangeExecutor'}
@@ -35,7 +35,7 @@ type
       ///  AEndMigrationSequence - The last sequence value considered to execution.
       /// </InputParameters>
     {$ENDREGION}
-    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
+    procedure ExecuteRange(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
   end;
 
 implementation

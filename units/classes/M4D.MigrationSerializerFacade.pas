@@ -10,16 +10,16 @@ Use licence: See the license file
 
 ######################################################################################}
 
-unit M4D.MigrationSerializer;
+unit M4D.MigrationSerializerFacade;
 
 interface
 
 uses
-  M4D.MigrationSerializerInterface, M4D.MigrationsHistoryItem, Data.DBXJSONReflect,
+  M4D.MigrationSerializerFacadeInterface, M4D.MigrationsHistoryItem, Data.DBXJSONReflect,
   M4D.HistoryToTextTransformerInterface, M4D.TextToHistoryTransformerInterface;
 
 type
-  {$REGION 'TMigrationSerializer'}
+  {$REGION 'TMigrationSerializerFacade'}
     /// <Description>
     ///  Standard class to convert between string values and history items.
     /// </Description>
@@ -31,7 +31,7 @@ type
     ///  from which they come.
     /// </Note>
   {$ENDREGION}
-  TMigrationSerializer = class(TInterfacedObject, IMigrationSerializer)
+  TMigrationSerializerFacade = class(TInterfacedObject, IMigrationSerializerFacade)
   private
     FHistoryToTextTransformer: IHistoryToTextTransformer;
     FTextToHistoryTransformer: ITextToHistoryTransformer;
@@ -47,9 +47,9 @@ uses
   System.JSON, System.SysUtils, M4D.HistoryToTextTransformer,
   M4D.TextToHistoryTransformer;
 
-{ TMigrationSerializer }
+{ TMigrationSerializerFacade }
 
-constructor TMigrationSerializer.Create;
+constructor TMigrationSerializerFacade.Create;
 begin
   inherited Create;
 
@@ -57,12 +57,12 @@ begin
   FTextToHistoryTransformer := TTextToHistoryTransformer.Create;
 end;
 
-function TMigrationSerializer.HistoryToText(AItem: TMigrationsHistoryItem): string;
+function TMigrationSerializerFacade.HistoryToText(AItem: TMigrationsHistoryItem): string;
 begin
   Result := FHistoryToTextTransformer.HistoryToText(AItem);
 end;
 
-function TMigrationSerializer.TextToHistory(AValue: string): TMigrationsHistoryItem;
+function TMigrationSerializerFacade.TextToHistory(AValue: string): TMigrationsHistoryItem;
 begin
   Result := FTextToHistoryTransformer.TextToHistory(AValue);
 end;

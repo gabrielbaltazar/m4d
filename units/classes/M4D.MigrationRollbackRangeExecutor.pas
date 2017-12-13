@@ -5,7 +5,7 @@ interface
 uses
   M4D.MigrationRollbackRangeExecutorInterface,
   M4D.MigrationRollbackExecutorInterface,
-  Generics.Collections, M4D.MigrationsHistoryInterface;
+  Generics.Collections, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'TMigrationRollbackRangeExecutor'}
@@ -26,7 +26,7 @@ type
     FMigrationRollbackExecutor: IMigrationRollbackExecutor;
   public
     constructor Create(AMigrationRollbackExecutor: IMigrationRollbackExecutor); reintroduce;
-    procedure RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
+    procedure RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AStartMigrationSequence: Integer; AEndMigrationSequence: Integer);
   end;
 
 implementation
@@ -50,7 +50,7 @@ begin
   end;
 end;
 
-procedure TMigrationRollbackRangeExecutor.RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory; AStartMigrationSequence, AEndMigrationSequence: Integer);
+procedure TMigrationRollbackRangeExecutor.RollbackRange(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AStartMigrationSequence, AEndMigrationSequence: Integer);
 var
   LList: TList<TClass>;
   I: Integer;
@@ -64,7 +64,7 @@ begin
   end
   else
   begin
-    if not Assigned(AMigrationHistory) then
+    if not Assigned(AMigrationHistoryFacade) then
     begin
       raise Exception.Create('The parameter AMigrationHistory must not be nil.');
     end
@@ -92,7 +92,7 @@ begin
       begin
         if LList.Count > 0 then
         begin
-          FMigrationRollbackExecutor.Rollback(LList, AMigrationHistory);
+          FMigrationRollbackExecutor.Rollback(LList, AMigrationHistoryFacade);
           if Assigned(LList) then FreeAndNil(LList);
         end;
       end;

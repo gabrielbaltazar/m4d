@@ -4,7 +4,7 @@ interface
 
 uses
   DUnitX.TestFramework, Generics.Collections, M4D.MigrationExecPendingExecutorInterface,
-  M4D.MigrationsHistoryInterface, M4D.MigrationsHistoryItem,
+  M4D.MigrationsHistoryFacadeInterface, M4D.MigrationsHistoryItem,
   M4D.MigrationExecExecutorInterface;
 
 type
@@ -12,7 +12,7 @@ type
   TestMigrationExecPendingExecutor = class
   private
     FMigrationsList: TList<TClass>;
-    FMigrationHistory: IMigrationsHistory;
+    FMigrationHistory: IMigrationsHistoryFacade;
     FMigrationHistoryItem: TMigrationsHistoryItem;
     FExecutor: IMigrationExecExecutor;
   public

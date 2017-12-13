@@ -26,7 +26,7 @@ implementation
 
 uses
   System.SysUtils, UDMDBDemo, FireDAC.Comp.Client, UDBMigrationHistory,
-  M4D.MigrationsHistoryInterface;
+  M4D.MigrationsHistoryFacadeInterface;
 
 { TMDescription1 }
 

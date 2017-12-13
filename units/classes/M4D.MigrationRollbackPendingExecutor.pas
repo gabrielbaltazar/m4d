@@ -15,7 +15,7 @@ interface
 
 uses
   Generics.Collections, M4D.MigrationRollbackPendingExecutorInterface,
-  M4D.MigrationsHistoryItem, M4D.MigrationsHistoryInterface,
+  M4D.MigrationsHistoryItem, M4D.MigrationsHistoryFacadeInterface,
   M4D.MigrationRollbackExecutorInterface;
 
 type
@@ -32,7 +32,7 @@ type
     FMigrationRollbackExecutor: IMigrationRollbackExecutor;
   public
     constructor Create(AMigrationRollbackExecutor: IMigrationRollbackExecutor); reintroduce;
-    procedure RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory);
+    procedure RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation
@@ -56,7 +56,7 @@ begin
   end;
 end;
 
-procedure TMigrationRollbackPendingExecutor.RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistory: IMigrationsHistory);
+procedure TMigrationRollbackPendingExecutor.RollbackPending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistoryFacade: IMigrationsHistoryFacade);
 var
   I: Integer;
   LClass: TClass;
@@ -98,7 +98,7 @@ begin
       begin
         if LList.Count > 0 then
         begin
-          FMigrationRollbackExecutor.Rollback(LList, AMigrationHistory);
+          FMigrationRollbackExecutor.Rollback(LList, AMigrationHistoryFacade);
           if Assigned(LList) then FreeAndNil(LList);
         end;
       end;

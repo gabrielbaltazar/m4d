@@ -9,13 +9,13 @@ Date of creation: 31/08/2017
 Use licence: See the license file
 
 ######################################################################################}
-unit M4D.MigrationsHistory;
+unit M4D.MigrationsHistoryFacade;
 
 interface
 
 uses
-  M4D.MigrationsHistoryInterface, M4D.MigrationsHistoryItem, Generics.Collections,
-  M4D.MigrationSerializer, M4D.MigrationSerializerInterface, M4D.MigrationsInterface,
+  M4D.MigrationsHistoryFacadeInterface, M4D.MigrationsHistoryItem, Generics.Collections,
+  M4D.MigrationSerializerFacade, M4D.MigrationSerializerFacadeInterface, M4D.MigrationsInterface,
   System.Classes, System.SysUtils, M4D.GetterMigrationsInterface, System.Generics.Defaults,
   M4D.HistoryCleanerInterface, M4D.MigrationsHistoryLoaderInterface,
   M4D.MigrationsHistoryUnloaderInterface, M4D.MigrationsHistoryAdderInterface,
@@ -24,7 +24,7 @@ uses
 
 type
   {$M+}
-  {$REGION 'TMigrationsHistory'}
+  {$REGION 'TMigrationsHistoryFacade'}
     /// <Description>
     ///  Standard class for handling information about the history of migrations´s executions.
     /// </Description>
@@ -36,12 +36,12 @@ type
     ///  from which they come.
     /// </Note>
   {$ENDREGION}
-  TMigrationsHistory = class(TInterfacedObject, IMigrationsHistory)
+  TMigrationsHistoryFacade = class(TInterfacedObject, IMigrationsHistoryFacade)
   private
     FHistoryList: TObjectList<TMigrationsHistoryItem>;
     FPath: string;
     FFile: TStringList;
-    FSerializer: IMigrationSerializer;
+    FSerializerFacade: IMigrationSerializerFacade;
     FLoaded: Boolean;
     FCompare: IComparer<TMigrationsHistoryItem>;
 
@@ -57,7 +57,7 @@ type
 //    function getHistory(APredicate: TPredicate<TMigrationsHistoryItem>): TList<TMigrationsHistoryItem>; overload;
     function getHistory: TList<TMigrationsHistoryItem>; overload;
   public
-    constructor Create(APath: string; ASerializer: IMigrationSerializer); reintroduce;
+    constructor Create(APath: string; ASerializerFacade: IMigrationSerializerFacade); reintroduce;
     destructor Destroy; override;
 
     procedure Clear;
@@ -83,9 +83,9 @@ uses
   M4D.MigrationsHistoryRemover, M4D.MigrationsHistorySaver,
   M4D.LastMigrationsHistoryGetter, M4D.HistoryGetter;
 
-{ TMigrationsHistory }
+{ TMigrationsHistoryFacade }
 
-procedure TMigrationsHistory.Add(AItem: TMigrationsHistoryItem);
+procedure TMigrationsHistoryFacade.Add(AItem: TMigrationsHistoryItem);
 begin
 //  if not Assigned(AItem) then
 //  begin
@@ -100,7 +100,7 @@ begin
   FAdder.Add(AItem);
 end;
 
-procedure TMigrationsHistory.Clear;
+procedure TMigrationsHistoryFacade.Clear;
 begin
 //  FHistoryList.Clear;
 //  FFile.Clear;
@@ -115,7 +115,7 @@ begin
   FCleaner.Clear;
 end;
 
-constructor TMigrationsHistory.Create(APath: string; ASerializer: IMigrationSerializer);
+constructor TMigrationsHistoryFacade.Create(APath: string; ASerializerFacade: IMigrationSerializerFacade);
 var
   LComparison: TComparison<TMigrationsHistoryItem>;
 begin
@@ -125,7 +125,7 @@ begin
   end
   else
   begin
-    if not Assigned(ASerializer) then
+    if not Assigned(ASerializerFacade) then
     begin
       raise Exception.Create('Invalida parametrer ASerializer. The parameter must no be nil.');
     end
@@ -137,7 +137,7 @@ begin
 
       FPath := APath;
 
-      FSerializer := ASerializer;
+      FSerializerFacade := ASerializerFacade;
 
       LComparison := function(const Left, Right: TMigrationsHistoryItem): Integer
                      begin
@@ -149,18 +149,18 @@ begin
 
       FFile := TStringList.Create;
       FCleaner := THistoryCleaner.Create(FHistoryList, FFile, FPath);
-      FLoader := TMigrationsHistoryLoader.Create(FHistoryList, FFile, FPath, FSerializer);
+      FLoader := TMigrationsHistoryLoader.Create(FHistoryList, FFile, FPath, FSerializerFacade);
       FUnLoader := TMigrationsHistoryUnLoader.Create(FFile);
       FAdder := TMigrationsHistoryAdder.Create(FHistoryList);
       FRemover := TMigrationsHistoryRemover.Create(FHistoryList);
-      FSaver := TMigrationsHistorySaver.Create(FHistoryList, FFile, FPath, FSerializer);
+      FSaver := TMigrationsHistorySaver.Create(FHistoryList, FFile, FPath, FSerializerFacade);
       FMigrationGetter := TMigrationHistoryGetter.Create(FHistoryList);
       FLastMigrationGetter := TLastMigrationsHistoryGetter.Create(FHistoryList);
     end;
   end;
 end;
 
-destructor TMigrationsHistory.Destroy;
+destructor TMigrationsHistoryFacade.Destroy;
 begin
   Self.UnLoad;
 
@@ -169,7 +169,7 @@ begin
   inherited;
 end;
 
-function TMigrationsHistory.getHistory(AStartMigrationDateTime: TDateTime): TList<TMigrationsHistoryItem>;
+function TMigrationsHistoryFacade.getHistory(AStartMigrationDateTime: TDateTime): TList<TMigrationsHistoryItem>;
 begin
 //  Result := Self.getHistory(function(Item: TMigrationsHistoryItem): boolean
 //                            begin
@@ -182,7 +182,7 @@ begin
                                         end);
 end;
 
-function TMigrationsHistory.getHistory(AStartMigrationSeq: Integer): TList<TMigrationsHistoryItem>;
+function TMigrationsHistoryFacade.getHistory(AStartMigrationSeq: Integer): TList<TMigrationsHistoryItem>;
 begin
 //  Result := Self.getHistory(function(Item: TMigrationsHistoryItem): boolean
 //                            begin
@@ -195,7 +195,7 @@ begin
                                         end);
 end;
 
-function TMigrationsHistory.getHistory: TList<TMigrationsHistoryItem>;
+function TMigrationsHistoryFacade.getHistory: TList<TMigrationsHistoryItem>;
 begin
   if not Self.FLoaded then Self.Load;
 
@@ -203,7 +203,7 @@ begin
   Result := FHistoryList;
 end;
 
-function TMigrationsHistory.LastMigration: TMigrationsHistoryItem;
+function TMigrationsHistoryFacade.LastMigration: TMigrationsHistoryItem;
 begin
 //  Result := nil;
 //
@@ -219,7 +219,7 @@ begin
   Result := FLastMigrationGetter.LastMigration;
 end;
 
-procedure TMigrationsHistory.Load;
+procedure TMigrationsHistoryFacade.Load;
 //var
 //  I: Integer;
 //  Aux: string;
@@ -240,7 +240,7 @@ begin
   Self.FLoaded := True;
 end;
 
-procedure TMigrationsHistory.Remove(AMigrationSequence: Integer);
+procedure TMigrationsHistoryFacade.Remove(AMigrationSequence: Integer);
 //var
 //  Item: TMigrationsHistoryItem;
 begin
@@ -257,7 +257,7 @@ begin
   FRemover.Remove(AMigrationSequence);
 end;
 
-procedure TMigrationsHistory.Save;
+procedure TMigrationsHistoryFacade.Save;
 //var
 //  Item: TMigrationsHistoryItem;
 //  Continue: Boolean;
@@ -287,7 +287,7 @@ begin
   FSaver.Save;
 end;
 
-procedure TMigrationsHistory.UnLoad;
+procedure TMigrationsHistoryFacade.UnLoad;
 begin
 //  if Assigned(FFile) then FreeAndNil(FFile);
 
@@ -296,7 +296,7 @@ begin
   Self.FLoaded := False;
 end;
 
-function TMigrationsHistory.getHistory(AMigrationVersion: string): TList<TMigrationsHistoryItem>;
+function TMigrationsHistoryFacade.getHistory(AMigrationVersion: string): TList<TMigrationsHistoryItem>;
 begin
 //  Result := Self.getHistory(function(Item: TMigrationsHistoryItem): boolean
 //                            begin

@@ -15,7 +15,7 @@ interface
 
 uses
   Generics.Collections, M4D.MigrationRollbackExecutorInterface,
-  M4D.MigrationExecExecutorInterface, M4D.MigrationsHistoryInterface;
+  M4D.MigrationExecExecutorInterface, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'TMigrationRollbackExecutor'}
@@ -33,7 +33,7 @@ type
   {$ENDREGION}
   TMigrationRollbackExecutor = class(TInterfacedObject, IMigrationRollbackExecutor)
   public
-    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory);
+    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation
@@ -43,7 +43,7 @@ uses
 
 { TMigrationRollbackExecutor }
 
-procedure TMigrationRollbackExecutor.Rollback(AMigrationsList: TList<TClass>; AMigrationHistory: IMigrationsHistory);
+procedure TMigrationRollbackExecutor.Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
 var
   I: Integer;
   SequenceProp: Integer;
@@ -67,15 +67,15 @@ begin
     (Aux as TInterfacedObject as IMigration).Down;
     HadMigration := True;
 
-    if HadMigration and Assigned(AMigrationHistory) then
+    if HadMigration and Assigned(AMigrationHistoryFacade) then
     begin
-      AMigrationHistory.Remove(SequenceProp);
+      AMigrationHistoryFacade.Remove(SequenceProp);
     end;
   end;
 
   if HadMigration then
   begin
-    AMigrationHistory.Save;
+    AMigrationHistoryFacade.Save;
   end;
 end;
 

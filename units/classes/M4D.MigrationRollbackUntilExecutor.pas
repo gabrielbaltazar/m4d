@@ -16,7 +16,7 @@ interface
 uses
   Generics.Collections,
   M4D.MigrationRollbackUntilExecutorInterface,
-  M4D.MigrationRollbackExecutorInterface, M4D.MigrationsHistoryInterface;
+  M4D.MigrationRollbackExecutorInterface, M4D.MigrationsHistoryFacadeInterface;
 
 type
   {$REGION 'TMigrationRollbackUntilExecutor'}
@@ -37,7 +37,7 @@ type
     FMigrationRollbackExecutor: IMigrationRollbackExecutor;
   public
     constructor Create(AMigrationRollbackExecutor: IMigrationRollbackExecutor); reintroduce;
-    procedure RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+    procedure RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistoryFacade: IMigrationsHistoryFacade);
   end;
 
 implementation
@@ -61,7 +61,7 @@ begin
   end;
 end;
 
-procedure TMigrationRollbackUntilExecutor.RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistory: IMigrationsHistory);
+procedure TMigrationRollbackUntilExecutor.RollbackUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistoryFacade: IMigrationsHistoryFacade);
 var
   LList: TList<TClass>;
   I: Integer;
@@ -97,7 +97,7 @@ begin
     begin
       if LList.Count > 0 then
       begin
-        FMigrationRollbackExecutor.Rollback(LList, AMigrationHistory);
+        FMigrationRollbackExecutor.Rollback(LList, AMigrationHistoryFacade);
         if Assigned(LList) then FreeAndNil(LList);
       end;
     end;
