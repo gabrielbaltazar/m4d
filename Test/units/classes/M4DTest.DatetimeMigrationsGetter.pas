@@ -3,7 +3,8 @@ unit M4DTest.DatetimeMigrationsGetter;
 interface
 
 uses
-  DUnitX.TestFramework, Generics.Collections, M4D.MigrationsInterface, M4D.MainMigrationsGetterInterface;
+  DUnitX.TestFramework, Generics.Collections, M4D.MigrationsInterface,
+  M4D.MainMigrationsGetterInterface;
 
 type
   [TestFixture]
@@ -40,7 +41,8 @@ type
 implementation
 
 uses
-  M4D.DatetimeMigrationsGetter, M4D.Migrations, System.SysUtils, M4D.MainMigrationsGetter;
+  M4D.DatetimeMigrationsGetter, M4D.Migrations, System.SysUtils,
+  M4D.MainMigrationsGetter, M4DTest.MStubMigrationToTest;
 
 { TestCheckTheInputParameterExceptionCall }
 
@@ -127,15 +129,15 @@ var
 begin
   List := TList<IMigration>.Create;
 
-  Item := TMigrations.Create;
+  Item := TestStubClass.Create;
   Item.DateTime := StrToDateTime('01/01/2017');
   List.Add(Item);
 
-  Item := TMigrations.Create;
+  Item := TestStubClass.Create;
   Item.DateTime := StrToDateTime('15/07/2017');
   List.Add(Item);
 
-  Item := TMigrations.Create;
+  Item := TestStubClass.Create;
   Item.DateTime := StrToDateTime('21/09/2017');
   List.Add(Item);
 

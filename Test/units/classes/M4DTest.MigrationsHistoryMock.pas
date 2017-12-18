@@ -3,11 +3,11 @@ unit M4DTest.MigrationsHistoryMock;
 interface
 
 uses
-  generics.Collections, M4D.MigrationsHistoryItem,
+  Generics.Collections,
+  M4D.MigrationsHistoryItem,
   M4D.MigrationsHistoryFacadeInterface;
 
 type
-  [TestFixture]
   TMigrationsHistoryMock = class(TInterfacedObject, IMigrationsHistoryFacade)
   public
     procedure Clear;

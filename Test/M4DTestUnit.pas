@@ -19,13 +19,13 @@ type
     [Setup]
     procedure Setup;
     [Test]
-    procedure CheckMigrationManagerWithParameters;
+    procedure CheckMigrationFacadeWithParameters;
     [Test]
-    procedure CheckMigrationManagerWithoutParameters;
+    procedure CheckMigrationFacadeWithoutParameters;
     [Test]
-    procedure CheckRegisterMigrationWithParameters;
+    procedure CheckRegisterFacadeWithParameters;
     [Test]
-    procedure CheckRegisterMigrationWithoutParameters;
+    procedure CheckRegisterFacadeWithoutParameters;
     [Test]
     procedure CheckRelease;
   end;
@@ -39,30 +39,30 @@ uses
 
 { TestM4D }
 
-procedure TestM4D.CheckMigrationManagerWithoutParameters;
+procedure TestM4D.CheckMigrationFacadeWithoutParameters;
 var
   MM: TMigrationsFacade;
 begin
   MM := M4D.MigrationFacade;
-  Assert.IsTrue(Assigned(MM), 'The M4D.MigrationManager without parameters must be assigned.');
+  Assert.IsTrue(Assigned(MM), 'The M4D.MigrationFacade without parameters must be assigned.');
 end;
 
-procedure TestM4D.CheckMigrationManagerWithParameters;
+procedure TestM4D.CheckMigrationFacadeWithParameters;
 var
   MM: TMigrationsFacade;
 begin
   MM := M4D.MigrationFacade(FMigrationsHistory, FGetterMigration, FMigrationsRegister, FMigrationExecutor);
 
-  Assert.IsTrue(Assigned(MM), 'The M4D.MigrationManager with parameters must be assigned.');
+  Assert.IsTrue(Assigned(MM), 'The M4D.MigrationFacade with parameters must be assigned.');
 end;
 
-procedure TestM4D.CheckRegisterMigrationWithoutParameters;
+procedure TestM4D.CheckRegisterFacadeWithoutParameters;
 begin
   M4D.RegisterMigration(TestStubClass, FMigrationsHistory, FGetterMigration, FMigrationsRegister, FMigrationExecutor);
   Assert.Pass('If get this point, the registration works well.');
 end;
 
-procedure TestM4D.CheckRegisterMigrationWithParameters;
+procedure TestM4D.CheckRegisterFacadeWithParameters;
 begin
   M4D.RegisterMigration(TestStubClass);
   Assert.Pass('If get this point, the registration works well.');

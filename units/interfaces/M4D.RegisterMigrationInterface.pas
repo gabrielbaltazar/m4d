@@ -25,7 +25,7 @@ type
     ///  A migration register is responsible for registering the migration within
     ///  the migration management class. Thus, the migration becomes known by the
     ///  migration management class and can be used when needed. This just must
-    ///  be used to implement a migration manager class.
+    ///  be used to implement a migration facade class.
     /// </Note>
   {$ENDREGION}
   IRegisterMigration = interface

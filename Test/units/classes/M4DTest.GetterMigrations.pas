@@ -39,7 +39,8 @@ type
 implementation
 
 uses
-  System.SysUtils, M4D.Migrations;
+  System.SysUtils,
+  M4DTest.MStubMigrationToTest;
 
 { TestGetterMigrations }
 
@@ -141,17 +142,17 @@ begin
 
   FMigrationsList := TList<IMigration>.Create;
 
-  Item := TMigrations.Create;
+  Item := TestStubClass.Create;
   Item.SeqVersion := 1;
   Item.DateTime := StrToDateTime('01/01/2017');
   FMigrationsList.Add(Item);
 
-  Item := TMigrations.Create;
+  Item := TestStubClass.Create;
   Item.SeqVersion := 2;
   Item.DateTime := StrToDateTime('15/05/2017');
   FMigrationsList.Add(Item);
 
-  Item := TMigrations.Create;
+  Item := TestStubClass.Create;
   Item.SeqVersion := 3;
   Item.DateTime := StrToDateTime('22/09/2017');
   FMigrationsList.Add(Item);

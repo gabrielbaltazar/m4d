@@ -27,7 +27,7 @@ uses
   M4DTest.MigrationSerializer in 'units\classes\M4DTest.MigrationSerializer.pas',
   M4DTest.MigrationsHistory in 'units\classes\M4DTest.MigrationsHistory.pas',
   M4DTest.MigrationsHistoryItem in 'units\classes\M4DTest.MigrationsHistoryItem.pas',
-  M4DTest.MigrationsManager in 'units\classes\M4DTest.MigrationsManager.pas',
+  M4DTest.MigrationsFacade in 'units\classes\M4DTest.MigrationsFacade.pas',
   M4DTest.MigrationsRegister in 'units\classes\M4DTest.MigrationsRegister.pas',
   M4DTestUnit in 'M4DTestUnit.pas',
   M4DTest.SequenceMigrationsGetter in 'units\classes\M4DTest.SequenceMigrationsGetter.pas',

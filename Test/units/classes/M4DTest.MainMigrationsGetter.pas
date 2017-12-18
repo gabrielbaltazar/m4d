@@ -25,7 +25,7 @@ type
 implementation
 
 uses
-  M4D.Migrations, M4D.MainMigrationsGetterInterface;
+  M4D.MainMigrationsGetterInterface, M4DTest.MStubMigrationToTest;
 
 { TestMainMigrationsGetter }
 
@@ -69,13 +69,13 @@ var
 begin
   FMigrationsList := TList<IMigration>.Create;
 
-  Item := TMigrations.Create;
+  Item := TestStubClass.Create;
   FMigrationsList.Add(Item);
 
-  Item := TMigrations.Create;
+  Item := TestStubClass.Create;
   FMigrationsList.Add(Item);
 
-  Item := TMigrations.Create;
+  Item := TestStubClass.Create;
   FMigrationsList.Add(Item);
 end;
 

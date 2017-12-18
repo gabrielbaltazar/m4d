@@ -22,7 +22,7 @@ type
     ///  Standard method to get migrations on the list of migrations.
     /// </Description>
     /// <Note>
-    ///  A list of migrations is a repository of migrations used by a migration´s manager.
+    ///  A list of migrations is a repository of migrations used by a migration´s facade.
     ///  It is usually used to fire a migration execution.
     /// </Note>
   {$ENDREGION}

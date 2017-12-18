@@ -20,7 +20,9 @@ type
 implementation
 
 uses
-  M4D.Migrations, M4D.MigrationsInterface, System.SysUtils;
+  M4D.MigrationsInterface,
+  System.SysUtils,
+  M4DTest.MStubMigrationToTest;
 
 { TestMigrations }
 
@@ -30,7 +32,7 @@ var
   Migration: IMigration;
 begin
   DateTime := Now;
-  Migration := TMIgrations.Create;
+  Migration := TestStubClass.Create;
   Migration.DateTime := DateTime;
   Assert.IsTrue(Migration.DateTime = DateTime, 'The migration datetime does not match with the version inputted before.');
 end;
@@ -41,7 +43,7 @@ const
 var
   Migration: IMigration;
 begin
-  Migration := TMIgrations.Create;
+  Migration := TestStubClass.Create;
   Migration.SeqVersion := SEQUENCE;
   Assert.IsTrue(Migration.SeqVersion = SEQUENCE, 'The migration sequence does not match with the version inputted before.');
 end;
@@ -52,7 +54,7 @@ const
 var
   Migration: IMigration;
 begin
-  Migration := TMIgrations.Create;
+  Migration := TestStubClass.Create;
   Migration.Version := VERSION;
   Assert.IsTrue(Migration.Version = VERSION, 'The migration version does not match with the version inputted before.');
 end;

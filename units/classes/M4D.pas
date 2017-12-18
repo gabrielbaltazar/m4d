@@ -35,7 +35,7 @@ procedure RegisterMigration(AMigration: TClass); overload;
 procedure Release;
 
 var
-  GMigrationsManager: TMigrationsFacade;
+  GMigrationsFacade: TMigrationsFacade;
 
 implementation
 
@@ -48,30 +48,30 @@ function MigrationFacade(AMigrationsHistoryFacade: IMigrationsHistoryFacade;
                          AMigrationsRegister: IMigrationsRegister;
                          AMigrationExecutorFacade: IMigrationExecutorFacade): TMigrationsFacade; overload;
 begin
-  if Assigned(GMigrationsManager) then
+  if Assigned(GMigrationsFacade) then
   begin
-    Result := GMigrationsManager;
+    Result := GMigrationsFacade;
   end
   else
   begin
-    GMigrationsManager := TMigrationsFacade.Create(AMigrationsHistoryFacade,
+    GMigrationsFacade := TMigrationsFacade.Create(AMigrationsHistoryFacade,
                                                    AGetterMigration,
                                                    AMigrationsRegister,
                                                    AMigrationExecutorFacade);
-    Result := GMigrationsManager;
+    Result := GMigrationsFacade;
   end;
 end;
 
 function MigrationFacade: TMigrationsFacade;  overload;
 begin
-  if Assigned(GMigrationsManager) then
+  if Assigned(GMigrationsFacade) then
   begin
-    Result := GMigrationsManager;
+    Result := GMigrationsFacade;
   end
   else
   begin
-    GMigrationsManager := TMigrationsFacade.Create;
-    Result := GMigrationsManager;
+    GMigrationsFacade := TMigrationsFacade.Create;
+    Result := GMigrationsFacade;
   end;
 end;
 
@@ -95,7 +95,7 @@ end;
 
 procedure Release;
 begin
-  if Assigned(GMigrationsManager) then FreeAndNil(GMigrationsManager);
+  if Assigned(GMigrationsFacade) then FreeAndNil(GMigrationsFacade);
 end;
 
 procedure RegisterMigration(AMigration: TClass); overload;
@@ -112,6 +112,6 @@ end;
 initialization
 
 finalization
-  if Assigned(GMigrationsManager) then GMigrationsManager.Free;
+  if Assigned(GMigrationsFacade) then GMigrationsFacade.Free;
 
 end.

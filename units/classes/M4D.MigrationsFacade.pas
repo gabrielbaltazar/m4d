@@ -67,7 +67,7 @@ type
     constructor Create(AMigrationsHistoryFacade: IMigrationsHistoryFacade; AGetterMigration: IGetterMigrations; AMigrationsRegister: IMigrationsRegister; AMigrationExecutorFacade: IMigrationExecutorFacade); reintroduce; overload;
     constructor Create; overload;
 
-    {$REGION 'TMigrationsManager.RegisterMigration'}
+    {$REGION 'TMigrationsFacede.RegisterMigration'}
       /// <Description>
       ///  Migration´s register method.
       /// </Description>
@@ -206,7 +206,7 @@ begin
   FMigrationExecutorFacade.Execute(AMigrationsList, AMigrationHistoryFacade);
 end;
 
-//function TMigrationsManager.getMigrationHistory: IMigrationsHistory;
+//function TMigrationsFacade.getMigrationHistory: IMigrationsHistory;
 //begin
 //  Result := nil;
 //
