@@ -107,7 +107,7 @@ Standard builders exist only to facilitate the use of M4D features.
 
 Within the unit M4D, there are:
 
-> **function MigrationManager: TMigrationsManager; overload;**
+> **function MigrationFacade: TMigrationsFacade; overload;**
 >
 > This function is a singleton that returns the person responsible for managing the migrations.
 
@@ -151,13 +151,13 @@ Let's use the migration itself here above, seen earlier. So you should add it to
 
 **Step Two: Performing the Migration**
 ```sh
-M4D.MigrationManager.ExecutePending;
+M4D.MigrationFacade.ExecutePending;
 ```
 This will cause all migrations not yet executed to run.
 
 **Step Three: Returning the Migration**
 ```sh
-M4D.MigrationManager.Rollback;
+M4D.MigrationFacade.Rollback;
 ```
 This will cause all migrations to be returned.
 

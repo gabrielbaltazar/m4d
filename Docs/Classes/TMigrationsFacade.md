@@ -1,9 +1,9 @@
 
-## Class **TMigrationsManager** 
+## Class **TMigrationsFacade** 
 
-**Unit name:** M4D.MigrationsManager
+**Unit name:** M4D.MigrationsFacade
 
-**Description:** Standard implementation of the migration´s manager.
+**Description:** Standard implementation of the migration´s facade.
 
 **Responsability:** Provide centralized migration features.
 
@@ -14,7 +14,7 @@ None.
 ## Class ##
 
 ```sh
-  TMigrationsManager = class
+  TMigrationsFacade = class
   private
     FGetterMigration: IGetterMigrations;
     FMigrationsRegister: IMigrationsRegister;

@@ -78,3 +78,8 @@ Apresentacões/Example.dproj
 Apresentacões/Demo/UFrmMain.pas
 Apresentacões/Demo/UFrmMain.dfm
 Apresentacões/Demo/M4DDemo.dproj
+MassiveMigrationsTest/UFrmGenerateMigrations.pas
+MassiveMigrationsTest/UFrmGenerateMigrations.dfm
+MassiveMigrationsTest/MassiveMigrationsTest.res
+MassiveMigrationsTest/MassiveMigrationsTest.dproj
+MassiveMigrationsTest/MassiveMigrationsTest.dpr

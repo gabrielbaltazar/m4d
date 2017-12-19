@@ -4,7 +4,7 @@
 
 In addition to performing the updates, by calling the UP method of migrations, there are a number of other steps necessary for the correct operation of the migrations.
 
-First, all migrations must be ordered so that the order of migrations runs correctly. This ordering, by default, is performed through the sequence of migrations. For this reason, prior to the UP method call, the Migration Manager calls the SETUP method so that the migration information is loaded correctly
+First, all migrations must be ordered so that the order of migrations runs correctly. This ordering, by default, is performed through the sequence of migrations. For this reason, prior to the UP method call, the Migration Facade calls the SETUP method so that the migration information is loaded correctly
 
 Another thing to be clarified is that, after the migration is executed, the occurrence information for that execution is written to a history so that you can identify which migrations have already been performed later. Note that this step is necessary for migration management to exist.
 

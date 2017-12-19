@@ -68,7 +68,7 @@ Below are all project classes. Most are very simple, following the principle of 
 **[TMigrationsHistoryItem](Classes/TMigrationsHistoryItem.md)**
 >Responsability: Stores information about the execution of migration.
 
-**[TMigrationsManager](Classes/TMigrationsManager.md)**
+**[TMigrationsFacade](Classes/TMigrationsFacade.md)**
 >Responsability: Provide centralized migration features.
 
 **[TMigrationsRegister](Classes/TMigrationsRegister.md)**

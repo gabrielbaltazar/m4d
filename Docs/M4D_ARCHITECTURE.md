@@ -4,11 +4,11 @@
 
 The M4D project was developed upon SOLID principles. While this is true for most classes, it is not for everyone. SOLID was dropped every time its implementation corresponded to a more complicated implementation for developers using the project resources. Thus, to facilitate the use of M4D features, classes with more than one responsibility were introduced, but in a way that the structure did not lose the flexibility needed for its own customizations.
 
-### Migration Manager ###
+### Migration Facade ###
 
-The migration manager (TMigrationsManager) is the main class. It is responsible for focusing all the features of the migrations, so that the developer can have a simple and quick access to them. It's basically a menu of features.
+The migration facade (TMigrationsFacade) is the main class. It is responsible for focusing all the features of the migrations, so that the developer can have a simple and quick access to them. It's basically a menu of features.
 
-Through the migration manager you can:
+Through the migration facade you can:
 
 * Register a migration.
 * Execute a migration.
@@ -18,7 +18,7 @@ Through the migration manager you can:
 
 ### Migration History ###
 
-The migration history manager (IMigrationsHistory) is the interface responsible for managing all the features of the migration history recording.
+The migration history facade (IMigrationsHistory) is the interface responsible for managing all the features of the migration history recording.
 
 Through it, it is possible to:
 
@@ -36,7 +36,7 @@ The migration register (IMigrationsRegister) is the interface responsible for re
 
 Through it it is possible to register the migrations. 
 
-Note that the migration manager already bridges the iteration with the migration register, so there is no need to use this class directly. However, if you need to customize the way migrations are registered, this interface should be used in your reimplementation.
+Note that the migration facade already bridges the iteration with the migration register, so there is no need to use this class directly. However, if you need to customize the way migrations are registered, this interface should be used in your reimplementation.
 
 ### Getter Migration ###
 
