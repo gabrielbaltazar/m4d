@@ -1,0 +1,254 @@
+object Form3: TForm3
+  Left = 0
+  Top = 0
+  Caption = 'Form3'
+  ClientHeight = 518
+  ClientWidth = 680
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnClose = FormClose
+  DesignerMasterStyle = 0
+  object Layout1: TLayout
+    Align = Left
+    Size.Width = 193.000000000000000000
+    Size.Height = 518.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object btnMigrationList: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 42.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = 'Migration List'
+      OnClick = btnMigrationListClick
+    end
+    object btnExecuteAllMigrations: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 74.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Text = 'Execute All Migrations'
+      OnClick = btnExecuteAllMigrationsClick
+    end
+    object btnExecuteMigrationsUntil: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 106.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 2
+      Text = 'Execute Migrations Until'
+      OnClick = btnExecuteMigrationsUntilClick
+    end
+    object btnExecutePendingMigrations: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 170.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 4
+      Text = 'Execute Pending Migrations'
+      OnClick = btnExecutePendingMigrationsClick
+    end
+    object btnExecuteRange: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 202.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 5
+      Text = 'Execute Range'
+      OnClick = btnExecuteRangeClick
+    end
+    object btnRollbackAllMigrations: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 306.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 8
+      Text = 'Rollback All Migrations'
+      OnClick = btnRollbackAllMigrationsClick
+    end
+    object btnRollbackUntil: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 338.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 9
+      Text = 'Rollback Until'
+      OnClick = btnRollbackUntilClick
+    end
+    object btnRollbackPendingMigrations: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 402.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 11
+      Text = 'Rollback Pending Migrations'
+      OnClick = btnRollbackPendingMigrationsClick
+    end
+    object btnRollbackRange: TButton
+      Position.X = 16.000000000000000000
+      Position.Y = 434.000000000000000000
+      Size.Width = 170.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 12
+      Text = 'Rollback Range'
+      OnClick = btnRollbackRangeClick
+    end
+    object edtSeqToExecute: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 3
+      Position.X = 16.000000000000000000
+      Position.Y = 138.000000000000000000
+      Size.Width = 169.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtStartExecute: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 6
+      Text = '1'
+      Position.X = 16.000000000000000000
+      Position.Y = 250.000000000000000000
+      Size.Width = 71.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtEndExecute: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 7
+      Text = '1'
+      Position.X = 114.000000000000000000
+      Position.Y = 250.000000000000000000
+      Size.Width = 71.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtSeqToRollback: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 10
+      Position.X = 16.000000000000000000
+      Position.Y = 370.000000000000000000
+      Size.Width = 169.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtStartRollback: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 13
+      Text = '1'
+      Position.X = 16.000000000000000000
+      Position.Y = 480.000000000000000000
+      Size.Width = 71.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object edtEndRollback: TEdit
+      Touch.InteractiveGestures = [LongTap, DoubleTap]
+      TabOrder = 14
+      Text = '1'
+      Position.X = 113.000000000000000000
+      Position.Y = 480.000000000000000000
+      Size.Width = 71.000000000000000000
+      Size.Height = 22.000000000000000000
+      Size.PlatformDefault = False
+    end
+    object Label1: TLabel
+      Position.X = 16.000000000000000000
+      Position.Y = 232.000000000000000000
+      Size.Width = 41.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Start'
+    end
+    object Label2: TLabel
+      Position.X = 114.000000000000000000
+      Position.Y = 232.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'End'
+    end
+    object Label3: TLabel
+      Position.X = 16.000000000000000000
+      Position.Y = 462.000000000000000000
+      Size.Width = 41.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Start'
+    end
+    object Label4: TLabel
+      Position.X = 114.000000000000000000
+      Position.Y = 462.000000000000000000
+      Size.Width = 49.000000000000000000
+      Size.Height = 17.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'End'
+    end
+  end
+  object Layout2: TLayout
+    Align = Client
+    Size.Width = 487.000000000000000000
+    Size.Height = 518.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    object Layout3: TLayout
+      Align = Top
+      Size.Width = 487.000000000000000000
+      Size.Height = 41.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      object btnClearHistory: TButton
+        Position.X = 8.000000000000000000
+        Position.Y = 10.000000000000000000
+        Size.Width = 150.000000000000000000
+        Size.Height = 22.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 0
+        Text = 'Clear History'
+        OnClick = btnClearHistoryClick
+      end
+      object Button11: TButton
+        Position.X = 167.000000000000000000
+        Position.Y = 10.000000000000000000
+        Size.Width = 150.000000000000000000
+        Size.Height = 22.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 1
+        Text = 'Get Migration History'
+        OnClick = Button11Click
+      end
+      object Button12: TButton
+        Position.X = 326.000000000000000000
+        Position.Y = 10.000000000000000000
+        Size.Width = 150.000000000000000000
+        Size.Height = 22.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        Text = 'Get Last Migration History'
+        OnClick = Button12Click
+      end
+    end
+    object memInfo: TMemo
+      Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+      DataDetectorTypes = []
+      Align = Client
+      Size.Width = 487.000000000000000000
+      Size.Height = 477.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      Viewport.Width = 483.000000000000000000
+      Viewport.Height = 473.000000000000000000
+    end
+  end
+end
