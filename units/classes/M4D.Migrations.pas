@@ -45,7 +45,9 @@ type
   public
     procedure Setup; virtual; abstract;
     procedure Up; virtual; abstract;
+    function UpWillExecute: Boolean; virtual;
     procedure Down; virtual; abstract;
+    function DownWillExecute: Boolean; virtual;
   published
     property Version: string read getVersion write setVersion;
     property SeqVersion: Integer read getSeqVersion write setSeqVersion;
@@ -55,6 +57,11 @@ type
 implementation
 
 { TMigrations }
+
+function TMigrations.DownWillExecute: Boolean;
+begin
+  Result := True;
+end;
 
 function TMigrations.getDateTime: TDateTime;
 begin
@@ -84,6 +91,11 @@ end;
 procedure TMigrations.setVersion(AValue: string);
 begin
   FVersion := AValue;
+end;
+
+function TMigrations.UpWillExecute: Boolean;
+begin
+  Result := True;
 end;
 
 end.

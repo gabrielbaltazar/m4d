@@ -19,6 +19,8 @@ type
     procedure TearDown;
     [Test]
     procedure CheckTheExecution;
+    [Test]
+    procedure ChecksWhetherExecutionConditionPreventsExecution;
   end;
 
 implementation
@@ -26,14 +28,30 @@ implementation
 uses
   M4D.MigrationsHistoryFacade, M4D.MigrationSerializerFacade,
   M4D.MigrationExecExecutorInterface, M4D.MigrationExecExecutor,
-  M4DTest.MStubMigrationToTest, M4DTest.MigrationsHistoryMock;
+  M4DTest.MStubMigrationToTest, M4DTest.MStubMigrationNotExecuteUpNeitherDown,
+  M4DTest.MigrationsHistoryMock;
 
 { TestMigrationExecExecutor }
+
+procedure TestMigrationExecExecutor.ChecksWhetherExecutionConditionPreventsExecution;
+var
+  Executor: IMigrationExecExecutor;
+begin
+  FMigrationsList.Add(TestStubClassNotExecuteUpNeitherDown);
+
+  Executor := TMigrationExecExecutor.Create;
+  Executor.Execute(FMigrationsList, FMigrationHistory);
+
+  {TODO: Find a way to check this}
+  Assert.Pass('If get this point, the execution run well.');
+end;
 
 procedure TestMigrationExecExecutor.CheckTheExecution;
 var
   Executor: IMigrationExecExecutor;
 begin
+  FMigrationsList.Add(TestStubClass);
+
   Executor := TMigrationExecExecutor.Create;
   Executor.Execute(FMigrationsList, FMigrationHistory);
 
@@ -43,7 +61,8 @@ end;
 procedure TestMigrationExecExecutor.Setup;
 begin
   FMigrationsList := TList<TClass>.Create;
-  FMigrationsList.Add(TestStubClass);
+  FMigrationsList.Clear;
+
   FMigrationHistory := TMigrationsHistoryMock.Create;
 end;
 

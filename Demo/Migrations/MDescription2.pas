@@ -17,6 +17,8 @@ type
     procedure Setup; override;
     procedure Up; override;
     procedure Down; override;
+    function UpWillExecute: Boolean; override;
+    function DownWillExecute: Boolean; override;
   end;
 
 implementation
@@ -25,6 +27,11 @@ uses
   System.SysUtils;
 
 { TMDescription1 }
+
+function TMDescription2.DownWillExecute: Boolean;
+begin
+  Result := True;
+end;
 
 procedure TMDescription2.Setup;
 begin
@@ -41,6 +48,11 @@ end;
 procedure TMDescription2.Up;
 begin
   ShowMessage('Executing up sequence version 2!');
+end;
+
+function TMDescription2.UpWillExecute: Boolean;
+begin
+  Result := True;
 end;
 
 initialization

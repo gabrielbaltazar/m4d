@@ -14,6 +14,9 @@ unit M4D.MigrationsInterface;
 interface
 
 type
+  TCheckMigrationExecuteMethod = function: Boolean of object;
+
+type
   {$REGION 'IMigration'}
     /// <Description>
     ///  Standard interface for any type of migration.
@@ -31,12 +34,26 @@ type
     {$ENDREGION}
     procedure Up;
 
+    {$REGION 'IMigration.UpWillExecute'}
+      /// <Description>
+      ///  Method that return if a migration up method will be executed.
+      /// </Description
+    {$ENDREGION}
+    function UpWillExecute: Boolean;
+
     {$REGION 'IMigration.Down'}
       /// <Description>
       ///  Method that downgrade the migrations.
       /// </Description
     {$ENDREGION}
     procedure Down;
+
+    {$REGION 'IMigration.DownWillExecute'}
+      /// <Description>
+      ///  Method that return if a migration down method will be executed.
+      /// </Description
+    {$ENDREGION}
+    function DownWillExecute: Boolean;
 
     {$REGION 'IMigration.setVersion'}
       /// <Description>

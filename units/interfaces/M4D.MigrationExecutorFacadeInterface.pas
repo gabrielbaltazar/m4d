@@ -34,6 +34,8 @@ type
       /// </Description>
       /// <InputParameters>
       ///  AMigrationsList - The list all the migrations that will be considered for the execution.
+      ///  AMigrationHistoryFacade - The facade to access functionalities of the history of migrations.
+      ///  ACleanHistoryBeforeExecute - Determines whether the migrations execution history will be cleared before migration runs.
       /// </InputParameters>
     {$ENDREGION}
     procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);

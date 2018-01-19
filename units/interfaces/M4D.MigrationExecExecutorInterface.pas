@@ -30,9 +30,10 @@ type
       /// </Description>
       /// <InputParameters>
       ///  AMigrationsList - The list all the migrations that will be considered for the execution.
+      ///  AChangeHistory - Informs whether migration produces changes to update histories.
       /// </InputParameters>
     {$ENDREGION}
-    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AChangeHistory: Boolean = True);
   end;
 
 implementation

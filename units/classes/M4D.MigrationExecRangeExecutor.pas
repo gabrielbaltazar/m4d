@@ -91,8 +91,16 @@ begin
 
         if (SequenceProp >= AStartMigrationSequence) and (SequenceProp <= AEndMigrationSequence) then
         begin
-          if not Assigned(LList) then LList := TList<TClass>.Create;
-          LList.Add(LClass);
+          //Decide if the migration must be executed
+          if not (Aux as TInterfacedObject as IMigration).UpWillExecute then
+          begin
+            Aux.Free;
+          end
+          else
+          begin
+            if not Assigned(LList) then LList := TList<TClass>.Create;
+            LList.Add(LClass);
+          end;
         end;
       end;
 
@@ -100,7 +108,7 @@ begin
       begin
         if LList.Count > 0 then
         begin
-          FMigrationExecExecutor.Execute(LList, AMigrationHistoryFacade);
+          FMigrationExecExecutor.Execute(LList, AMigrationHistoryFacade, False);
           if Assigned(LList) then FreeAndNil(LList);
         end;
       end;

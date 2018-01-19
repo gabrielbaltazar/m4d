@@ -34,17 +34,20 @@ type
       ///  AMigrationsList - The list all the migrations that will be considered for the execution.
       /// </InputParameters>
     {$ENDREGION}
-    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    procedure Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AChangeHistory: Boolean = True);
   end;
 
 implementation
 
 uses
-  M4D.MigrationsHistoryItem, M4D.MigrationsInterface, System.SysUtils;
+  M4D.MigrationsHistoryItem,
+  M4D.MigrationsInterface,
+  System.SysUtils,
+  M4D.Migrations;
 
 { TMigrationExecExecutor }
 
-procedure TMigrationExecExecutor.Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+procedure TMigrationExecExecutor.Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AChangeHistory: Boolean = True);
 var
   VersionProp: string;
   SequenceProp: Integer;
@@ -53,6 +56,7 @@ var
   Item: TMigrationsHistoryItem;
   Aux: TObject;
   HadMigration: Boolean;
+  LMigration: IMigration;
 begin
   HadMigration := False;
 
@@ -66,6 +70,8 @@ begin
     begin
       Aux := LClass.Create;
 
+      LMigration := (Aux as TInterfacedObject as IMigration);
+
       //First, call for setup to load informations
       (Aux as TInterfacedObject as IMigration).Setup;
 
@@ -74,27 +80,39 @@ begin
       SequenceProp := (Aux as TInterfacedObject as IMigration).SeqVersion;
       DatetimeProp := (Aux as TInterfacedObject as IMigration).DateTime;
 
-      Item := TMigrationsHistoryItem.Create;
-      try
-        Item.MigrationVersion := VersionProp;
-        Item.MigrationSeq := SequenceProp;
-        Item.MigrationDateTime := DatetimeProp;
+      //Decide if the migration must be executed
+      if (Aux as TInterfacedObject as IMigration).UpWillExecute then
+      begin
+        if AChangeHistory then
+        begin
+          Item := TMigrationsHistoryItem.Create;
+          try
+            Item.MigrationVersion := VersionProp;
+            Item.MigrationSeq := SequenceProp;
+            Item.MigrationDateTime := DatetimeProp;
 
-        Item.StartOfExecution := Now;
+            Item.StartOfExecution := Now;
 
-        //Execute the migration
-        (Aux as TInterfacedObject as IMigration).Up;
+            //Execute the migration
+            (Aux as TInterfacedObject as IMigration).Up;
 
-        Item.EndOfExecution := Now;
-        Item.DurationOfExecution := Item.EndOfExecution - Item.StartOfExecution;
-      finally
-        AMigrationHistoryFacade.Add(Item);
-        HadMigration := True;
+            Item.EndOfExecution := Now;
+            Item.DurationOfExecution := Item.EndOfExecution - Item.StartOfExecution;
+          finally
+            AMigrationHistoryFacade.Add(Item);
+            HadMigration := True;
+          end;
+        end
+        else
+        begin
+          //Execute the migration
+          (Aux as TInterfacedObject as IMigration).Up;
+        end;
       end;
     end;
   end;
 
-  if HadMigration then
+  if HadMigration and AChangeHistory then
   begin
     AMigrationHistoryFacade.Save;
   end;

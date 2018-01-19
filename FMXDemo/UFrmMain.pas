@@ -72,30 +72,18 @@ procedure TForm3.btnClearHistoryClick(Sender: TObject);
 var
   MH: IMigrationsHistoryFacade;
 begin
-  //Before performing all migrations, you must clear the migration information
-  //so that it is not registered duplicatively.
-
    MH := M4D.MigrationFacade.MigrationsHistoryFacade;
    MH.Clear;
 end;
 
 procedure TForm3.btnExecuteAllMigrationsClick(Sender: TObject);
-var
-  MH: IMigrationsHistoryFacade;
 begin
-  //Before performing all migrations, you must clear the migration information
-  //so that it is not registered duplicatively.
-
-   MH := M4D.MigrationFacade.MigrationsHistoryFacade;
-   MH.Clear;
-
    M4D.MigrationFacade.Execute;
 end;
 
 procedure TForm3.btnExecuteMigrationsUntilClick(Sender: TObject);
 var
   Aux: Integer;
-  MH: IMigrationsHistoryFacade;
 begin
   if not TryStrToInt(edtSeqToExecute.Text, Aux) then
   begin
@@ -104,12 +92,6 @@ begin
   end
   else
   begin
-    //Before performing all migrations, you must clear the migration information
-    //so that it is not registered duplicatively.
-
-     MH := M4D.MigrationFacade.MigrationsHistoryFacade;
-     MH.Clear;
-
      M4D.MigrationFacade.ExecuteUntil(Aux);
   end;
 end;

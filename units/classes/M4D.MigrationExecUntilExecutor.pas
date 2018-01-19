@@ -42,7 +42,7 @@ type
 implementation
 
 uses
-  System.SysUtils, M4D.MigrationsInterface;
+  System.SysUtils, M4D.MigrationsInterface, M4D.Migrations;
 
 { TMigrationExecUntilExecutor }
 
@@ -91,8 +91,16 @@ begin
 
         if SequenceProp <= AMigrationSequence then
         begin
-          if not Assigned(LList) then LList := TList<TClass>.Create;
-          LList.Add(LClass);
+          //Decide if the migration must be executed
+          if not (Aux as TInterfacedObject as IMigration).UpWillExecute then
+          begin
+            Aux.Free;
+          end
+          else
+          begin
+            if not Assigned(LList) then LList := TList<TClass>.Create;
+            LList.Add(LClass);
+          end;
         end;
       end;
 

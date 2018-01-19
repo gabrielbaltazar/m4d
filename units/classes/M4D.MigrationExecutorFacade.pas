@@ -106,11 +106,15 @@ end;
 
 procedure TMigrationExecutorFacade.Execute(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
 begin
+  AMigrationHistoryFacade.Clear;
+
   FMigrationExecExecutor.Execute(AMigrationsList, AMigrationHistoryFacade);
 end;
 
 procedure TMigrationExecutorFacade.ExecuteUntil(AMigrationsList: TList<TClass>; AMigrationSequence: Integer; AMigrationHistoryFacade: IMigrationsHistoryFacade);
 begin
+  AMigrationHistoryFacade.Clear;
+
   FMigrationExecUntilExecutor.ExecuteUntil(AMigrationsList, AMigrationSequence, AMigrationHistoryFacade);
 end;
 

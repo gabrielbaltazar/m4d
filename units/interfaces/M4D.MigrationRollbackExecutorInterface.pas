@@ -31,9 +31,10 @@ type
       /// <InputParameters>
       ///  AMigrationsList - The list all the migrations that will be considered for the rollback.
       ///  AMigrationHistory - The history handler to record rollbacks.
+      ///  AChangeHistory - Informs whether migration produces changes to update histories.
       /// </InputParameters>
     {$ENDREGION}
-    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AChangeHistory: Boolean = True);
   end;
 
 implementation

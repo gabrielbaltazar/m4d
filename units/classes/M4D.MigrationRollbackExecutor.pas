@@ -33,7 +33,7 @@ type
   {$ENDREGION}
   TMigrationRollbackExecutor = class(TInterfacedObject, IMigrationRollbackExecutor)
   public
-    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+    procedure Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AChangeHistory: Boolean = True);
   end;
 
 implementation
@@ -43,7 +43,7 @@ uses
 
 { TMigrationRollbackExecutor }
 
-procedure TMigrationRollbackExecutor.Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade);
+procedure TMigrationRollbackExecutor.Rollback(AMigrationsList: TList<TClass>; AMigrationHistoryFacade: IMigrationsHistoryFacade; AChangeHistory: Boolean = True);
 var
   I: Integer;
   SequenceProp: Integer;
@@ -64,16 +64,28 @@ begin
 
     SequenceProp := (Aux as TInterfacedObject as IMigration).SeqVersion;
 
-    (Aux as TInterfacedObject as IMigration).Down;
-    HadMigration := True;
-
-    if HadMigration and Assigned(AMigrationHistoryFacade) then
+    //Decide if the migration must be rolled back
+    if not (Aux as TInterfacedObject as IMigration).DownWillExecute then
     begin
-      AMigrationHistoryFacade.Remove(SequenceProp);
+      Aux.Free;
+    end
+    else
+    begin
+      (Aux as TInterfacedObject as IMigration).Down;
+
+      if AChangeHistory then
+      begin
+        HadMigration := True;
+
+        if HadMigration and Assigned(AMigrationHistoryFacade) then
+        begin
+          AMigrationHistoryFacade.Remove(SequenceProp);
+        end;
+      end;
     end;
   end;
 
-  if HadMigration then
+  if HadMigration and AChangeHistory then
   begin
     AMigrationHistoryFacade.Save;
   end;
