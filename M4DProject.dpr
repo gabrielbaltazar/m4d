@@ -23,7 +23,6 @@ uses
   M4D.MigrationsFacade in 'units\classes\M4D.MigrationsFacade.pas',
   M4D.MigrationExecutorFacadeInterface in 'units\interfaces\M4D.MigrationExecutorFacadeInterface.pas',
   M4D.GetterMigrations in 'units\classes\M4D.GetterMigrations.pas',
-  M4D.MigrationsInterface in 'units\interfaces\M4D.MigrationsInterface.pas',
   M4D.MigrationExecutorFacade in 'units\classes\M4D.MigrationExecutorFacade.pas',
   M4D.MigrationsHistoryItem in 'units\classes\M4D.MigrationsHistoryItem.pas',
   M4D.MigrationsHistoryFacade in 'units\classes\M4D.MigrationsHistoryFacade.pas',
@@ -77,7 +76,8 @@ uses
   M4D.MigrationExecRangeExecutorInterface in 'units\interfaces\M4D.MigrationExecRangeExecutorInterface.pas',
   M4D.MigrationExecRangeExecutor in 'units\classes\M4D.MigrationExecRangeExecutor.pas',
   M4D.MigrationRollbackRangeExecutorInterface in 'units\interfaces\M4D.MigrationRollbackRangeExecutorInterface.pas',
-  M4D.MigrationRollbackRangeExecutor in 'units\classes\M4D.MigrationRollbackRangeExecutor.pas';
+  M4D.MigrationRollbackRangeExecutor in 'units\classes\M4D.MigrationRollbackRangeExecutor.pas',
+  M4D.MigrationsInterface in 'units\interfaces\M4D.MigrationsInterface.pas';
 
 begin
   try

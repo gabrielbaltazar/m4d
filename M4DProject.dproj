@@ -139,7 +139,6 @@
         <DCCReference Include="units\classes\M4D.MigrationsFacade.pas"/>
         <DCCReference Include="units\interfaces\M4D.MigrationExecutorFacadeInterface.pas"/>
         <DCCReference Include="units\classes\M4D.GetterMigrations.pas"/>
-        <DCCReference Include="units\interfaces\M4D.MigrationsInterface.pas"/>
         <DCCReference Include="units\classes\M4D.MigrationExecutorFacade.pas"/>
         <DCCReference Include="units\classes\M4D.MigrationsHistoryItem.pas"/>
         <DCCReference Include="units\classes\M4D.MigrationsHistoryFacade.pas"/>
@@ -194,6 +193,7 @@
         <DCCReference Include="units\classes\M4D.MigrationExecRangeExecutor.pas"/>
         <DCCReference Include="units\interfaces\M4D.MigrationRollbackRangeExecutorInterface.pas"/>
         <DCCReference Include="units\classes\M4D.MigrationRollbackRangeExecutor.pas"/>
+        <DCCReference Include="units\interfaces\M4D.MigrationsInterface.pas"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

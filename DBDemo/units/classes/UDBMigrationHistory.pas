@@ -67,11 +67,25 @@ begin
   end
   else
   begin
-    Query := getQuery('INSERT INTO MIGRATIONS_INFO (SEQUENCE, VERSION, DATETIME) VALUES(:SEQUENCE, :VERSION, :DATETIME)', False);
+    Query := getQuery('INSERT INTO MIGRATIONS_INFO (SEQUENCE,              ' +
+                      '                             VERSION,               ' +
+                      '                             DATETIME,              ' +
+                      '                             START_OF_EXECUTION,    ' +
+                      '                             END_OF_EXECUTION,      ' +
+                      '                             DURATION_OF_EXECUTION) ' +
+                      '                     VALUES (:SEQUENCE,             ' +
+                      '                             :VERSION,              ' +
+                      '                             :DATETIME,             ' +
+                      '                             :START,                ' +
+                      '                             :END,                  ' +
+                      '                             :DURATION)             ', False);
     try
       Query.Params[0].AsInteger := AItem.MigrationSeq;
       Query.Params[1].AsString := AItem.MigrationVersion;
       Query.Params[2].AsDateTime := AItem.MigrationDateTime;
+      Query.Params[3].AsDateTime := AItem.StartOfExecution;
+      Query.Params[4].AsDateTime := AItem.EndOfExecution;
+      Query.Params[5].AsFloat := AItem.DurationOfExecution;
 
       Query.ExecSQL;
     finally
@@ -135,7 +149,13 @@ var
 begin
   Result := nil;
 
-  Query := getQuery(Format('SELECT SEQUENCE, VERSION, DATETIME FROM MIGRATIONS_INFO ', []));
+  Query := getQuery(Format('SELECT SEQUENCE,              ' +
+                           '       VERSION,               ' +
+                           '       DATETIME,              ' +
+                           '       START_OF_EXECUTION,    ' +
+                           '       END_OF_EXECUTION,      ' +
+                           '       DURATION_OF_EXECUTION  ' +
+                           '  FROM MIGRATIONS_INFO        ' , []));
   try
     if Assigned(AFilterProc) then AFilterProc(Query);
 
@@ -156,6 +176,9 @@ begin
         Item.MigrationSeq := Query.Fields[0].AsInteger;
         Item.MigrationVersion := Query.Fields[1].AsString;
         Item.MigrationDateTime := Query.Fields[2].AsDateTime;
+        Item.StartOfExecution := Query.Fields[3].AsDateTime;
+        Item.EndOfExecution := Query.Fields[4].AsDateTime;
+        Item.DurationOfExecution := Query.Fields[5].AsFloat;
 
         Result.Add(Item);
 
@@ -203,7 +226,15 @@ var
 begin
   Result := nil;
 
-  Query := getQuery('SELECT SEQUENCE, VERSION, DATETIME FROM MIGRATIONS_INFO WHERE SEQUENCE = (SELECT MAX(SEQUENCE) FROM MIGRATIONS_INFO)');
+  Query := getQuery('SELECT SEQUENCE,                           ' +
+                    '       VERSION,                            ' +
+                    '       DATETIME,                           ' +
+                    '       START_OF_EXECUTION,                 ' +
+                    '       END_OF_EXECUTION,                   ' +
+                    '       DURATION_OF_EXECUTION               ' +
+                    '  FROM MIGRATIONS_INFO                     ' +
+                    ' WHERE SEQUENCE = (SELECT MAX(SEQUENCE)    ' +
+                    '                     FROM MIGRATIONS_INFO) ' );
   try
     if not Query.Eof then
     begin
@@ -211,6 +242,9 @@ begin
       Result.MigrationSeq := Query.Fields[0].AsInteger;
       Result.MigrationVersion := Query.Fields[1].AsString;
       Result.MigrationDateTime := Query.Fields[2].AsDateTime;
+      Result.StartOfExecution := Query.Fields[3].AsDateTime;
+      Result.EndOfExecution := Query.Fields[4].AsDateTime;
+      Result.DurationOfExecution := Query.Fields[5].AsFloat;
     end;
   finally
     Query.Close;

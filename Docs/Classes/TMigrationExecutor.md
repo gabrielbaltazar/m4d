@@ -1,14 +1,14 @@
 
-## Class **TMigrationExecutor**  
+## Class **TMigrationExecutorFacade**  
 
-**Unit name:** M4D.MigrationExecutor
+**Unit name:** M4D.MigrationExecutorFacade
 
 **Description:** Standard class to execute migrations.
 
 **Responsability:** Performs executions and rollbacks of the migrations.
 
 ## Interface ##
-The TMigrationExecutor implements the **IMigrationExecutor** interface:
+The TMigrationExecutorFacade implements the **IMigrationExecutorFacade** interface:
 ```sh
   IMigrationExecutor = interface
   ['{E348B052-BF8F-4BF0-9347-EC70B252F308}']

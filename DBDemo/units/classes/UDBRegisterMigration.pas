@@ -1,3 +1,13 @@
+{######################################################################################
+
+                                      M4D Framework
+
+Author: Edgar Borges Pavão
+Date of creation: 06/09/2017
+Use licence: Free
+
+######################################################################################}
+
 unit UDBRegisterMigration;
 
 interface

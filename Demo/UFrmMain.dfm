@@ -82,7 +82,7 @@ object Form2: TForm2
       Top = 41
       Width = 153
       Height = 25
-      Caption = '1 - Migrations List'
+      Caption = 'Migrations List'
       TabOrder = 3
       OnClick = btnMigrationsListClick
     end
