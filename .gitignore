@@ -83,3 +83,45 @@ MassiveMigrationsTest/UFrmGenerateMigrations.dfm
 MassiveMigrationsTest/MassiveMigrationsTest.res
 MassiveMigrationsTest/MassiveMigrationsTest.dproj
 MassiveMigrationsTest/MassiveMigrationsTest.dpr
+Demo/Win32/Debug/history.m4d
+Apresentacões/Português/M4D - Primeira Aplicação.pptx
+Apresentacões/Português/M4D - Introdução.pptx
+Apresentacões/Português/M4D - Instalação.pptx
+Apresentacões/Inglês/M4D- First Application.pptx
+Apresentacões/Inglês/M4D Introduction.pptx
+Apresentacões/Inglês/M4D - Installation.pptx
+DemoTest/M4DDemoTest.dpr
+DemoTest/units/classes/UFrmMainDBDemo.pas
+DemoTest/units/classes/UFrmMainDBDemo.dfm
+DemoTest/units/classes/UDMDBDemo.pas
+DemoTest/units/classes/UDMDBDemo.dfm
+DemoTest/Win32/Debug/history.m4d
+DemoTest/UFrmMain.pas
+DemoTest/UFrmMain.dfm
+DemoTest/Migrations/MCreateTables.pas
+DemoTest/Migrations/MCreatePopulateTables.pas
+DemoTest/M4DDemoTest.dproj
+Test/Win32/Debug/dcov_units.lst
+Test/Win32/Debug/dcov_paths.lst
+Test/Win32/Debug/dcov_execute.bat
+Test/Win32/Debug/Reports/coverage.em
+Test/Win32/Debug/Reports/coverage.ec
+Test/Win32/Debug/Reports/M4D(M4D.pas).html
+Test/Win32/Debug/Reports/CodeCoverage_summary.html
+Test/Win32/Debug/Reports/CodeCoverage_Summary.xml
+units/interfaces/M4D.AbstractMethodIdentifierInterface.pas
+units/classes/M4D.SetupExecutor_deprecated.pas
+units/classes/M4D.PropertyClassReader_deprecated.pas
+units/classes/M4D.MigrationUpMethodExecutor_deprecated.pas
+units/classes/M4D.MigrationMethodExecutor_deprecated.pas
+units/classes/M4D.MigrationDownMethodExecutor_deprecated.pas
+units/classes/M4D.AbstractMethodIdentifier.pas
+Win32/Debug/TestInsightSettings.ini
+Wizard/M4D.UnitValidator.pas
+Wizard/M4D.FrmMigrationTool.pas
+Wizard/M4D.FrmMigrationTool.dfm
+Wizard/M4D.ClassParser.pas
+Wizard/M4D.BaseDockForm.pas
+Wizard/M4D.BaseDockForm.dfm
+Apresentacões/Demo/M4DDemo.res
+DemoTest/M4DDemoTest.res
