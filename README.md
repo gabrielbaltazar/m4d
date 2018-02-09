@@ -37,6 +37,12 @@ With migrations you have:
 
 Click [here](Docs/QUICKSTART.md) to start using M4D features.
 
+### Learning ###
+
+#### Inside Migrations ####
+
+[[embed url=https://www.youtube.com/watch?v=kbI20xk10GQ]]
+
 ### Documentation ###
 
 You can access the documentation [here](Docs/DOCUMENTATION.md).
