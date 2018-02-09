@@ -39,25 +39,23 @@ Click [here](Docs/QUICKSTART.md) to start using M4D features.
 
 ### Learning ###
 
-#### Inside Migrations ####
-
-Introduction to migrations
+#### Introduction to migrations ####
 
 [![Alt text](https://img.youtube.com/vi/tndeBHPbMnI/0.jpg)](https://www.youtube.com/watch?v=tndeBHPbMnI)
 
-Installation
+#### Installation ####
 
 [![Alt text](https://img.youtube.com/vi/RXJpGb4p0IE/0.jpg)](https://www.youtube.com/watch?v=RXJpGb4p0IE)
 
-First Application
+#### First Application ####
 
 [![Alt text](https://img.youtube.com/vi/69JuNxKwbKc/0.jpg)](https://www.youtube.com/watch?v=69JuNxKwbKc)
 
-Inside migrations
+#### Inside Migrations ####
 
 [![Alt text](https://img.youtube.com/vi/kbI20xk10GQ/0.jpg)](https://www.youtube.com/watch?v=kbI20xk10GQ)
 
-Reimplementing a history class
+#### Reimplementing a history class ####
 
 [![Alt text](https://img.youtube.com/vi/0gfKmg2pQKA/0.jpg)](https://www.youtube.com/watch?v=0gfKmg2pQKA)
 
