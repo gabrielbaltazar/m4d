@@ -43,6 +43,8 @@ Click [here](Docs/QUICKSTART.md) to start using M4D features.
 
 [[embed url=https://www.youtube.com/watch?v=kbI20xk10GQ]]
 
+[[embed url=http://www.youtube.com/watch?v=6YbBmqUnoQM]]
+
 ### Documentation ###
 
 You can access the documentation [here](Docs/DOCUMENTATION.md).
