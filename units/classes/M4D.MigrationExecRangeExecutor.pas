@@ -108,7 +108,7 @@ begin
       begin
         if LList.Count > 0 then
         begin
-          FMigrationExecExecutor.Execute(LList, AMigrationHistoryFacade, False);
+          FMigrationExecExecutor.Execute(LList, AMigrationHistoryFacade);
           if Assigned(LList) then FreeAndNil(LList);
         end;
       end;
