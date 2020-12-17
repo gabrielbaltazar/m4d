@@ -58,7 +58,7 @@ end;
 procedure TMigrationExecPendingExecutor.ExecutePending(AMigrationsList: TList<TClass>; ALastMigration: TMigrationsHistoryItem; AMigrationHistoryFacade: IMigrationsHistoryFacade);
 var
   LList: TList<TClass>;
-  SequenceProp: Integer;
+  MigrationDate: TDateTime;
   LClass: TClass;
   Aux: TObject;
 begin
@@ -80,9 +80,9 @@ begin
         Aux := LClass.Create;
         (Aux as TInterfacedObject as IMigration).Setup;
 
-        SequenceProp := (Aux as TInterfacedObject as IMigration).SeqVersion;
+        MigrationDate := (Aux as TInterfacedObject as IMigration).DateTime;
 
-        if SequenceProp > ALastMigration.MigrationSeq then
+        if MigrationDate > ALastMigration.MigrationDateTime then
         begin
           //Decide if the migration must be executed
           if not (Aux as TInterfacedObject as IMigration).UpWillExecute then
