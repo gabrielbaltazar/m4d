@@ -63,7 +63,11 @@ begin
    end
    else
    begin
+     {$IF CompilerVersion <= 34.0}
      FCompare := TComparer<TClass>.Construct(AComparison.Comparison) as TDelegatedComparer<TClass>;
+     {$ELSE}
+     FCompare := TComparer<TClass>.Construct(AComparison.Comparison);
+     {$ENDIF}
      FMigrationsList := TList<TClass>.Create(FCompare);
    end;
 end;
