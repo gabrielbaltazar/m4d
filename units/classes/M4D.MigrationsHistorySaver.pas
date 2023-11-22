@@ -14,8 +14,12 @@ unit M4D.MigrationsHistorySaver;
 interface
 
 uses
+{$IF Defined(POSIX)}
+  Posix.Unistd,
+{$ENDIF}
   M4D.MigrationsHistorySaverInterface, M4D.MigrationsHistoryItem, System.Classes,
-  System.Generics.Collections, M4D.MigrationSerializerFacadeInterface;
+  System.Generics.Collections, M4D.MigrationSerializerFacadeInterface,
+  System.SysUtils;
 
 type
   {$REGION 'TMigrationsHistorySaver'}
@@ -42,10 +46,6 @@ type
   end;
 
 implementation
-
-uses
-  {$IF Defined(POSIX)} Posix.Unistd, {$ENDIF}
-  System.SysUtils;
 
 { TMigrationsHistorySaver }
 

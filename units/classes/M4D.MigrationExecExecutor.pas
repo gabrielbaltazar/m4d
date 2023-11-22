@@ -86,22 +86,24 @@ begin
         if AChangeHistory then
         begin
           Item := TMigrationsHistoryItem.Create;
+          Item.MigrationVersion := VersionProp;
+          Item.MigrationSeq := SequenceProp;
+          Item.MigrationDateTime := DatetimeProp;
+
+          Item.StartOfExecution := Now;
+
+          //Execute the migration
           try
-            Item.MigrationVersion := VersionProp;
-            Item.MigrationSeq := SequenceProp;
-            Item.MigrationDateTime := DatetimeProp;
-
-            Item.StartOfExecution := Now;
-
-            //Execute the migration
             (Aux as TInterfacedObject as IMigration).Up;
-
-            Item.EndOfExecution := Now;
-            Item.DurationOfExecution := Item.EndOfExecution - Item.StartOfExecution;
-          finally
-            AMigrationHistoryFacade.Add(Item);
-            HadMigration := True;
+          except
+            Item.Free;
+            raise;
           end;
+
+          Item.EndOfExecution := Now;
+          Item.DurationOfExecution := Item.EndOfExecution - Item.StartOfExecution;
+          AMigrationHistoryFacade.Add(Item);
+          HadMigration := True;
         end
         else
         begin

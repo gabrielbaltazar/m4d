@@ -3,16 +3,15 @@ unit MCreateTables;
 interface
 
 uses
-  {$IF DECLARED(FireMonkeyVersion)}
-    FMX.Dialogs,
-  {$ELSE}
-    Vcl.Dialogs,
-  {$ENDIF}
+{$IF DECLARED(FireMonkeyVersion)}
+  FMX.Dialogs,
+{$ELSE}
+  Vcl.Dialogs,
+{$ENDIF}
   M4D,
   M4D.Migrations,
   M4D.Defaults,
   UDBRegisterMigration;
-
 
 type
   TMCreateTables = class(TMigrations)
@@ -39,30 +38,30 @@ end;
 
 procedure TMCreateTables.Up;
 var
-  Query: TFDQuery;
+  LQuery: TFDQuery;
 begin
-  Query := DMDBDemo.getQuery('CREATE TABLE IF NOT EXISTS CUSTOMERS (ID INTEGER NOT NULL, NAME VARCHAR(100) NOT NULL)', False);
+  LQuery := DMDBDemo.GetQuery('CREATE TABLE IF NOT EXISTS CUSTOMERS (ID INTEGER NOT NULL, NAME VARCHAR(100) NOT NULL)', False);
   try
-    Query.ExecSQL;
+    LQuery.ExecSQL;
   finally
-    Query.Free;
+    LQuery.Free;
   end;
 
-  ShowMessage('Just finish update of sequence 1 up!');
+//  ShowMessage('Just finish update of sequence 1 up!');
 end;
 
 procedure TMCreateTables.Down;
 var
-  Query: TFDQuery;
+  LQuery: TFDQuery;
 begin
-  Query := DMDBDemo.getQuery('DROP TABLE CUSTOMERS', False);
+  LQuery := DMDBDemo.GetQuery('DROP TABLE CUSTOMERS', False);
   try
-    Query.ExecSQL;
+    LQuery.ExecSQL;
   finally
-    Query.Free;
+    LQuery.Free;
   end;
 
-  ShowMessage('Just finish rollback of sequence 1 down!');
+//  ShowMessage('Just finish rollback of sequence 1 down!');
 end;
 {
 var

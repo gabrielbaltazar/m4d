@@ -3,11 +3,11 @@ unit MCreatePopulateTables;
 interface
 
 uses
-  {$IF DECLARED(FireMonkeyVersion)}
-    FMX.Dialogs,
-  {$ELSE}
-    Vcl.Dialogs,
-  {$ENDIF}
+{$IF DECLARED(FireMonkeyVersion)}
+  FMX.Dialogs,
+{$ELSE}
+  Vcl.Dialogs,
+{$ENDIF}
   M4D.Migrations,
   UDBRegisterMigration;
 
@@ -35,55 +35,57 @@ end;
 
 procedure TMCreatePopulateTables.Up;
 var
-  Query: TFDQuery;
+  LQuery: TFDQuery;
 begin
-  Query := DMDBDemo.getQuery('INSERT INTO CUSTOMERS VALUES (1, ''John Doe'')', False);
+  LQuery := DMDBDemo.GetQuery('INSERT INTO CUSTOMERS VALUES (1, ''John Doe'')', False);
   try
-    Query.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (2, ''Aonghus Anton'')';
-    Query.ExecSQL;
+    LQuery.ExecSQL;
 
-    Query.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (3, ''Hong Hortensius'')';
-    Query.ExecSQL;
+    LQuery.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (2, ''Aonghus Anton'')';
+    LQuery.ExecSQL;
 
-    Query.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (4, ''Prasad Marciano'')';
-    Query.ExecSQL;
+    LQuery.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (3, ''Hong Hortensius'')';
+    LQuery.ExecSQL;
 
-    Query.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (5, ''Svetlana Sarah'')';
-    Query.ExecSQL;
+    LQuery.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (4, ''Prasad Marciano'')';
+    LQuery.ExecSQL;
 
-    Query.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (6, ''Cynebald Jakob'')';
-    Query.ExecSQL;
+    LQuery.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (5, ''Svetlana Sarah'')';
+    LQuery.ExecSQL;
 
-    Query.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (7, ''Sanjay Reneer'')';
-    Query.ExecSQL;
+    LQuery.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (6, ''Cynebald Jakob'')';
+    LQuery.ExecSQL;
 
-    Query.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (8, ''Carrie Maja'')';
-    Query.ExecSQL;
+    LQuery.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (7, ''Sanjay Reneer'')';
+    LQuery.ExecSQL;
 
-    Query.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (9, ''Hildiberht Jalen'')';
-    Query.ExecSQL;
+    LQuery.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (8, ''Carrie Maja'')';
+    LQuery.ExecSQL;
 
-    Query.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (10, ''Bibigul Aniela'')';
-    Query.ExecSQL;
+    LQuery.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (9, ''Hildiberht Jalen'')';
+    LQuery.ExecSQL;
+
+    LQuery.SQl.Text := 'INSERT INTO CUSTOMERS VALUES (10, ''Bibigul Aniela'')';
+    LQuery.ExecSQL;
   finally
-    Query.Free;
+    LQuery.Free;
   end;
 
-  ShowMessage('Just finish sequence 2 down!');
+//  ShowMessage('Just finish sequence 2 down!');
 end;
 
 procedure TMCreatePopulateTables.Down;
 var
-  Query: TFDQuery;
+  LQuery: TFDQuery;
 begin
-  Query := DMDBDemo.getQuery('DELETE FROM CUSTOMERS', False);
+  LQuery := DMDBDemo.GetQuery('DELETE FROM CUSTOMERS', False);
   try
-    Query.ExecSQL;
+    LQuery.ExecSQL;
   finally
-    Query.Free;
+    LQuery.Free;
   end;
 
-  ShowMessage('Just finish rollback of sequence 2 up!');
+//  ShowMessage('Just finish rollback of sequence 2 up!');
 end;
 
 initialization

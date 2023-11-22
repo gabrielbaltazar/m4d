@@ -1,13 +1,15 @@
 object DMDBDemo: TDMDBDemo
-  OldCreateOrder = False
   Height = 241
   Width = 317
   object SQLiteConection: TFDConnection
     Params.Strings = (
-      'Database=db.s3db'
+      'Database=Demo.db3'
+      'OpenMode=ReadWrite'
+      'LockingMode=Normal'
       'DriverID=SQLite')
     LoginPrompt = False
-    Left = 39
+    BeforeConnect = SQLiteConectionBeforeConnect
+    Left = 87
     Top = 30
   end
 end
