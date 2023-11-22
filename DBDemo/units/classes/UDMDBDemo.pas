@@ -5,17 +5,15 @@ interface
 uses
   System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
   FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, FireDAC.VCLUI.Wait, Data.DB,
-  FireDAC.Comp.Client;
+  FireDAC.Comp.Client, FireDAC.Phys.SQLiteWrapper.Stat;
 
 type
   TDMDBDemo = class(TDataModule)
     SQLiteConection: TFDConnection;
-  private
-    { Private declarations }
+    procedure SQLiteConectionBeforeConnect(Sender: TObject);
   public
-    { Public declarations }
-    function getQuery(ASql: string; const AOpenQuery: Boolean = True): TFDQuery;
-    function getConnection: TFDConnection;
+    function GetQuery(ASql: string; const AOpenQuery: Boolean = True): TFDQuery;
+    function GetConnection: TFDConnection;
   end;
 
 var
@@ -29,19 +27,40 @@ implementation
 
 { TDMDBDemo }
 
-function TDMDBDemo.getConnection: TFDConnection;
+function TDMDBDemo.GetConnection: TFDConnection;
 begin
   Result := SQLiteConection;
 end;
 
-function TDMDBDemo.getQuery(ASql: string; const AOpenQuery: Boolean = True): TFDQuery;
+function TDMDBDemo.GetQuery(ASql: string; const AOpenQuery: Boolean = True): TFDQuery;
 begin
   Result := TFDQuery.Create(Self);
+  try
+    Result.Close;
+    Result.Connection := SQLiteConection;
+    Result.SQL.Text := ASql;
+    if AOpenQuery then
+      Result.Open;
+  except
+    Result.Free;
+    raise;
+  end;
+end;
 
-  Result.Close;
-  Result.Connection := SQLiteConection;
-  Result.SQL.Text := ASql;
-  if AOpenQuery then Result.Open;
+procedure TDMDBDemo.SQLiteConectionBeforeConnect(Sender: TObject);
+var
+  LFileName: string;
+begin
+  LFileName := 'Demo.db3';
+  if not FileExists(LFileName) then
+  begin
+    with TStringList.Create do
+    try
+      SaveToFile(LFileName);
+    finally
+      Free;
+    end;
+  end;
 end;
 
 end.

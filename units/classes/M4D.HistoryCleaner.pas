@@ -14,8 +14,11 @@ unit M4D.HistoryCleaner;
 interface
 
 uses
+{$IF Defined(POSIX)}
+  Posix.Unistd,
+{$ENDIF}
   System.Generics.Collections, M4D.HistoryCleanerInterface, M4D.MigrationsHistoryItem,
-  System.Classes;
+  System.Classes, System.SysUtils;
 
 type
   {$REGION 'THistoryCleaner'}
@@ -41,10 +44,6 @@ type
   end;
 
 implementation
-
-uses
-  {$IF Defined(POSIX)} Posix.Unistd, {$ENDIF}
-  System.SysUtils;
 
 { THistoryCleaner }
 
