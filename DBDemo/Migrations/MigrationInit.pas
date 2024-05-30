@@ -9,7 +9,8 @@ uses
   UDMDBDemo,
   FireDAC.Comp.Client,
   M4D,
-  M4D.MigrationsFacade;
+  M4D.MigrationsFacade,
+  M4D.RegistryMigrations;
 
 procedure StartMigration;
 
@@ -40,7 +41,7 @@ procedure StartMigration;
 begin
   try
     CreateTableMigration;
-    M4D.MigrationFacade.ExecutePending;
+    TM4DRegistryMigrations.GetInstance.ExecutePending;
   except
   end;
 end;

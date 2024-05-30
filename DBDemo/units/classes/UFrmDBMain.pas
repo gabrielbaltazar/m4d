@@ -4,9 +4,12 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, M4D, Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client,
+  M4D.RegistryMigrations;
 
 type
   TForm2 = class(TForm)
@@ -68,28 +71,24 @@ var
 implementation
 
 uses
-  M4D.MigrationsHistoryFacadeInterface, M4D.MigrationsHistoryItem, Generics.Collections,
-  System.SysUtils, M4D.MigrationsInterface, UDMDBDemo, M4D.MigrationsHistoryFacade,
-  UDBMigrationHistory;
+  Generics.Collections,
+  System.SysUtils, UDMDBDemo;
 
 {$R *.dfm}
 
 procedure TForm2.btnClearHistoryClick(Sender: TObject);
-var
-  MH: IMigrationsHistoryFacade;
 begin
-   MH := M4D.MigrationFacade.MigrationsHistoryFacade;
-   MH.Clear;
+  TM4DRegistryMigrations.GetInstance.Clear;
 end;
 
 procedure TForm2.btnExecuteAllClick(Sender: TObject);
 begin
-   M4D.MigrationFacade.Execute;
+  TM4DRegistryMigrations.GetInstance.Execute;
 end;
 
 procedure TForm2.btnExecutePendingClick(Sender: TObject);
 begin
-  M4D.MigrationFacade.ExecutePending;
+  TM4DRegistryMigrations.GetInstance.ExecutePending;
 end;
 
 procedure TForm2.btnExecuteRangeClick(Sender: TObject);
@@ -97,69 +96,46 @@ var
   LStart: Integer;
   LEnd: Integer;
 begin
-  if not TryStrToInt(edtStartExecute.Text, LStart) then
-  begin
-    Application.MessageBox('You must insert a valid execution start value.', 'Attention!', MB_ICONERROR + MB_OK);
-    edtStartExecute.SetFocus;
-  end
-  else
-  begin
-    if not TryStrToInt(edtEndExecute.Text, LEnd) then
-    begin
-      Application.MessageBox('You must insert a valid execution end value.', 'Attention!', MB_ICONERROR + MB_OK);
-      edtEndExecute.SetFocus;
-    end
-    else
-    begin
-      M4D.MigrationFacade.ExecuteRange(LStart, LEnd);
-    end;
-  end;
+  LStart := StrToInt(EdtStartExecute.Text);
+  LEnd := StrToInt(EdtEndExecute.Text);
+  TM4DRegistryMigrations.GetInstance.ExecuteRange(LStart, LEnd);
 end;
 
 procedure TForm2.btnExecuteUntilClick(Sender: TObject);
 var
-  Aux: Integer;
+  LSequence: Integer;
 begin
-  if not TryStrToInt(edtSeqToExecute.Text, Aux) then
-  begin
-    ShowMessage('You must insert a positive integer value.');
-    edtSeqToExecute.SetFocus;
-  end
-  else
-  begin
-     M4D.MigrationFacade.ExecuteUntil(Aux);
-  end;
+  LSequence := StrToInt(EdtSeqToExecute.Text);
+  TM4DRegistryMigrations.GetInstance.ExecuteUtil(LSequence);
 end;
 
 procedure TForm2.btnMigrationsListClick(Sender: TObject);
 var
-  RM: TList<TClass>;
-  LClass: TClass;
-  Migration: IMigration;
+  LMigrations: TList<IMigration>;
+  LMigration: IMigration;
 begin
-  memInfo.Clear;
+  MemInfo.Clear;
+  MemInfo.Lines.Add('Registered migrations');
 
-  RM := M4D.MigrationFacade.MigrationsRegister.Migrations;
-  if Assigned(RM) then
-  begin
-    memInfo.Lines.Add('Registered migrations');
-    for LClass in RM do
+  LMigrations := TM4DRegistryMigrations.GetInstance.ListMigrations;
+  try
+    for LMigration in LMigrations do
     begin
-      memInfo.Lines.Add('');
-      memInfo.Lines.Add('Class name: ' + LClass.ClassName);
-      memInfo.Lines.Add('Unit name:' + LClass.UnitName);
-
-      Migration := M4D.MigrationFacade.MigrationInfo(LClass);
-      memInfo.Lines.Add('Migration sequence: ' + Migration.SeqVersion.ToString);
-      memInfo.Lines.Add('Migration version: ' + Migration.Version);
-      memInfo.Lines.Add('Migration date time: ' + DateTimeToStr(Migration.DateTime));
+      MemInfo.Lines.Add('');
+      MemInfo.Lines.Add('Class name: ' + TObject(LMigration).ClassName);
+      MemInfo.Lines.Add('Unit name:' + TObject(LMigration).UnitName);
+      MemInfo.Lines.Add('Migration sequence: ' + LMigration.SeqVersion.ToString);
+      MemInfo.Lines.Add('Migration version: ' + LMigration.Version);
+      MemInfo.Lines.Add('Migration date time: ' + DateTimeToStr(LMigration.DateTime));
     end;
+  finally
+    LMigrations.Free;
   end;
 end;
 
 procedure TForm2.btnRollbackAllClick(Sender: TObject);
 begin
-  M4D.MigrationFacade.Rollback;
+  TM4DRegistryMigrations.GetInstance.Rollback;
 end;
 
 procedure TForm2.btnRollbackRangeClick(Sender: TObject);
@@ -167,45 +143,24 @@ var
   LStart: Integer;
   LEnd: Integer;
 begin
-  if not TryStrToInt(edtStartRollback.Text, LStart) then
-  begin
-    Application.MessageBox('You must insert a valid rollback start value.', 'Attention!', MB_ICONERROR + MB_OK);
-    edtStartRollback.SetFocus;
-  end
-  else
-  begin
-    if not TryStrToInt(edtEndRollback.Text, LEnd) then
-    begin
-      Application.MessageBox('You must insert a valid rollback end value.', 'Attention!', MB_ICONERROR + MB_OK);
-      edtEndRollback.SetFocus;
-    end
-    else
-    begin
-      M4D.MigrationFacade.RollbackRange(LStart, LEnd);
-    end;
-  end;
+  LStart := StrToInt(EdtStartRollback.Text);
+  LEnd := StrToInt(EdtEndRollback.Text);
+  TM4DRegistryMigrations.GetInstance.RollbackRange(LStart, LEnd);
 end;
 
 procedure TForm2.btnRollbackUntilClick(Sender: TObject);
 var
-  Aux: Integer;
+  LSequence: Integer;
 begin
-  if not TryStrToInt(edtSeqToRollback.Text, Aux) then
-  begin
-    ShowMessage('You must insert a positive integer value.');
-    edtSeqToRollback.SetFocus;
-  end
-  else
-  begin
-     M4D.MigrationFacade.RollbackUntil(Aux);
-  end;
+  LSequence := StrToInt(EdtSeqToRollback.Text);
+  TM4DRegistryMigrations.GetInstance.RollbackUtil(LSequence);
 end;
 
 procedure TForm2.Button1Click(Sender: TObject);
 begin
   try
-    qryEmployers.Close;
-    qryEmployers.Open;
+    QryEmployers.Close;
+    QryEmployers.Open;
   except
     ShowMessage('Probably the table doesn´t exist yet.');
   end;
@@ -213,61 +168,54 @@ end;
 
 procedure TForm2.Button2Click(Sender: TObject);
 begin
-  M4D.MigrationFacade.RollbackPending;
+  TM4DRegistryMigrations.GetInstance.RollbackPending;
 end;
 
 procedure TForm2.Button4Click(Sender: TObject);
 var
-  MH: TList<TMigrationsHistoryItem>;
-  Item: TMigrationsHistoryItem;
+  LMigrationHistory: TList<TMigrationsHistoryItem>;
+  LItem: TMigrationsHistoryItem;
 begin
-  memInfo.Clear;
-
-  MH := M4D.MigrationFacade.MigrationsHistoryFacade.getHistory;
-  if Assigned(MH) then
+  MemInfo.Clear;
+  LMigrationHistory := TM4DRegistryMigrations.GetInstance.GetHistory;
+  if Assigned(LMigrationHistory) then
   begin
-    try
-      memInfo.Lines.Add('History of migrations:');
-      for Item in MH do
-      begin
-        memInfo.Lines.Add('');
-        memInfo.Lines.Add('Migration : ' + Item.MigrationSeq.ToString);
-        memInfo.Lines.Add('Version: ' + Item.MigrationVersion);
-        memInfo.Lines.Add('Date of creation: ' + DateTimeToStr(Item.MigrationDateTime));
-        memInfo.Lines.Add('Start of execution: ' + DateTimeToStr(Item.StartOfExecution));
-        memInfo.Lines.Add('End of execution: ' + DateTimeToStr(Item.EndOfExecution));
-        memInfo.Lines.Add('Duration of execution: ' + Item.DurationOfExecution.ToString);
-      end;
-    finally
-//      for I := MH.Count - 1 downto 0 do MH.Items[I].Free;
-      MH.DisposeOf;
+    MemInfo.Lines.Add('History of migrations:');
+    for LItem in LMigrationHistory do
+    begin
+      MemInfo.Lines.Add('');
+      MemInfo.Lines.Add('Migration : ' + LItem.MigrationSeq.ToString);
+      MemInfo.Lines.Add('Version: ' + LItem.MigrationVersion);
+      MemInfo.Lines.Add('Date of creation: ' + DateTimeToStr(LItem.MigrationDateTime));
+      MemInfo.Lines.Add('Start of execution: ' + DateTimeToStr(LItem.StartOfExecution));
+      MemInfo.Lines.Add('End of execution: ' + DateTimeToStr(LItem.EndOfExecution));
+      MemInfo.Lines.Add('Duration of execution: ' + LItem.DurationOfExecution.ToString);
     end;
   end;
 end;
 
 procedure TForm2.Button5Click(Sender: TObject);
 var
-  Item: TMigrationsHistoryItem;
+  LItem: TMigrationsHistoryItem;
 begin
-  memInfo.Clear;
-
-  Item := M4D.MigrationFacade.MigrationsHistoryFacade.LastMigration;
-  if Assigned(Item) then
+  MemInfo.Clear;
+  LItem := TM4DRegistryMigrations.GetInstance.LastMigration;
+  if Assigned(LItem) then
   begin
-    memInfo.Lines.Add('History of migrations:');
-    memInfo.Lines.Add('');
-    memInfo.Lines.Add('Migration : ' + Item.MigrationSeq.ToString);
-    memInfo.Lines.Add('Version: ' + Item.MigrationVersion);
-    memInfo.Lines.Add('Date of creation: ' + DateTimeToStr(Item.MigrationDateTime));
-    memInfo.Lines.Add('Start of execution: ' + DateTimeToStr(Item.StartOfExecution));
-    memInfo.Lines.Add('End of execution: ' + DateTimeToStr(Item.EndOfExecution));
-    memInfo.Lines.Add('Duration of execution: ' + Item.DurationOfExecution.ToString);
+    MemInfo.Lines.Add('History of migrations:');
+    MemInfo.Lines.Add('');
+    MemInfo.Lines.Add('Migration : ' + LItem.MigrationSeq.ToString);
+    MemInfo.Lines.Add('Version: ' + LItem.MigrationVersion);
+    MemInfo.Lines.Add('Date of creation: ' + DateTimeToStr(LItem.MigrationDateTime));
+    MemInfo.Lines.Add('Start of execution: ' + DateTimeToStr(LItem.StartOfExecution));
+    MemInfo.Lines.Add('End of execution: ' + DateTimeToStr(LItem.EndOfExecution));
+    MemInfo.Lines.Add('Duration of execution: ' + LItem.DurationOfExecution.ToString);
   end;
 end;
 
 procedure TForm2.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
-  M4D.Release;
+  TM4DRegistryMigrations.GetInstance.Release;
 end;
 
 end.

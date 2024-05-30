@@ -3,15 +3,7 @@ unit MCreateTables;
 interface
 
 uses
-{$IF DECLARED(FireMonkeyVersion)}
-  FMX.Dialogs,
-{$ELSE}
-  Vcl.Dialogs,
-{$ENDIF}
-  M4D,
-  M4D.Migrations,
-  M4D.Defaults,
-  UDBRegisterMigration;
+  M4D.RegistryMigrations;
 
 type
   TMCreateTables = class(TMigrations)
@@ -24,8 +16,7 @@ type
 implementation
 
 uses
-  System.SysUtils, UDMDBDemo, FireDAC.Comp.Client, UDBMigrationHistory,
-  M4D.MigrationsHistoryFacadeInterface;
+  System.SysUtils, UDMDBDemo, FireDAC.Comp.Client;
 
 { TMDescription1 }
 
@@ -40,14 +31,13 @@ procedure TMCreateTables.Up;
 var
   LQuery: TFDQuery;
 begin
-  LQuery := DMDBDemo.GetQuery('CREATE TABLE IF NOT EXISTS CUSTOMERS (ID INTEGER NOT NULL, NAME VARCHAR(100) NOT NULL)', False);
+  LQuery := DMDBDemo.GetQuery('CREATE TABLE IF NOT EXISTS CUSTOMERS ' +
+    '(ID INTEGER NOT NULL, NAME VARCHAR(100) NOT NULL)', False);
   try
     LQuery.ExecSQL;
   finally
     LQuery.Free;
   end;
-
-//  ShowMessage('Just finish update of sequence 1 up!');
 end;
 
 procedure TMCreateTables.Down;
@@ -60,8 +50,6 @@ begin
   finally
     LQuery.Free;
   end;
-
-//  ShowMessage('Just finish rollback of sequence 1 down!');
 end;
 {
 var
@@ -71,9 +59,10 @@ initialization
 {
   You can use a new register method to simplify (I prefer)
 }
-  DBRegisterMigration(TMCreateTables);
-
+ // DBRegisterMigration(TMCreateTables);
+  TM4DRegistryMigrations.GetInstance.Add(TMCreateTables);
 {
+
 
   or you can implement direct here, but be careful with memory management.
 

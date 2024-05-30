@@ -3,13 +3,7 @@ unit MCreatePopulateTables;
 interface
 
 uses
-{$IF DECLARED(FireMonkeyVersion)}
-  FMX.Dialogs,
-{$ELSE}
-  Vcl.Dialogs,
-{$ENDIF}
-  M4D.Migrations,
-  UDBRegisterMigration;
+  M4D.RegistryMigrations;
 
 type
   TMCreatePopulateTables = class(TMigrations)
@@ -70,8 +64,6 @@ begin
   finally
     LQuery.Free;
   end;
-
-//  ShowMessage('Just finish sequence 2 down!');
 end;
 
 procedure TMCreatePopulateTables.Down;
@@ -84,11 +76,9 @@ begin
   finally
     LQuery.Free;
   end;
-
-//  ShowMessage('Just finish rollback of sequence 2 up!');
 end;
 
 initialization
-  DBRegisterMigration(TMCreatePopulateTables);
+  TM4DRegistryMigrations.GetInstance.Add(TMCreatePopulateTables);
 
 end.
