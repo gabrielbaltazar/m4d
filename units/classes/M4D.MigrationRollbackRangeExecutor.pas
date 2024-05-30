@@ -100,7 +100,7 @@ begin
       begin
         if LList.Count > 0 then
         begin
-          FMigrationRollbackExecutor.Rollback(LList, AMigrationHistoryFacade, False);
+          FMigrationRollbackExecutor.Rollback(LList, AMigrationHistoryFacade, True);
           if Assigned(LList) then FreeAndNil(LList);
         end;
       end;

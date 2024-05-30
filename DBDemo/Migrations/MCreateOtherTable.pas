@@ -3,15 +3,7 @@ unit MCreateOtherTable;
 interface
 
 uses
-{$IF DECLARED(FireMonkeyVersion)}
-  FMX.Dialogs,
-{$ELSE}
-  Vcl.Dialogs,
-{$ENDIF}
-  M4D,
-  M4D.Migrations,
-  M4D.Defaults,
-  UDBRegisterMigration;
+  M4D.RegistryMigrations;
 
 type
   TMCreateOtherTable = class(TMigrations)
@@ -24,8 +16,7 @@ type
 implementation
 
 uses
-  System.SysUtils, UDMDBDemo, FireDAC.Comp.Client, UDBMigrationHistory,
-  M4D.MigrationsHistoryFacadeInterface;
+  System.SysUtils, UDMDBDemo, FireDAC.Comp.Client;
 
 { TMDescription1 }
 
@@ -62,6 +53,6 @@ begin
 end;
 
 initialization
-  DBRegisterMigration(TMCreateOtherTable);
+  TM4DRegistryMigrations.GetInstance.Add(TMCreateOtherTable);
 
 end.
