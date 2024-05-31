@@ -57,7 +57,7 @@ type
     function Execute: TM4DRegistryMigrations;
     function ExecutePending: TM4DRegistryMigrations;
     function ExecuteRange(AStartMigrationSequence, AEndMigrationSequence: Integer): TM4DRegistryMigrations;
-    function ExecuteUtil(AMigrationSequence: Integer): TM4DRegistryMigrations;
+    function ExecuteUntil(AMigrationSequence: Integer): TM4DRegistryMigrations;
 
     function Rollback: TM4DRegistryMigrations;
     function RollbackPending: TM4DRegistryMigrations;
@@ -145,7 +145,7 @@ begin
     AEndMigrationSequence);
 end;
 
-function TM4DRegistryMigrations.ExecuteUtil(AMigrationSequence: Integer): TM4DRegistryMigrations;
+function TM4DRegistryMigrations.ExecuteUntil(AMigrationSequence: Integer): TM4DRegistryMigrations;
 begin
   Result := Self;
   Build;

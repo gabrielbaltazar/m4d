@@ -106,7 +106,7 @@ var
   LSequence: Integer;
 begin
   LSequence := StrToInt(EdtSeqToExecute.Text);
-  TM4DRegistryMigrations.GetInstance.ExecuteUtil(LSequence);
+  TM4DRegistryMigrations.GetInstance.ExecuteUntil(LSequence);
 end;
 
 procedure TForm2.btnMigrationsListClick(Sender: TObject);
