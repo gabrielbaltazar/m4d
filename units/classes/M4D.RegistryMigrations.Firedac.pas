@@ -23,6 +23,7 @@ type
     FHistory: TObjectList<TMigrationsHistoryItem>;
     FLastMigration: TMigrationsHistoryItem;
 
+    function DateTimeType: string;
     function Select: string;
     procedure CreateTableMigrations;
   protected
@@ -96,17 +97,28 @@ begin
 end;
 
 procedure TM4DMigrationsHistoryFiredac.CreateTableMigrations;
+var
+  LSql: string;
 begin
   FQuery.Close;
-  FQuery.SQL.Text := Format('create table if not exists %s (', [FTableName]) +
+  LSql := Format('create table if not exists %s (', [FTableName]) +
     'SEQUENCE INT PRIMARY KEY NOT NULL, ' +
     'VERSION VARCHAR(255), ' +
-    'DATETIME DATETIME, ' +
-    'START_OF_EXECUTION DATETIME, ' +
-    'END_OF_EXECUTION DATETIME, ' +
+    'DATETIME :DATETIME, ' +
+    'START_OF_EXECUTION :DATETIME, ' +
+    'END_OF_EXECUTION :DATETIME, ' +
     'DURATION_OF_EXECUTION INTEGER) ';
+  LSql := LSql.Replace(':DATETIME', DateTimeType);
+  FQuery.SQL.Text := LSql;
   FQuery.ExecSQL;
   FQuery.Close;
+end;
+
+function TM4DMigrationsHistoryFiredac.DateTimeType: string;
+begin
+  Result := 'DATETIME';
+  if FQuery.Connection.DriverName.ToUpper = 'PG' then
+    Result := 'TIMESTAMP';
 end;
 
 destructor TM4DMigrationsHistoryFiredac.Destroy;
