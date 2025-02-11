@@ -24,7 +24,9 @@
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
+{$DEFINE M4DPkg}
 {$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'M4D Experts'}
 {$IMPLICITBUILD ON}
 
 requires
@@ -37,6 +39,10 @@ contains
   M4DExperts.Wizard.NewMigration.Creator in 'Source\Wizard\NewMigration\M4DExperts.Wizard.NewMigration.Creator.pas',
   M4DExperts.Wizard.NewMigration.Forms in 'Source\Wizard\NewMigration\M4DExperts.Wizard.NewMigration.Forms.pas' {FrmM4DExpertsWizarNewMigrationForms},
   M4DExperts.Wizard.NewMigration.Wizard in 'Source\Wizard\NewMigration\M4DExperts.Wizard.NewMigration.Wizard.pas',
-  M4DExperts.Registry in 'Source\Registry\M4DExperts.Registry.pas';
+  M4DExperts.Registry in 'Source\Registry\M4DExperts.Registry.pas',
+  M4DExperts.Wizard.InstallMigration.Forms in 'Source\Wizard\InstallMigration\M4DExperts.Wizard.InstallMigration.Forms.pas' {FrmM4DExpertsWizardInstallMigrationForms},
+  M4DExperts.Wizard.InstallMigration.Model in 'Source\Wizard\InstallMigration\M4DExperts.Wizard.InstallMigration.Model.pas',
+  M4DExperts.Wizard.InstallMigration.Creator in 'Source\Wizard\InstallMigration\M4DExperts.Wizard.InstallMigration.Creator.pas',
+  M4DExperts.Wizard.InstallMigration.Wizard in 'Source\Wizard\InstallMigration\M4DExperts.Wizard.InstallMigration.Wizard.pas';
 
 end.

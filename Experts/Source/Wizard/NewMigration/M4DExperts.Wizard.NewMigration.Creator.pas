@@ -5,6 +5,7 @@ interface
 uses
   System.SysUtils,
   System.Classes,
+  System.StrUtils,
   ToolsAPI,
   M4DExperts.OTA.Helper,
   M4DExperts.Wizard.NewMigration.Model;
@@ -21,7 +22,7 @@ type
     class function New(AModel: TM4DExpertsNewMigrationModel): IOTAFile;
   end;
 
-  TMENewMigrationCreator = class(TNotifierObject, IOTACreator, IOTAModuleCreator)
+  TM4DExpertsWizardNewMigrationCreator = class(TNotifierObject, IOTACreator, IOTAModuleCreator)
   private
     FModel: TM4DExpertsNewMigrationModel;
   protected
@@ -52,93 +53,93 @@ type
 
 implementation
 
-{ TMENewMigrationCreator }
+{ TM4DExpertsWizardNewMigrationCreator }
 
-constructor TMENewMigrationCreator.Create(AModel: TM4DExpertsNewMigrationModel);
+constructor TM4DExpertsWizardNewMigrationCreator.Create(AModel: TM4DExpertsNewMigrationModel);
 begin
   FModel := AModel;
 end;
 
-procedure TMENewMigrationCreator.FormCreated(const AFormEditor: IOTAFormEditor);
+procedure TM4DExpertsWizardNewMigrationCreator.FormCreated(const AFormEditor: IOTAFormEditor);
 begin
 end;
 
-function TMENewMigrationCreator.GetAncestorName: string;
+function TM4DExpertsWizardNewMigrationCreator.GetAncestorName: string;
 begin
   Result := EmptyStr;
 end;
 
-function TMENewMigrationCreator.GetCreatorType: string;
+function TM4DExpertsWizardNewMigrationCreator.GetCreatorType: string;
 begin
   Result := sUnit;
 end;
 
-function TMENewMigrationCreator.GetExisting: Boolean;
+function TM4DExpertsWizardNewMigrationCreator.GetExisting: Boolean;
 begin
   Result := False;
 end;
 
-function TMENewMigrationCreator.GetFileSystem: string;
+function TM4DExpertsWizardNewMigrationCreator.GetFileSystem: string;
 begin
   Result := EmptyStr;
 end;
 
-function TMENewMigrationCreator.GetFormName: string;
+function TM4DExpertsWizardNewMigrationCreator.GetFormName: string;
 begin
   Result := EmptyStr;
 end;
 
-function TMENewMigrationCreator.GetImplFileName: string;
+function TM4DExpertsWizardNewMigrationCreator.GetImplFileName: string;
 begin
   Result := EmptyStr;
 end;
 
-function TMENewMigrationCreator.GetIntfFileName: string;
+function TM4DExpertsWizardNewMigrationCreator.GetIntfFileName: string;
 begin
   Result := EmptyStr;
 end;
 
-function TMENewMigrationCreator.GetMainForm: Boolean;
+function TM4DExpertsWizardNewMigrationCreator.GetMainForm: Boolean;
 begin
   Result := False;
 end;
 
-function TMENewMigrationCreator.GetOwner: IOTAModule;
+function TM4DExpertsWizardNewMigrationCreator.GetOwner: IOTAModule;
 begin
   Result := GetActiveProject;
 end;
 
-function TMENewMigrationCreator.GetShowForm: Boolean;
+function TM4DExpertsWizardNewMigrationCreator.GetShowForm: Boolean;
 begin
   Result := False;
 end;
 
-function TMENewMigrationCreator.GetShowSource: Boolean;
+function TM4DExpertsWizardNewMigrationCreator.GetShowSource: Boolean;
 begin
   Result := True;
 end;
 
-function TMENewMigrationCreator.GetUnnamed: Boolean;
+function TM4DExpertsWizardNewMigrationCreator.GetUnnamed: Boolean;
 begin
   Result := True;
 end;
 
-class function TMENewMigrationCreator.New(AModel: TM4DExpertsNewMigrationModel): IOTACreator;
+class function TM4DExpertsWizardNewMigrationCreator.New(AModel: TM4DExpertsNewMigrationModel): IOTACreator;
 begin
   Result := Self.Create(AModel);
 end;
 
-function TMENewMigrationCreator.NewFormFile(const AFormIdent, AAncestorIdent: string): IOTAFile;
+function TM4DExpertsWizardNewMigrationCreator.NewFormFile(const AFormIdent, AAncestorIdent: string): IOTAFile;
 begin
   Result := nil;
 end;
 
-function TMENewMigrationCreator.NewImplSource(const AModuleIdent, AFormIdent, AAncestorIdent: string): IOTAFile;
+function TM4DExpertsWizardNewMigrationCreator.NewImplSource(const AModuleIdent, AFormIdent, AAncestorIdent: string): IOTAFile;
 begin
   Result := TM4DExpertsWizardNewMigrationFile.New(FModel);
 end;
 
-function TMENewMigrationCreator.NewIntfSource(const AModuleIdent, AFormIdent, AAncestorIdent: string): IOTAFile;
+function TM4DExpertsWizardNewMigrationCreator.NewIntfSource(const AModuleIdent, AFormIdent, AAncestorIdent: string): IOTAFile;
 begin
   Result := nil;
 end;
@@ -163,10 +164,12 @@ begin
     '' + sLineBreak +
     'uses' + sLineBreak +
     '  System.SysUtils,' + sLineBreak +
+    '  System.DateUtils,' + sLineBreak +
     '  M4D,' + sLineBreak +
     '  M4D.Migrations,' + sLineBreak +
     '  M4D.Defaults,' + sLineBreak +
-    '  M4D.RegistryMigrations;' + sLineBreak +
+    '  M4D.RegistryMigrations,' + sLineBreak +
+    '  %5:sMigrations;' + sLineBreak +
     '' + sLineBreak +
     'type' + sLineBreak +
     '  %1:s = class(TMigrations)' + sLineBreak +
@@ -204,7 +207,8 @@ begin
     'end.';
 
   Result := Format(Result, [FModel.GetUnitName, FModel.GetClassName, FModel.Sequence,
-    FModel.Description, FModel.GetEncodeDateCommand]);
+    FModel.Description, FModel.GetEncodeDateCommand,
+    IfThen(FModel.Prefix.Trim.IsEmpty, 'u', FModel.Prefix + '.')]);
 end;
 
 class function TM4DExpertsWizardNewMigrationFile.New(AModel: TM4DExpertsNewMigrationModel): IOTAFile;

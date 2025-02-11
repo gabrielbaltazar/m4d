@@ -13,7 +13,7 @@ uses
 
 type
   TFrmM4DExpertsWizarNewMigrationForms = class(TForm)
-    pnlTop: TPanel;
+    PnlTop: TPanel;
     Panel1: TPanel;
     Label3: TLabel;
     BtnCancel: TShape;

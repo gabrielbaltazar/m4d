@@ -1,4 +1,4 @@
-﻿unit M4DExperts.Wizard.NewMigration.Wizard;
+﻿unit M4DExperts.Wizard.InstallMigration.Wizard;
 
 interface
 
@@ -10,15 +10,15 @@ uses
   Vcl.Controls,
   ToolsAPI,
   M4DExperts.OTA.Helper,
-  M4DExperts.Wizard.NewMigration.Forms,
-  M4DExperts.Wizard.NewMigration.Model,
-  M4DExperts.Wizard.NewMigration.Creator;
+  M4DExperts.Wizard.InstallMigration.Forms,
+  M4DExperts.Wizard.InstallMigration.Model,
+  M4DExperts.Wizard.InstallMigration.Creator;
 
 type
-  TM4DExpertsWizardNewMigrationWizard = class(TNotifierObject, IOTAWizard)
+  TM4DExpertsWizardInstallMigrationWizard = class(TNotifierObject, IOTAWizard)
   protected
     procedure CreateMenu;
-    procedure OnNewMigrationClick(Sender: TObject);
+    procedure OnInstallMigrationClick(Sender: TObject);
 
     function GetIDString: string;
     function GetName: string;
@@ -33,14 +33,14 @@ type
 
 implementation
 
-{ TM4DExpertsWizardNewMigrationWizard }
+{ TM4DExpertsWizardInstallMigrationWizard }
 
-constructor TM4DExpertsWizardNewMigrationWizard.Create;
+constructor TM4DExpertsWizardInstallMigrationWizard.Create;
 begin
   CreateMenu;
 end;
 
-procedure TM4DExpertsWizardNewMigrationWizard.CreateMenu;
+procedure TM4DExpertsWizardInstallMigrationWizard.CreateMenu;
 var
   LDelphiMenu: TMainMenu;
   LItemMenu: TMenuItem;
@@ -55,56 +55,56 @@ begin
     LDelphiMenu.Items.Add(LItemMenu);
   end;
 
-  LItemExecute := LItemMenu.Find('New Migration');
+  LItemExecute := LItemMenu.Find('Install Migration');
   if LItemExecute = nil then
   begin
     LItemExecute := TMenuItem.Create(LItemMenu);
-    LItemExecute.Caption := 'New Migration';
-    LItemExecute.GroupIndex := 1;
+    LItemExecute.Caption := 'Install Migration';
+    LItemExecute.GroupIndex := 0;
     LItemMenu.Add(LItemExecute);
   end;
 
-  LItemExecute.OnClick := OnNewMigrationClick;
+  LItemExecute.OnClick := OnInstallMigrationClick;
 end;
 
-procedure TM4DExpertsWizardNewMigrationWizard.Execute;
+procedure TM4DExpertsWizardInstallMigrationWizard.Execute;
 begin
 end;
 
-function TM4DExpertsWizardNewMigrationWizard.GetIDString: string;
-begin
-  Result := Self.ClassName;
-end;
-
-function TM4DExpertsWizardNewMigrationWizard.GetName: string;
+function TM4DExpertsWizardInstallMigrationWizard.GetIDString: string;
 begin
   Result := Self.ClassName;
 end;
 
-function TM4DExpertsWizardNewMigrationWizard.GetState: TWizardState;
+function TM4DExpertsWizardInstallMigrationWizard.GetName: string;
+begin
+  Result := Self.ClassName;
+end;
+
+function TM4DExpertsWizardInstallMigrationWizard.GetState: TWizardState;
 begin
   Result := [wsEnabled];
 end;
 
-class function TM4DExpertsWizardNewMigrationWizard.New: IOTAWizard;
+class function TM4DExpertsWizardInstallMigrationWizard.New: IOTAWizard;
 begin
   Result := Self.Create;
 end;
 
-procedure TM4DExpertsWizardNewMigrationWizard.OnNewMigrationClick(Sender: TObject);
+procedure TM4DExpertsWizardInstallMigrationWizard.OnInstallMigrationClick(Sender: TObject);
 var
-  LForm : TFrmM4DExpertsWizarNewMigrationForms;
-  LModel: TM4DExpertsNewMigrationModel;
+  LForm : TFrmM4DExpertsWizardInstallMigrationForms;
+  LModel: TM4DExpertsWizardInstallMigrationModel;
   LCreator: IOTACreator;
 begin
-  LForm := TFrmM4DExpertsWizarNewMigrationForms.Create(nil);
+  LForm := TFrmM4DExpertsWizardInstallMigrationForms.Create(nil);
   try
     LForm.ShowModal;
     if LForm.ModalResult = mrOK then
     begin
       LModel := LForm.Model;
       try
-        LCreator := TM4DExpertsWizardNewMigrationCreator.New(LModel);
+        LCreator := TM4DExpertsWizardInstallMigrationCreator.New(LModel);
         (BorlandIDEServices as IOTAModuleServices).CreateModule(LCreator);
         (BorlandIDEServices as IOTAModuleServices).CurrentModule.FileName := LModel.GetFullFileName;
         (BorlandIDEServices as IOTAModuleServices).CurrentModule.Save(False, True);

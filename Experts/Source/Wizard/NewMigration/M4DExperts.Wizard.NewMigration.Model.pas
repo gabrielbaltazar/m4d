@@ -19,17 +19,17 @@ type
 
     function StrSequence: string;
   public
+    function GetFullFileName: string;
+    function GetUnitName: string;
+    function GetClassName: string;
+    function GetEncodeDateCommand: string;
+
     property Name: string read FName write FName;
     property Description: string read FDescription write FDescription;
     property CreationDate: TDateTime read FCreationDate write FCreationDate;
     property Sequence: Integer read FSequence write FSequence;
     property Prefix: string read FPrefix write FPrefix;
     property Directory: string read FDirectory write FDirectory;
-
-    function GetFullFileName: string;
-    function GetUnitName: string;
-    function GetClassName: string;
-    function GetEncodeDateCommand: string;
   end;
 
 implementation
@@ -64,6 +64,7 @@ end;
 function TM4DExpertsNewMigrationModel.GetFullFileName: string;
 begin
   Result := Format('%s\%s.pas', [FDirectory, GetUnitName]);
+  ForceDirectories(ExtractFilePath(Result));
 end;
 
 function TM4DExpertsNewMigrationModel.GetUnitName: string;
